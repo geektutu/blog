@@ -1,15 +1,13 @@
 ---
 title: tensorflow入门-mnist手写数字识别(三，可视化训练)
 date: 2018-03-29 11:51:24
+description: tensorflow入门系列文章，mnist手写数字识别(三，可视化训练)。
 tags:
 - 机器学习
 - tensorflow
 catagories:
 - tensorflow入门
 ---
-
-
-`机器学习` `tensorflow`
 
 在第一篇文章中，我们通过每10步打印出loss值的方式，来观察loss值的变化。但是这样做并不直观，有没有什么方式能够让整个训练的过程更加一目了然呢？tensorflow提供了tensorboard，专门来实现训练过程的可视化。
 

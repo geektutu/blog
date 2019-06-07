@@ -1,6 +1,7 @@
 ---
 title: Pandas数据处理-筛选数据
 date: 2018-03-21 10:51:24
+description: Pandas筛选DataFrame和Series数据的一些实用技巧。
 tags:
 - 数据分析
 - Pandas

@@ -1,6 +1,7 @@
 ---
 title: 深入理解Python-2.什么是装饰器（decorators）
 date: 2018-07-22 10:51:24
+description: 深入理解Python系列第2篇文章，整理自Stackoverflow，介绍什么是装饰器（decorators）。
 tags:
 - Python
 - 深入理解Python

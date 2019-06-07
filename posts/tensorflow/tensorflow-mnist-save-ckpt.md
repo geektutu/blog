@@ -1,6 +1,7 @@
 ---
 title: tensorflow入门-mnist手写数字识别(二，模型保存加载)
 date: 2017-12-17 11:51:24
+description: tensorflow入门系列文章，mnist手写数字识别(二，模型保存加载)。
 tags:
 - 机器学习
 - tensorflow

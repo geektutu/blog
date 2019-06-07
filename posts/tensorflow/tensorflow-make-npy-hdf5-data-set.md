@@ -1,15 +1,13 @@
 ---
 title: tensorflow入门-mnist手写数字识别(四，h5py制作训练集)
 date: 2018-04-02 11:51:24
+description: tensorflow入门系列文章，mnist手写数字识别(四，h5py制作训练集)。
 tags:
 - 机器学习
 - tensorflow
 catagories:
 - tensorflow入门
 ---
-
-
-
 
 在之前的几篇文章中，我们都是通过  `tensorflow.examples.tutorials.mnist`来使用mnist训练集集，制作训练集主要有2个目的，一是加快训练时读取的速度，而是支持随机批读取。假如，每次训练时，都是直接读取图片，再将图片转为矩阵进行训练，那这样效率无疑是非常低下的。
 

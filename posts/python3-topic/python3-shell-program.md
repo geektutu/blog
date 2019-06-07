@@ -1,6 +1,7 @@
 ---
 title: Python模块-命令行(shell)编程
 date: 2017-08-21 10:51:24
+description: 本文介绍如何使用python进行命令行编程。
 tags:
 - Python
 - shell

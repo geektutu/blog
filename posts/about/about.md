@@ -1,6 +1,7 @@
 ---
 title: 关于我
 date: 2017-07-03 11:51:24
+description: 极客兔兔的小站，致力于分享一些技术教程和有趣的技术实践。
 tags:
 - 关于我
 catagories:

@@ -1,6 +1,7 @@
 ---
 title: Python专题-让你的代码更Pythonic
 date: 2017-09-02 10:51:24
+description: 本文介绍如何写Python让你的代码更Pythonic。
 tags:
 - Python
 - Pythonic

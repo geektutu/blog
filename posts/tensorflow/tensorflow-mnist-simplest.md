@@ -1,6 +1,7 @@
 ---
 title: tensorflow入门-mnist手写数字识别(一，网络搭建)
 date: 2017-12-09 11:51:24
+description: tensorflow入门系列文章，mnist手写数字识别(一，网络搭建)。
 tags:
 - 机器学习
 - tensorflow

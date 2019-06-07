@@ -1,6 +1,7 @@
 ---
 title: 深入理解Python-3.__str__和__repr__的区别
 date: 2018-09-19 10:51:24
+description: 深入理解Python系列第3篇文章，整理自Stackoverflow，介绍__str__与__repr__的区别。
 tags:
 - Python
 - 深入理解Python

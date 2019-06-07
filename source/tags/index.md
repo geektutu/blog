@@ -1,6 +1,6 @@
 ---
 layout: "tags"
 title: "标签"
-description: "Hey, this is Tags."
+description: "极客兔兔的博客的标签列表"
 header-img: "img/header_img/tag-bg.png"
 ---

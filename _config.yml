@@ -2,10 +2,9 @@
 ## Docs: https://hexo.io/docs/configuration.html
 
 # Site
-title: Geektutu's Blog
-subtitle: 极客兔兔的博客
+title: 极客兔兔的博客
 keyword: 极客兔兔,极客兔兔的博客,极客兔兔的小站
-description: 极客兔兔的小站，博主毕业于复旦大学计算机学院，致力于分享一些技术教程和有趣的技术实践。
+description: 极客兔兔的小站，致力于分享一些技术教程和有趣的技术实践。
 author: geektutu
 language: zh-CN
 
@@ -13,18 +12,23 @@ url: https://geektutu.com
 root: /
 permalink: post/:title.html
 
-post_asset_folder: true
+# seo优化各个浏览器的验证信息
+seo_title: 极客兔兔 # 子页面的后缀，效果： 关于我 | 极客兔兔，如果与title一致，则可以不设置
+seo:
+  google_site_verification: 19ixTFj-X-rXuvZFvR1PMkqSHMXZ5GjN7nhYdYYFm-c
+  baidu_site_verification: p7Pz3jlx4t
+  ms_site_verification: 7E2AEE3378AC93764DEAB411177A21A1
+  _360_site_verification: 5c7e8a1fdbf35ed6003c48733208f705 # 不能以数字开头，所以加上了下划线
+
+# 开启博客资源的相对链接 https://hexo.io/zh-cn/docs/asset-folders
+post_asset_folder: true 
 
 # Site settings
-SEOTitle: 极客兔兔
 email: gzdaijie@gmail.com
 header-img: /img/bg.jpg
 header-icon: /img/icon.png
 
 github_username:  geektutu
-
-# Baidu Analytics
-ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa
 
 # Extensions
 theme: geektutu
@@ -41,3 +45,8 @@ gitalk:
   client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879'
   repo: 'hexo-theme-geektutu'
   owner: 'geektutu'
+
+ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
+  
+
+  

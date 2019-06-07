@@ -1,6 +1,7 @@
 ---
 title: Pandas数据处理-DataFrame与Series
 date: 2018-03-20 10:51:24
+description: DataFrame和Series是pandas中最常见的2种数据结构。DataFrame可以理解为Excel中的一张表，Series可以理解为一张Excel表的一行或一列数据。
 tags:
 - 数据分析
 - Pandas
