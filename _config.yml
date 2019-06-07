@@ -2,10 +2,10 @@
 ## Docs: https://hexo.io/docs/configuration.html
 
 # Site
-title: 极客兔兔的博客
+title: 极客兔兔
 keyword: 极客兔兔,极客兔兔的博客,极客兔兔的小站
 description: 极客兔兔的小站，致力于分享一些技术教程和有趣的技术实践。
-author: geektutu
+author: 极客兔兔
 language: zh-CN
 
 url: https://geektutu.com	
@@ -13,6 +13,7 @@ root: /
 permalink: post/:title.html
 
 # seo优化各个浏览器的验证信息
+beian: 沪ICP备18001798号-1
 seo_title: 极客兔兔 # 子页面的后缀，效果： 关于我 | 极客兔兔，如果与title一致，则可以不设置
 seo:
   google_site_verification: 19ixTFj-X-rXuvZFvR1PMkqSHMXZ5GjN7nhYdYYFm-c
@@ -25,8 +26,8 @@ post_asset_folder: true
 
 # Site settings
 email: gzdaijie@gmail.com
-header-img: /img/bg.jpg
-header-icon: /img/icon.png
+header_img: img/bg.jpg
+header_icon: img/icon.png
 
 github_username:  geektutu
 
