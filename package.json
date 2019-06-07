@@ -13,7 +13,6 @@
   "dependencies": {
     "hexo": "^3.8.0",
     "hexo-deployer-git": "^1.0.0",
-    "hexo-generator-archive": "^0.1.5",
     "hexo-generator-index": "^0.2.1",
     "hexo-generator-seo-friendly-sitemap": "0.0.25",
     "hexo-generator-tag": "^0.2.0",

@@ -34,7 +34,7 @@ theme: geektutu
 deploy:
   type: git
   repository: https://git.coding.net/gzdaijie/geektutu-blog.git
-  branch: gh-page
+  branch: coding-pages
 
 gitalk:
   client_id: 'c1fdd456a4caae5f7df0'

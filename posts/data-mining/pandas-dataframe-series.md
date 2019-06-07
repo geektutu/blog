@@ -1,6 +1,13 @@
-# Pandas数据处理-DataFrame与Series
+---
+title: Pandas数据处理-DataFrame与Series
+date: 2018-03-20 10:51:24
+tags:
+- 数据分析
+- Pandas
+catagories: 数据分析
+---
 
-`数据分析` `Pandas`
+
 
 本文示例基于 Version 0.21.0
 

@@ -1,6 +1,12 @@
-# Pandas数据处理-筛选数据
+---
+title: Pandas数据处理-筛选数据
+date: 2018-03-21 10:51:24
+tags:
+- 数据分析
+- Pandas
+catagories: 数据分析
+---
 
-`数据分析` `Pandas`
 
 使用`demo.csv`举几个栗子~
 

@@ -1008,13 +1008,6 @@ hexo-fs@^1.0.0:
     escape-string-regexp "^1.0.5"
     graceful-fs "^4.1.11"
 
-hexo-generator-archive@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.npm.taobao.org/hexo-generator-archive/download/hexo-generator-archive-0.1.5.tgz#a979214cdddee2693e0551809c294bedadbb69b3"
-  dependencies:
-    hexo-pagination "0.0.2"
-    object-assign "^2.0.0"
-
 hexo-generator-index@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npm.taobao.org/hexo-generator-index/download/hexo-generator-index-0.2.1.tgz#9042229fcac79aaf700575da19332bf3f7ee5c5d"
@@ -1767,10 +1760,6 @@ nunjucks@^3.1.2:
     yargs "^3.32.0"
   optionalDependencies:
     chokidar "^2.0.0"
-
-object-assign@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/object-assign/download/object-assign-2.1.1.tgz#43c36e5d569ff8e4816c4efa8be02d26967c18aa"
 
 object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
