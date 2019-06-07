@@ -1,0 +1,26 @@
+{
+  "name": "hexo-site",
+  "version": "0.0.0",
+  "private": true,
+  "hexo": {
+    "version": "3.8.0"
+  },
+  "scripts": {
+    "update": "rm -rf themes/geektutu && git clone https://github.com/geektutu/hexo-theme-geektutu.git themes/geektutu",
+    "build": "node prepare.js && hexo clean && hexo generate",
+    "start": "hexo server --draft"
+  },
+  "dependencies": {
+    "hexo": "^3.8.0",
+    "hexo-deployer-git": "^1.0.0",
+    "hexo-generator-archive": "^0.1.5",
+    "hexo-generator-index": "^0.2.1",
+    "hexo-generator-seo-friendly-sitemap": "0.0.25",
+    "hexo-generator-tag": "^0.2.0",
+    "hexo-renderer-ejs": "^0.2.0",
+    "hexo-renderer-marked": "^1.0.1",
+    "hexo-renderer-stylus": "^0.3.3",
+    "hexo-server": "^0.3.3",
+    "shelljs": "0.8.3"
+  }
+}

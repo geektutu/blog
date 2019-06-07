@@ -1,0 +1,43 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+
+# Site
+title: Geektutu's Blog
+subtitle: 极客兔兔的博客
+keyword: 极客兔兔,极客兔兔的博客,极客兔兔的小站
+description: 极客兔兔的小站，博主毕业于复旦大学计算机学院，致力于分享一些技术教程和有趣的技术实践。
+author: geektutu
+language: zh-CN
+
+url: https://geektutu.com	
+root: /
+permalink: post/:title.html
+
+post_asset_folder: true
+
+# Site settings
+SEOTitle: 极客兔兔
+email: gzdaijie@gmail.com
+header-img: /img/bg.jpg
+header-icon: /img/icon.png
+
+github_username:  geektutu
+
+# Baidu Analytics
+ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa
+
+# Extensions
+theme: geektutu
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repository: https://git.coding.net/gzdaijie/geektutu-blog.git
+  branch: gh-page
+
+gitalk:
+  client_id: 'c1fdd456a4caae5f7df0'
+  client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879'
+  repo: 'hexo-theme-geektutu'
+  owner: 'geektutu'

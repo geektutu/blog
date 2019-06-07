@@ -1,0 +1,8 @@
+.DS_Store
+.vscode
+.deploy_git
+node_modules
+public
+themes
+source/_posts/*
+db.json
