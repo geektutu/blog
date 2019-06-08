@@ -4,7 +4,6 @@ date: 2017-12-10 10:51:24
 description: 一张图看明白Git的四个区五种状态
 tags:
 - Git
-catagories: Git
 ---
 
 

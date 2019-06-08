@@ -5,7 +5,8 @@ description: tensorflow入门系列文章，mnist手写数字识别(一，网络
 tags:
 - 机器学习
 - tensorflow
-catagories:
+- Python
+categories:
 - tensorflow入门
 ---
 

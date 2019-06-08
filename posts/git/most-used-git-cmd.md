@@ -4,7 +4,6 @@ date: 2017-09-07 10:51:24
 description: Git是目前最流行的分布式版本控制系统，它是Linus献给软件行业的两件礼物之一，另外一件礼物是目前最大的服务器系统软件Linux。这篇文章介绍99%时间大家在使用的Git命令。
 tags:
 - Git
-catagories: Git
 ---
 
 

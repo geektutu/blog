@@ -5,8 +5,6 @@ description: 本文介绍如何写Python让你的代码更Pythonic。
 tags:
 - Python
 - Pythonic
-catagories:
-- Python专题
 ---
 
 Python是一门非常灵活的语言，很多语法是其他语言不具备的，特别是对于从C、Java等语言转向Python的人来说，很容易按照C、Java等语言的写法来写Python，对于初学者来说，如果对Python语言的理解不够透彻，就会写出很冗余的代码来。

@@ -5,8 +5,6 @@ description: 本文介绍python常用模块BeautifulSoup(bs4)的使用
 tags:
 - Python
 - 爬虫
-catagories:
-- Python专题
 ---
 
 ## 前置知识

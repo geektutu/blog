@@ -4,9 +4,8 @@ date: 2018-07-14 10:51:24
 description: 深入理解Python系列第1篇文章，整理自Stackoverflow，介绍什么是元类（metaclass）
 tags:
 - Python
+categories:
 - 深入理解Python
-catagories:
-- Python专题
 ---
 
 > - 本文整理自[Stackoverflow - 什么是元类，我们用它来干什么？](https://stackoverflow.com/questions/100003/what-are-metaclasses-in-python)

@@ -5,8 +5,6 @@ description: 本文介绍如何使用python进行命令行编程。
 tags:
 - Python
 - shell
-catagories: 
-- Python专题
 ---
 
 

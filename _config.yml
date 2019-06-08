@@ -25,7 +25,6 @@ seo:
 post_asset_folder: true 
 
 # Site settings
-email: gzdaijie@gmail.com
 header_img: img/bg.jpg
 header_icon: img/icon.png
 
@@ -51,7 +50,13 @@ reward:
   alipay: img/pay/alipay.jpeg
   wechat: img/pay/wechat.jpeg
 
-ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
-  
+related_links:
+- link: https://github.com/geektutu/hexo-them-geektutu
+  img: img/related_links/github.png
+- link: https://github.com/geekcircle
+  img: img/related_links/geekcircle.png
+- link: mailto:Geektutu<gzdaijie@gmail.com>?subject=From Geektutu's Blog
+  img: img/related_links/email.png
 
-  
+
+ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics

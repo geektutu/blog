@@ -5,7 +5,8 @@ description: tensorflow入门系列文章，mnist手写数字识别(四，h5py�
 tags:
 - 机器学习
 - tensorflow
-catagories:
+- Python
+categories:
 - tensorflow入门
 ---
 
@@ -191,7 +192,7 @@ class DataSet:
 >
 > 可以看到，我们只用了1个HDF5文件就将x 和 y存下来了。假如在保存文件前对训练集和测试集进行拆分，同样能够将 train_x, train_y, test_x, test_y 一起保存在一个 HDF5文件中，使用非常方便。
 
-# npy格式与hdf5格式的对比
+## npy格式与hdf5格式的对比
 
 | #    | 读取（1000次/ms） | 存储空间（M） |
 | ---- | ------------ | ------- |

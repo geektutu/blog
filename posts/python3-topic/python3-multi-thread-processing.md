@@ -4,10 +4,7 @@ date: 2017-08-21 10:51:24
 description: 本文介绍Python的多线程与多进程的知识。
 tags:
 - Python
-- 多线程
 - 多进程
-catagories:
-- Python专题
 ---
 
 ## 前置知识

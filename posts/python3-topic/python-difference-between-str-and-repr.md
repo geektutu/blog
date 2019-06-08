@@ -4,9 +4,8 @@ date: 2018-09-19 10:51:24
 description: 深入理解Python系列第3篇文章，整理自Stackoverflow，介绍__str__与__repr__的区别。
 tags:
 - Python
+categories:
 - 深入理解Python
-catagories:
-- Python专题
 ---
 
 > - 本文整理自[Stackoverflow - \_\_str\_\_ 和 \_\_repr\_\_的区别](https://stackoverflow.com/questions/1436703/difference-between-str-and-repr)
