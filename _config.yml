@@ -47,6 +47,10 @@ gitalk:
   repo: 'hexo-theme-geektutu'
   owner: 'geektutu'
 
+reward:
+  alipay: img/pay/alipay.jpeg
+  wechat: img/pay/wechat.jpeg
+
 ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
   
 
