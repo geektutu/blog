@@ -51,7 +51,7 @@ reward:
   wechat: img/pay/wechat.jpeg
 
 related_links:
-- link: https://github.com/geektutu/hexo-them-geektutu
+- link: https://github.com/geektutu/hexo-theme-geektutu
   img: img/related_links/github.png
 - link: https://github.com/geekcircle
   img: img/related_links/geekcircle.png
