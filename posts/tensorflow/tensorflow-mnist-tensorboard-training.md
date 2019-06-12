@@ -5,21 +5,14 @@ description: tensorflow入门系列文章，mnist手写数字识别(三，可视
 tags:
 - 机器学习
 - tensorflow
+- mnist
 - Python
 categories:
 - tensorflow入门
+github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
 在第一篇文章中，我们通过每10步打印出loss值的方式，来观察loss值的变化。但是这样做并不直观，有没有什么方式能够让整个训练的过程更加一目了然呢？tensorflow提供了tensorboard，专门来实现训练过程的可视化。
-
-**本系列文章链接：**
-
-- [tensorflow入门-mnist手写数字识别(一，网络搭建)](https://geektutu.com/post/tensorflow-mnist-simplest.html)
-- [tensorflow入门-mnist手写数字识别(二，模型保存加载)](https://geektutu.com/post/tensorflow-mnist-save-ckpt.html)
-- [tensorflow入门-mnist手写数字识别(三，可视化训练)](https://geektutu.com/post/tensorflow-mnist-tensorboard-training.html)
-- [tensorflow入门-mnist手写数字识别(四，h5py制作训练集)](https://geektutu.com/post/tensorflow-make-npy-hdf5-data-set.html)
-
-> 源代码&数据集已上传到 [Github - tensorflow-tutorial-samples](https://github.com/gzdaijie/tensorflow-tutorial-samples)
 
 ## tensorboard
 
@@ -178,3 +171,5 @@ python -m tensorboard.main --logdir=./log
 ```
 
 `./log`是summary数据存储的路径，即在tf.summary.FileWriter中传入的路径。tensorboard 开始运行后，在浏览器中输入 `localhost:6006` 即可看到本文最开始的效果。
+
+**觉得还不错，不要吝惜你的[star](https://github.com/geektutu/tensorflow-tutorial-samples)，支持是持续不断更新的动力。**

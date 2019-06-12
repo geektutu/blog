@@ -5,23 +5,16 @@ description: tensorflow入门系列文章，mnist手写数字识别(四，h5py�
 tags:
 - 机器学习
 - tensorflow
+- mnist
 - Python
 categories:
 - tensorflow入门
+github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
 在之前的几篇文章中，我们都是通过  `tensorflow.examples.tutorials.mnist`来使用mnist训练集集，制作训练集主要有2个目的，一是加快训练时读取的速度，而是支持随机批读取。假如，每次训练时，都是直接读取图片，再将图片转为矩阵进行训练，那这样效率无疑是非常低下的。
 
 这篇文章将使用numpy 和 h5py（HDF5文件格式）2种方式来制作训练集，并对这两种方式进行对比。
-
-**本系列文章链接：**
-
-- [tensorflow入门-mnist手写数字识别(一，网络搭建)](https://geektutu.com/post/tensorflow-mnist-simplest.html)
-- [tensorflow入门-mnist手写数字识别(二，模型保存加载)](https://geektutu.com/post/tensorflow-mnist-save-ckpt.html)
-- [tensorflow入门-mnist手写数字识别(三，可视化训练)](https://geektutu.com/post/tensorflow-mnist-tensorboard-training.html)
-- [tensorflow入门-mnist手写数字识别(四，h5py制作训练集)](https://geektutu.com/post/tensorflow-make-npy-hdf5-data-set.html)
-
-> 源代码&数据集已上传到 [Github - tensorflow-tutorial-samples](https://github.com/gzdaijie/tensorflow-tutorial-samples)
 
 ## 准备图片
 ![mnist-images](tensorflow-make-npy-hdf5-data-set/gen_mnist_images.png)
@@ -201,3 +194,4 @@ class DataSet:
 
 使用 200 张 28 * 28的图片对比，可以发现在没有使用任何压缩辅助的情况下，两种格式的数据占据的磁盘空间是一样的，HDF5的读取速度比npy慢了1/3，训练集如果能一次读取内存，启动训练前的读取时间可以忽略不计，但是HDF5格式的文件因为能够存储metadata和支持层级嵌套，键索引，使用起来更方便。
 
+**觉得还不错，不要吝惜你的[star](https://github.com/geektutu/tensorflow-tutorial-samples)，支持是持续不断更新的动力。**
