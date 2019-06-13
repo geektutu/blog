@@ -17,7 +17,7 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 [大白话讲解卷积神经网络工作原理](https://www.bilibili.com/video/av35087157/)，推荐一个bilibili的讲卷积神经网络的视频，up主从youtube搬运过来，用中文讲了一遍。
 
-这篇文章是整个 tensorflow入门-mnist手写数字识别系列的第五篇，介绍如何使用**卷积神经网络**（Convolutional Neural Network, **CNN**）来提高识别的准确性。之前使用了最简单的784*10的神经网络，达到了**0.91**的正确性，而这篇文章在使用了卷积神经网络后，正确性达到了**0.99**
+这篇文章是整个 tensorflow入门-mnist手写数字识别系列的第五篇，介绍如何使用**卷积神经网络**（Convolutional Neural Network, **CNN**）来提高识别的准确性。之前使用了最简单的784x10的神经网络，达到了 `0.91` 的正确性，而这篇文章在使用了卷积神经网络后，正确性达到了`0.99`
 
 
 > **卷积神经网络**（Convolutional Neural Network, **CNN**）是一种[前馈神经网络](https://zh.wikipedia.org/wiki/前馈神经网络)，它的人工神经元可以响应一部分覆盖范围内的周围单元，对于大型图像处理有出色表现。
