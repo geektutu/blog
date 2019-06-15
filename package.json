@@ -9,7 +9,8 @@
     "update": "rm -rf themes/geektutu && git clone https://github.com/geektutu/hexo-theme-geektutu.git themes/geektutu",
     "build": "node prepare.js && hexo clean && hexo generate",
     "start": "hexo server --draft",
-    "deploy": "hexo deploy"
+    "deploy": "hexo deploy",
+    "qiniu": "/Users/gzdaijie/tools/upload.sh"
   },
   "dependencies": {
     "hexo": "^3.8.0",
