@@ -42,7 +42,7 @@ deploy:
 gitalk:
   client_id: 'c1fdd456a4caae5f7df0'
   client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879'
-  repo: 'hexo-theme-geektutu'
+  repo: 'geektutu-blog'
   owner: 'geektutu'
 
 reward:
