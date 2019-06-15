@@ -6,10 +6,6 @@ tags:
 - 友链
 ---
 
-## Github项目
+> 最近在自己的Github上清理很多收集类的项目，包括之前关注量很大的`Web前端问答`，`Stackoverflow上Top100的Python问题`，于此同时，博客也清理了很多自认为价值较低的文章，包括`Git入门系列`，`机器学习问答系列`，减少了接近2/3的内容。侧重于完全原创，且有特点的专题文章。
 
-- [前端面试题大全](https://geektutu.github.io/web-front-end/)
-- [机器学习面试题大全](https://geekcircle.github.io/machine-learning-interview-qa)
-- [StackOverflow上票数最高的100个Python问题](https://geekcircle.github.io/stackoverflow-python-top-qa/)
-- [tensorflow入门代码与教程](https://github.com/geektutu/tensorflow-tutorial-samples)
-- [LeetCode Java算法练习](https://geektutu.github.io/leetcode-java/)
+留言可以互换友链 ~
