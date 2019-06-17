@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const spawn = require('child_process').spawn;
+const exec = require('child_process').execSync;
 
 
 const SOURCE_POST_DIR = 'source/_posts/';
@@ -14,15 +14,15 @@ const walkDir = (dir, callback) => {
     });
 };
 
-spawn('rm', ['-rf', SOURCE_POST_DIR])
-spawn('mkdir', ['-p', SOURCE_POST_DIR])
+exec(['rm -rf', SOURCE_POST_DIR].join(' '))
+exec(['mkdir -p', SOURCE_POST_DIR].join(' '))
 
 walkDir('./posts', (filePath) => {
     if (filePath.endsWith('.md') && !filePath.endsWith('posts/README.md')) {
         let assetsDirPath = filePath.slice(0, -3);
-        spawn('cp', ['-p', filePath, SOURCE_POST_DIR])
+        exec(['cp -p', filePath, SOURCE_POST_DIR].join(' '))
         if (fs.existsSync(assetsDirPath)) {
-            spawn('cp', ['-r', '-p', assetsDirPath, SOURCE_POST_DIR])
+            exec(['cp -r -p', assetsDirPath, SOURCE_POST_DIR].join(' '))
         }
     }
 })
