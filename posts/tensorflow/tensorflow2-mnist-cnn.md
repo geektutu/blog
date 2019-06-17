@@ -2,6 +2,8 @@
 title: tensorflow2.0入门-mnist手写数字识别(五，CNN卷积神经网络)
 date: 2019-06-13 00:10:24
 description: tensorflow入门系列文章，mnist手写数字识别(五，CNN卷积神经网络)。
+keywords:
+- tensorflow 2.0
 tags:
 - 机器学习
 - tensorflow

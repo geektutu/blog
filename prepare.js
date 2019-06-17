@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const sh = require('shelljs');
+const spawn = require('child_process').spawn;
 
 
 const SOURCE_POST_DIR = 'source/_posts/';
@@ -14,15 +14,15 @@ const walkDir = (dir, callback) => {
     });
 };
 
-sh.rm('-rf', SOURCE_POST_DIR);
-sh.mkdir('-p', SOURCE_POST_DIR);
+spawn('rm', ['-rf', SOURCE_POST_DIR])
+spawn('mkdir', ['-p', SOURCE_POST_DIR])
 
 walkDir('./posts', (filePath) => {
     if (filePath.endsWith('.md') && !filePath.endsWith('posts/README.md')) {
         let assetsDirPath = filePath.slice(0, -3);
-        sh.cp(filePath, SOURCE_POST_DIR);
+        spawn('cp', ['-p', filePath, SOURCE_POST_DIR])
         if (fs.existsSync(assetsDirPath)) {
-            sh.cp("-r", assetsDirPath, SOURCE_POST_DIR)
+            spawn('cp', ['-r', '-p', assetsDirPath, SOURCE_POST_DIR])
         }
     }
 })
