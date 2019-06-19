@@ -1,9 +1,7 @@
 ---
-title: tensorflow2.0入门-mnist手写数字识别(五，CNN卷积神经网络)
+title: tensorflow 2.0-mnist手写数字识别(五，CNN卷积神经网络)
 date: 2019-06-13 00:10:24
-description: tensorflow入门系列文章，mnist手写数字识别(五，CNN卷积神经网络)。
-keywords:
-- tensorflow 2.0
+description: tensorflow入门系列文章，mnist手写数字识别(五，CNN卷积神经网络)，基于tensorflow 2.0实现。
 tags:
 - 机器学习
 - tensorflow
@@ -15,7 +13,7 @@ categories:
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
-![卷积动图](tensorflow2-mnist-cnn/cnn_image_sample.gif)
+![卷积神经网络gif动图](tensorflow2-mnist-cnn/cnn_image_sample.gif)
 
 [大白话讲解卷积神经网络工作原理](https://www.bilibili.com/video/av35087157/)，推荐一个bilibili的讲卷积神经网络的视频，up主从youtube搬运过来，用中文讲了一遍。
 
@@ -28,11 +26,9 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 >
 > ——[维基百科](https://zh.wikipedia.org/wiki/卷积神经网络)
 
+## 1. 安装TensorFlow 2.0
 
-
-## 1. 安装TensorFlow2.0
-
-Google与2019年3月发布了TensorFlow2.0，TensorFlow2.0清理了废弃的API，通过减少重复来简化API，并且通过Keras能够轻松地构建模型，从这篇文章开始，教程示例采用`TensorFlow2.0`版本。
+Google与2019年3月发布了TensorFlow 2.0，TensorFlow 2.0 清理了废弃的API，通过减少重复来简化API，并且通过Keras能够轻松地构建模型，从这篇文章开始，教程示例采用`TensorFlow 2.0`版本。
 
 ```bash
 pip install tensorflow==2.0.0-beta0
@@ -43,7 +39,7 @@ pip install tensorflow==2.0.0-beta0
 ## 2. 代码目录结构
 
 ```bash
-data_set_tf2/  # tensorflow2.0的mnist数据集
+data_set_tf2/  # tensorflow 2.0的mnist数据集
     |--mnist.npz  
 test_images/   # 预测所用的图片
     |--0.png
