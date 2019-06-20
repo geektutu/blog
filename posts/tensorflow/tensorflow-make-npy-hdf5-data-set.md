@@ -1,14 +1,14 @@
 ---
-title: tensorflow入门-mnist手写数字识别(四，h5py制作训练集)
+title: TensorFlow入门(四) - mnist手写数字识别(制作h5py训练集)
 date: 2018-04-02 11:51:24
-description: tensorflow入门系列文章，mnist手写数字识别(四，h5py制作训练集)。
+description: TensorFlow 入门系列文章，第四篇，mnist手写数字识别(制作h5py训练集)。
 tags:
 - 机器学习
-- tensorflow
+- TensorFlow
 - mnist
 - Python
 categories:
-- tensorflow入门
+- TensorFlow入门
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 

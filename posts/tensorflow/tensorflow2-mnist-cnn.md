@@ -1,15 +1,15 @@
 ---
-title: tensorflow 2.0-mnist手写数字识别(五，CNN卷积神经网络)
+title: TensorFlow 2.0 (五) - mnist手写数字识别(CNN卷积神经网络)
 date: 2019-06-13 00:10:24
-description: tensorflow入门系列文章，mnist手写数字识别(五，CNN卷积神经网络)，基于tensorflow 2.0实现。
+description: TensorFlow 2.0 入门系列文章，第五篇，mnist手写数字识别(CNN卷积神经网络)。
 tags:
 - 机器学习
-- tensorflow
+- TensorFlow
 - mnist
 - CNN
 - Python
 categories:
-- tensorflow入门
+- TensorFlow入门
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
@@ -17,7 +17,7 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 [大白话讲解卷积神经网络工作原理](https://www.bilibili.com/video/av35087157/)，推荐一个bilibili的讲卷积神经网络的视频，up主从youtube搬运过来，用中文讲了一遍。
 
-这篇文章是整个 tensorflow入门-mnist手写数字识别系列的第五篇，介绍如何使用**卷积神经网络**（Convolutional Neural Network, **CNN**）来提高识别的准确性。之前使用了最简单的784x10的神经网络，达到了 `0.91` 的正确性，而这篇文章在使用了卷积神经网络后，正确性达到了`0.99`
+这篇文章是整个 TensorFlow 入门系列的第五篇，介绍如何使用**卷积神经网络**（Convolutional Neural Network, **CNN**）来提高mnist手写数字识别的准确性。之前使用了最简单的784x10的神经网络，达到了 `0.91` 的正确性，而这篇文章在使用了卷积神经网络后，正确性达到了`0.99`
 
 
 > **卷积神经网络**（Convolutional Neural Network, **CNN**）是一种[前馈神经网络](https://zh.wikipedia.org/wiki/前馈神经网络)，它的人工神经元可以响应一部分覆盖范围内的周围单元，对于大型图像处理有出色表现。
@@ -39,7 +39,7 @@ pip install tensorflow==2.0.0-beta0
 ## 2. 代码目录结构
 
 ```bash
-data_set_tf2/  # tensorflow 2.0的mnist数据集
+data_set_tf2/  # TensorFlow 2.0的mnist数据集
     |--mnist.npz  
 test_images/   # 预测所用的图片
     |--0.png
@@ -155,7 +155,7 @@ class DataSource(object):
 
 因为mnist数据集国内下载不稳定，因此数据集也同步到了Github仓库。
 
-对mnist数据集的介绍，大家可以参考这个系列的第一篇文章[tensorflow入门-mnist手写数字识别(一，网络搭建)](https://geektutu.com/post/tensorflow-mnist-simplest.html)。
+对mnist数据集的介绍，大家可以参考这个系列的第一篇文章[TensorFlow入门(一) - mnist手写数字识别(网络搭建)](https://geektutu.com/post/tensorflow-mnist-simplest.html)。
 
 ## 5. 开始训练并保存训练结果（train.py）
 

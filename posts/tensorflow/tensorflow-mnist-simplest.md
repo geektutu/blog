@@ -1,29 +1,33 @@
 ---
-title: tensorflow入门-mnist手写数字识别(一，网络搭建)
+title: TensorFlow入门(一) - mnist手写数字识别(网络搭建)
 date: 2017-12-09 11:51:24
-description: tensorflow入门系列文章，mnist手写数字识别(一，网络搭建)。
+description: TensorFlow 入门系列文章，第一篇，mnist手写数字识别(网络搭建)。
 tags:
 - 机器学习
-- tensorflow
+- TensorFlow
 - mnist
 - Python
 categories:
-- tensorflow入门
+- TensorFlow入门
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
-这篇文章是整个 tensorflow入门-mnist手写数字识别系列的第一篇，主要介绍了如何从0开始用tensorflow搭建最简单的网络进行训练。
+这篇文章是整个 TensorFlow入门 - mnist手写数字识别系列的第一篇，主要介绍了如何从0开始用tensorflow搭建最简单的网络进行训练。
 
 ## mnist数据集
+
 ### 简介
+
 MNIST是一个入门级的计算机视觉数据集，它包含各种手写数字图片。在机器学习中的地位相当于Python入门的打印`Hello World`。官网是[THE MNIST DATABASE of handwritten digits](http://yann.lecun.com/exdb/mnist/)
 该数据集包含以下四个部分
+
 - train-images-idx3-ubyte.gz: 训练集-图片，6w
 - train-labels-idx1-ubyte.gz: 训练集-标签，6w
 - t10k-images-idx3-ubyte.gz: 测试集-图片，1w
 - t10k-labels-idx1-ubyte.gz: 测试集-标签，1w
 
 ### 图片和标签
+
 mnist数据集里的每张图片大小为28 * 28像素，可以用28 * 28的大小的数组来表示一张图片。
 标签用大小为10的数组来表示，这种编码我们称之为One hot（独热编码）。
 

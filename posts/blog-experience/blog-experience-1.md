@@ -1,5 +1,5 @@
 ---
-title: 博客折腾记-(一)极致性能的尝试
+title: 博客折腾记(一) - 极致性能的尝试
 date: 2019-06-17 20:10:00
 description: 极客兔兔(Geektutu)的博客折腾记的第一篇，介绍了博主从Koa+React到Hexo的切换，以及为达到极致性能的一些尝试。
 keywords:

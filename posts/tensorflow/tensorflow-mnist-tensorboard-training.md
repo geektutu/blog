@@ -1,14 +1,14 @@
 ---
-title: tensorflow入门-mnist手写数字识别(三，可视化训练)
+title: TensorFlow入门(三) - mnist手写数字识别(可视化训练)
 date: 2018-03-29 11:51:24
-description: tensorflow入门系列文章，mnist手写数字识别(三，可视化训练)。
+description: TensorFlow 入门系列文章，第三篇，mnist手写数字识别(可视化训练)。
 tags:
 - 机器学习
-- tensorflow
+- TensorFlow
 - mnist
 - Python
 categories:
-- tensorflow入门
+- TensorFlow入门
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 

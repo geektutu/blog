@@ -1,19 +1,19 @@
 ---
-title: tensorflow入门-mnist手写数字识别(二，模型保存加载)
+title: TensorFlow入门(二) - mnist手写数字识别(模型保存加载)
 date: 2017-12-17 11:51:24
-description: tensorflow入门系列文章，mnist手写数字识别(二，模型保存加载)。
+description: TensorFlow 入门系列文章，第二篇，mnist手写数字识别(模型保存加载)。
 tags:
 - 机器学习
-- tensorflow
+- TensorFlow
 - mnist
 - Python
 categories:
-- tensorflow入门
+- TensorFlow入门
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
 
-上一篇文章[tensorflow入门-mnist手写数字识别(一，网络搭建)](http://geektutu.com/post/tensorflow-mnist-simplest.html)介绍了`神经网络输入`、`输出`、`独热编码`、`损失函数`等最基本的知识，并且演示了如何用最简单的模型实现mnist手写数字识别91%的正确率。但是遗留的问题是，模型保存在内存中，每次都得重新开始训练。
+上一篇文章[TensorFlow入门(一) - mnist手写数字识别(网络搭建)](http://geektutu.com/post/tensorflow-mnist-simplest.html)介绍了`神经网络输入`、`输出`、`独热编码`、`损失函数`等最基本的知识，并且演示了如何用最简单的模型实现mnist手写数字识别91%的正确率。但是遗留的问题是，模型保存在内存中，每次都得重新开始训练。
 
 这篇文章解决的就是这个问题。将依次介绍tensorflow中如何`保存`已经训练好的模型，如何在某个训练步数的基础上`继续训练`，最后将演示如何`加载模型`，并借助pillow(Python2中称为PIL)库实现真实手写数字图片的识别。
 
