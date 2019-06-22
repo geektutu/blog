@@ -9,6 +9,7 @@ tags:
 - Python
 categories:
 - TensorFlow入门
+image: post/tensorflow-mnist-tensorboard-training/tensorboard_mnist_graph.png
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 

@@ -10,6 +10,7 @@ tags:
 - Python
 categories: 
 - Pandas数据处理
+image: post/pandas-cheat-sheet-zh-cn/cheat_sheet_part.png
 ---
 
 ## 来源

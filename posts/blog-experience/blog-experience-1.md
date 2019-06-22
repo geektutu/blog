@@ -9,6 +9,7 @@ tags:
 - 关于我
 categories: 
 - 博客折腾记
+image: post/blog-experience-1/loading.gif
 ---
 
 ## Koa+React的尝试

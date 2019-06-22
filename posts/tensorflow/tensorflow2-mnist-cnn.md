@@ -10,6 +10,7 @@ tags:
 - Python
 categories:
 - TensorFlow入门
+image: post/tensorflow2-mnist-cnn/cnn_image_sample.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 

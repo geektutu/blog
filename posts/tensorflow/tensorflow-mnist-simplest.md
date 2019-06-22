@@ -9,6 +9,7 @@ tags:
 - Python
 categories:
 - TensorFlow入门
+image: post/tensorflow-mnist-simplest/x_y.png
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 

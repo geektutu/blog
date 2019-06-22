@@ -19,7 +19,7 @@ seo:
   google_site_verification: X31OY0d2sKImNbS2x8-OpITWRK4nn7nZCcXe3_hA9ew
   baidu_site_verification: p7Pz3jlx4t
   ms_site_verification: 7E2AEE3378AC93764DEAB411177A21A1
-  _360_site_verification: 5c7e8a1fdbf35ed6003c48733208f705 # 不能以数字开头，所以加上了下划线
+  _360_site_verification: 1d1e81a1a48a1ed2e3308d7cb8e548e7 # 不能以数字开头，所以加上了下划线
 
 # 开启博客资源的相对链接 https://hexo.io/zh-cn/docs/asset-folders
 post_asset_folder: true 
@@ -57,6 +57,6 @@ related_links:
 - link: mailto:Geektutu<gzdaijie@gmail.com>?subject=From Geektutu's Blog
   img: img/related_links/email.png
 
-
+ba_auto_push: true # Baidu 自动推送
 ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
 cnzz_track_id: 1277693649 # CNZZ Analytics

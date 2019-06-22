@@ -10,6 +10,7 @@ tags:
 - 关于我
 categories: 
 - 博客折腾记
+image: post/blog-experience-2/origin_create.gif
 ---
 
 ## 两篇文章的启示

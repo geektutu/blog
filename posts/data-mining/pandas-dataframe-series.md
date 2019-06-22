@@ -7,6 +7,7 @@ tags:
 - Python
 categories: 
 - Pandas数据处理
+image: post/pandas-dataframe-series/pandas.gif
 ---
 
 
