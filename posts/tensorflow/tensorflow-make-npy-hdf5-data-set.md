@@ -13,6 +13,8 @@ image: post/tensorflow-mnist-simplest/x_y.png
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
+这篇文章是 **TensorFlow Tutorial** 入门教程的第四篇文章。
+
 在之前的几篇文章中，我们都是通过  `tensorflow.examples.tutorials.mnist`来使用mnist训练集集，制作训练集主要有2个目的，一是加快训练时读取的速度，而是支持随机批读取。假如，每次训练时，都是直接读取图片，再将图片转为矩阵进行训练，那这样效率无疑是非常低下的。
 
 这篇文章将使用numpy 和 h5py（HDF5文件格式）2种方式来制作训练集，并对这两种方式进行对比。

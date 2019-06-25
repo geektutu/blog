@@ -13,6 +13,7 @@ image: post/tensorflow-mnist-save-ckpt/save_ckpt.png
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
 
+这篇文章是 **TensorFlow Tutorial** 入门教程的第二篇文章。
 
 上一篇文章[TensorFlow入门(一) - mnist手写数字识别(网络搭建)](http://geektutu.com/post/tensorflow-mnist-simplest.html)介绍了`神经网络输入`、`输出`、`独热编码`、`损失函数`等最基本的知识，并且演示了如何用最简单的模型实现mnist手写数字识别91%的正确率。但是遗留的问题是，模型保存在内存中，每次都得重新开始训练。
 

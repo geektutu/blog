@@ -22,9 +22,7 @@ image: post/about/leave_a_msg.gif
 
 ## 版权说明
 
-若无特别声明，本站所有文章采用开放的「[署名 4.0 国际](https://creativecommons.org/licenses/by/4.0/deed.zh)」创作共享协议。
-
-支持各种形式的转载和再创作，请务必在转载时保留文章的出处。
+若无特别声明，本站文章欢迎链接分享，但禁止全文转载，本站保留一切权利。
 
 ## 支持本站
 
