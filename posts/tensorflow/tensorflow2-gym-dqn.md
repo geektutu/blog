@@ -8,6 +8,9 @@ tags:
 - OpenAI gym
 - Python
 - DQN
+keywords:
+- Double DQN
+- DDQN
 categories:
 - TensorFlow入门
 image: post/tensorflow2-gym-dqn/mountaincar_v0_scores.jpg
@@ -83,7 +86,7 @@ class DQN(object):
         STATE_DIM, ACTION_DIM = 2, 3
         model = models.Sequential([
             layers.Dense(100, input_dim=STATE_DIM, activation='relu'),
-            layers.Dense(ACTION_DIM, activation="linear",)
+            layers.Dense(ACTION_DIM, activation="linear")
         ])
         model.compile(loss='mean_squared_error',
                       optimizer=optimizers.Adam(0.001))
@@ -101,7 +104,7 @@ class DQN(object):
         self.model.save(file_path)
 ```
 
-网络结构很简单，只有一层隐藏层的全连接网络(Full Connected Network, FC)。但是我们用这个网络结构生成了2个model，一个是**预测**使用的`model`，另一个是训练时使用的`old_model`。看完下面的代码，就容易理解了。
+网络结构很简单，只有一层隐藏层的全连接网络(Full Connected Network, FC)。但是我们用这个网络结构生成了2个model，一个是**预测**使用的`model`，另一个是训练时使用的`target_model`。看完下面的代码，就容易理解了。
 
 ```python
 # dqn.py
@@ -118,16 +121,16 @@ class DQN(object):
         if len(self.replay_queue) < self.replay_size:
             return
         self.step += 1
-        # 每 update_freq 步，将 model 的权重赋值给 old_model
+        # 每 update_freq 步，将 model 的权重赋值给 target_model
         if self.step % self.update_freq == 0:
-            self.old_model.set_weights(self.model.get_weights())
+            self.target_model.set_weights(self.model.get_weights())
 
         replay_batch = random.sample(self.replay_queue, batch_size)
         s_batch = np.array([replay[0] for replay in replay_batch])
         next_s_batch = np.array([replay[2] for replay in replay_batch])
 
         Q = self.model.predict(s_batch)
-        Q_next = self.old_model.predict(next_s_batch)
+        Q_next = self.target_model.predict(next_s_batch)
 
         # 使用公式更新训练集中的Q值
         for i, replay in enumerate(replay_batch):
@@ -138,9 +141,11 @@ class DQN(object):
         self.model.fit(s_batch, Q, verbose=0)
 ```
 
-我们需要到上文提到的更新方程，来构造训练数据。其中`Q_next`是对`next_s`的预测值，在这里其实也可以使用`model`，但是`model`变化得太过频繁，而且我们在训练时，是以**batch**为单位进行训练的，也就是说很多训练数据对应的是之前状态的model，而不是频繁更新值的`model`，因此，我们使用更新频率低的`old_model`来计算`next_s`的Q值。
+我们需要到上文提到的更新方程，来构造训练数据。其中`Q_next`是对`next_s`的预测值，在这里其实也可以使用`model`，但是`model`变化得太过频繁，而且我们在训练时，是以**batch**为单位进行训练的，也就是说很多训练数据对应的是之前状态的model，而不是频繁更新值的`model`，因此，我们使用更新频率低的`target_model`来计算`next_s`的Q值。
 
-`old_model`每训练update_freq(200)次，更新权重与`model`一致。
+同时使用2个Q-Network的算法被称为**双Q网络(Double DQN, DDQN)**。因为传统的DQN普遍会过高估计Action的Q值，误差会随着Action的增加而增加，可能导致某个次优的值超过了最优Action的Q值，永远无法找到最优解。`DDQN`能够有效地解决这个问题。DQN 在比较简单的游戏，比如**CartPole-v0**能够取得较好的效果，但在**MountainCar-v0**这个游戏中，如果只使用 DQN 很难找到最优解。
+
+`target_model`每训练update_freq(200)次，更新权重与`model`一致。
 
 那为什么在`Q-Table`中，可以用单步的数据来进行更新，但换作了神经网络，就需要以**batch**为单位来进行训练呢？这个问题在知乎有过讨论，链接在这里：[深度学习中的batch的大小对学习效果有何影响？](https://www.zhihu.com/question/32673260)，简单说，如果单步训练，即**batch**为1，每次朝着单步的梯度方向修正，横冲直撞各自为政，难以收敛。如果**batch**过大，容易过拟合。而且`DQN`是增强学习算法，前面的训练数据质量较差，随着训练的进行，产生的动作价值越来越高，增强学习更为看重后面的训练数据，所以**batch**也不宜过大。
 
@@ -259,7 +264,8 @@ $ python test_dqn.py
 score: -161.0
 ```
 
-![Geektutu Q-Learning MountainCar Failed](tensorflow2-gym-dqn/mountaincar_v0_success.gif)
+![Geektutu Q-Learning MountainCar Success](tensorflow2-gym-dqn/mountaincar_v0_success.gif)
 
+代码已经上传到[Github - tensorflow-tutorial-samples](https://github.com/geektutu/tensorflow-tutorial-samples/tree/master/gym/MountainCar-v0-dqn)，**dqn.py**只有90行，不妨试一试吧~
 
 
