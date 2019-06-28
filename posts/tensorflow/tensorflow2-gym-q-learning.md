@@ -20,6 +20,8 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 **代码仅50行~**
 
+## MountainCar-v0 游戏简介
+
 今天我们选取的游戏是[MountainCar-v0](https://github.com/openai/gym/wiki/MountainCar-v0)，这个游戏很简单，将车往不同的方向推，最终让车爬到山顶。和上一篇文章 [TensorFlow 2.0 (六) - 监督学习玩转 OpenAI gym game](https://geektutu.com/post/tensorflow2-gym-nn.html)一样，我们先介绍几个比较关键的概念，以及这几个概念在这个游戏中的具体含义。
 
 
@@ -31,6 +33,8 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 |Done | bool: 是否爬到山顶(True/False)，上限200回合 | -1 |
 
 如果`200回合`还没到达山顶，说明游戏失败，-200是最低分。每个回合得-1，分数越高，说明尝试回合数越少，意味着越早地到达山顶。比如得分-100分，表示仅经过了100回合就到达了山顶。
+
+## 初始化 Q-Table(Q表)
 
 如果有如下这样一张表，告诉我在某个状态(State)下， 执行每一个动作(Action)产生的价值(Value)，那就可以通过查询表格，选择产生价值最大的动作了。
 
@@ -58,6 +62,8 @@ import numpy as np
 Q = defaultdict(lambda: [0, 0, 0])
 ```
 
+## 连续状态映射
+
 但是这个`Q-Table`有一个问题，我们用字典来表示`Q-Table`，State中的值是浮点数，是连续的，意味着有无数种状态，这样更新Q-Table的值是不可能实现。因此，我们需要对State进行线性转换，**归一化处理**。即，将State中的值映射到[0, 40]的空间中。这样，就将无数种状态映射到`40x40`种状态了。
 
 ```python
@@ -80,6 +86,8 @@ def transform_state(state):
 # eg: (4, 22)
 ```
 
+## 更新 Q-Table
+
 那怎么更新Q-Table呢？下面这个简化版的公式就是关键了。
 
 > Q[s][a] = (1 - lr) * Q[s][a] + lr * (reward + factor * max(Q[next_s]))
@@ -98,6 +106,8 @@ def transform_state(state):
 为什么是`max(Q[next_s])`而不是`min(Q[next_s])`呢？在Q-Table中，状态 **next_s** 有3个动作可选，即[0, 1, 2]，对应价值 **Q[next_s][0]，Q[next_s][1]，Q[next_s][2]**。`Q[s][a]`的值应由产生的最大价值的动作决定。
 
 我们想象一个极端场景：五子棋，最后一步，下在X位置赢，100分；其他位置输，0分。那怎么衡量倒数第二步的价值呢？当然是由最后一步的最大价值决定，不能因为最后一步走错了，就否定前面动作的价值。
+
+## 开始训练
 
 接下来我们就把这个公式嵌入到`OpenAI gym`中吧。
 
@@ -147,6 +157,8 @@ episode: 9998 score: -160.0 max: -119.0
 episode: 9999 score: -161.0 max: -119.0
 model saved
 ```
+
+## 测试模型
 
 最终，我们写一下测试代码，加载模型，顺便感受下真实的游戏画面吧~
 
