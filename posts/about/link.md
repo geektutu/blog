@@ -7,21 +7,25 @@ tags:
 image: post/link/link.png
 ---
 
-<style> article th { min-width: 110px; } </style>
+<style> article th:first-child { width: 124px; } </style>
 
 ## 互粉
 
 | 名称  | 描述 |
 |---| ---|
-| [姬長信](https://blog.isoyu.com) | 致力为所有移动开发者提供资讯、问答、代码下载、工具库等服务 |
+| [姬長信](https://blog.isoyu.com) | 致力为移动开发者提供资讯、问答、代码下载、工具库等服务 |
 | [Mayx的博客](https://mabbs.github.io) | Mayx’s Home Page |
+| [kok的笔记本](https://wocai.de) | 写一些杂七杂八的内容 |
+| [Chinsyo\|晨晓](https://chinsyo.com) | 一个工程师的迷思与随想 |
+| [辛未羊的博客](https://panqiincs.me/) | 人生如逆旅，我亦是行人 |
 
 ## 注意
 
 **留言可以互换友链，先将本站添加为友链，再到评论区留言，一天内处理。**
+**希望这篇文章[《友链这件事，没那么简单》](https://geektutu.com/post/blog-experience-5.html)对寻求友链的你有帮助。**
 
 > 本站文章均为原创，要求互换友链的你，也是原创博主。
-> 拒绝和聚合站、采集站、转载站站长做朋友
+> 拒绝和聚合站、采集站、转载站做朋友。
 > 格式：
 > 站点名称：极客兔兔
 > 站点描述：致力于分享有趣的技术实践（30字左右，太长一行显示不下）
