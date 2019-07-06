@@ -141,7 +141,11 @@ class DQN(object):
         self.model.fit(s_batch, Q, verbose=0)
 ```
 
-我们需要到上文提到的更新方程，来构造训练数据。其中`Q_next`是对`next_s`的预测值，在这里其实也可以使用`model`，但是`model`变化得太过频繁，而且我们在训练时，是以**batch**为单位进行训练的，也就是说很多训练数据对应的是之前状态的model，而不是频繁更新值的`model`，因此，我们使用更新频率低的`target_model`来计算`next_s`的Q值。
+整个结构如下图所示：
+
+![Geektutu DQN](tensorflow2-gym-dqn/dqn.jpg)
+
+我们需要用到上文提到的更新方程，来构造训练数据。其中`Q_next`是对`next_s`的预测值，在这里其实也可以使用`model`，但是`model`变化得太过频繁，而且我们在训练时，是以**batch**为单位进行训练的，也就是说很多训练数据对应的是之前状态的model，而不是频繁更新值的`model`，因此，我们使用更新频率低的`target_model`来计算`next_s`的Q值。
 
 同时使用2个Q-Network的算法被称为**双Q网络(Double DQN, DDQN)**。因为传统的DQN普遍会过高估计Action的Q值，误差会随着Action的增加而增加，可能导致某个次优的值超过了最优Action的Q值，永远无法找到最优解。`DDQN`能够有效地解决这个问题。DQN 在比较简单的游戏，比如**CartPole-v0**能够取得较好的效果，但在**MountainCar-v0**这个游戏中，如果只使用 DQN 很难找到最优解。
 
