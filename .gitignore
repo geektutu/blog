@@ -3,8 +3,10 @@
 .deploy_git
 node_modules
 public
-themes
 source/_posts/*
 db.json
 baidu_push.sh
 urls.txt
+# git repo alone
+themes
+posts/tensorflow2-docs
