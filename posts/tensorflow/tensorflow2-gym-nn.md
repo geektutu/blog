@@ -9,6 +9,7 @@ tags:
 - Python
 categories:
 - TensorFlow入门
+top: 2
 image: post/tensorflow2-gym-nn/cartpole_v0_failed.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
