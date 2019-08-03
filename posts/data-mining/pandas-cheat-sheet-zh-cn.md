@@ -3,13 +3,13 @@ title: Pandas 数据处理(三) - Cheat Sheet 中文版
 date: 2019-06-16 00:10:24
 description: Pandas_Cheat_Sheet_zh_CN.pdf 中文版，Geektutu翻译
 keywords:
+- Python
 - Pandas_Cheat_Sheet_zh_CN.pdf
 - Pandas Cheat Sheet
 tags:
 - Pandas
-- Python
 categories: 
-- Pandas数据处理
+- Pandas
 image: post/pandas-cheat-sheet-zh-cn/cheat_sheet_part.png
 ---
 

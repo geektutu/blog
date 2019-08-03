@@ -11,8 +11,7 @@ keywords:
 tags:
 - 关于我
 categories: 
-- 博客折腾记
-top: 3
+- 建站经历
 image: post/blog-experience-4/google.jpg
 ---
 

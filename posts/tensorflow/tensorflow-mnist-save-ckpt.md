@@ -7,8 +7,9 @@ tags:
 - TensorFlow
 - mnist
 - Python
+nav: TensorFlow
 categories:
-- TensorFlow入门
+- TensorFlow教程
 image: post/tensorflow-mnist-save-ckpt/save_ckpt.png
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

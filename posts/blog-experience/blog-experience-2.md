@@ -9,7 +9,7 @@ keywords:
 tags:
 - 关于我
 categories: 
-- 博客折腾记
+- 建站经历
 image: post/blog-experience-2/origin_create.gif
 ---
 

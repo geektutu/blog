@@ -25,7 +25,6 @@ seo:
 post_asset_folder: true 
 
 # Site settings
-header_img: img/bg.jpg
 header_icon: img/icon.png
 
 theme: geektutu
@@ -63,7 +62,12 @@ post_tips:
 
 widgets:
   caidan: false  # 开启彩蛋，点击屏幕会随机弹出 '点个赞','留个言'等  
-  
+
+# 自定义推广链接：宽度250，高度不限。
+custom_ads:
+- link: https://s.click.taobao.com/t?e=m%3D2%26s%3D9Csa7S69aHgcQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClArjXSXgB5m891PGHrTZ9ST8Jdb9AFE%2FbvB6xlwYjnFhg5nVYzezzVJ%2B4188cs7idFXgMYfZcHopyYMsSHLWchUVtQl8vLdysepHjKlMEkHC0ZmD53N1AU7B8xG%2BjFJUNJ0vKtvaDQfYbkClB6jgC8iAz%2BYtposB6N2M%2B1FAAYg58xy%2BHtFeiN1whhQs2DjqgEA%3D%3D
+  img: https://img.alicdn.com/tps/TB1FKhrOFXXXXXrXXXXXXXXXXXX-300-100.jpg
+
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
 ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
 cnzz_track_id: 1277693649 # CNZZ Analytics

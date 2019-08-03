@@ -10,8 +10,9 @@ tags:
 keywords:
 - Policy Gradient
 - 策略梯度
+nav: TensorFlow
 categories:
-- TensorFlow入门
+- TensorFlow教程
 image: post/tensorflow2-gym-pg/pg_plot.jpg
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

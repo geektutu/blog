@@ -8,8 +8,9 @@ tags:
 - mnist
 - CNN
 - Python
+nav: TensorFlow
 categories:
-- TensorFlow入门
+- TensorFlow教程
 image: post/tensorflow2-mnist-cnn/cnn_image_sample.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

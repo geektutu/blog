@@ -7,8 +7,9 @@ tags:
 - TensorFlow
 - OpenAI gym
 - Python
+nav: TensorFlow
 categories:
-- TensorFlow入门
+- TensorFlow教程
 top: 2
 image: post/tensorflow2-gym-nn/cartpole_v0_failed.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples

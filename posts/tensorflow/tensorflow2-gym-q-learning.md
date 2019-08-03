@@ -8,8 +8,9 @@ tags:
 - Q-Learning
 - OpenAI gym
 - Python
+nav: TensorFlow
 categories:
-- TensorFlow入门
+- TensorFlow教程
 image: post/tensorflow2-gym-q-learning/mountaincar_v0_success.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

@@ -17,7 +17,9 @@ image: post/link/link.png
 | [Mayx的博客](https://mabbs.github.io) | Mayx’s Home Page |
 | [kok的笔记本](https://wocai.de) | 写一些杂七杂八的内容 |
 | [Chinsyo\|晨晓](https://chinsyo.com) | 一个工程师的迷思与随想 |
-| [辛未羊的博客](https://panqiincs.me/) | 人生如逆旅，我亦是行人 |
+| [辛未羊的博客](https://panqiincs.me) | 人生如逆旅，我亦是行人 |
+| [hutusi](http://hutusi.com) | 浪漫主义诗人 |
+| [寒夏汢](https://hanxiatu.com) | 做一个有趣的人 | 
 
 ## 注意
 
