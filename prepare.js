@@ -4,6 +4,7 @@ const exec = require('child_process').execSync;
 
 
 const SOURCE_POST_DIR = 'source/_posts/';
+const EXCLUDE_DIR = ['posts/interview-questions/ml/']
 
 const walkDir = (dir, callback) => {
     fs.readdirSync(dir).forEach(f => {
@@ -20,15 +21,20 @@ const walkDir = (dir, callback) => {
 exec(['rm -rf', SOURCE_POST_DIR].join(' '))
 exec(['mkdir -p', SOURCE_POST_DIR].join(' '))
 
+let count = 0;
 walkDir('./posts', (filePath) => {
-    if (filePath.endsWith('.md') && !filePath.endsWith('README.md')) {
-        let assetsDirPath = filePath.slice(0, -3);
-        exec(['cp -p', filePath, SOURCE_POST_DIR].join(' '))
-        if (fs.existsSync(assetsDirPath)) {
-            exec(['cp -r -p', assetsDirPath, SOURCE_POST_DIR].join(' '))
-        }
+    if (!filePath.endsWith('.md') || filePath.endsWith('README.md')
+        || EXCLUDE_DIR.find(d => filePath.startsWith(d))) {
+        return;
+    }
+    count++;
+    let assetsDirPath = filePath.slice(0, -3);
+    exec(['cp -p', filePath, SOURCE_POST_DIR].join(' '))
+    if (fs.existsSync(assetsDirPath)) {
+        exec(['cp -r -p', assetsDirPath, SOURCE_POST_DIR].join(' '))
     }
 })
 
+console.log(`total: ${count}`)
 
 
