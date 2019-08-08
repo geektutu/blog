@@ -1,7 +1,7 @@
 ---
 title: TensorFlow 2.0 (六) - 监督学习玩转 OpenAI gym game
 date: 2019-06-21 00:10:20
-description: TensorFlow 入门系列文章，第六篇，监督学习玩转 OpenAI gym game。
+description: TensorFlow2教程，TensorFlow2.0教程，TensorFlow 入门系列文章，第六篇，监督学习玩转 OpenAI gym game。
 tags:
 - 机器学习
 - TensorFlow
@@ -10,6 +10,9 @@ tags:
 nav: TensorFlow
 categories:
 - TensorFlow教程
+keywords:
+- TensorFlow2教程
+- TensorFlow2.0教程
 top: 2
 image: post/tensorflow2-gym-nn/cartpole_v0_failed.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples

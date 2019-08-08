@@ -1,13 +1,16 @@
 ---
 title: TensorFlow 2.0 (五) - mnist手写数字识别(CNN卷积神经网络)
 date: 2019-06-13 00:10:24
-description: TensorFlow 2.0 入门系列文章，第五篇，mnist手写数字识别(CNN卷积神经网络)。
+description: TensorFlow2教程，TensorFlow2.0教程，TensorFlow 2.0 入门系列文章，第五篇，mnist手写数字识别(CNN卷积神经网络)。
 tags:
 - 机器学习
 - TensorFlow
 - mnist
 - CNN
 - Python
+keywords:
+- TensorFlow2教程
+- TensorFlow2.0教程
 nav: TensorFlow
 categories:
 - TensorFlow教程

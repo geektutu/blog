@@ -1,7 +1,7 @@
 ---
 title: TensorFlow 2.0 (八) - 强化学习 DQN 玩转 gym Mountain Car
 date: 2019-06-28 00:30:24
-description: TensorFlow 2.0 入门系列文章，第八篇，强化学习 DQN (Deep Q-Learning) 玩转 OpenAI gym game MountainCar-v0。
+description: TensorFlow2教程，TensorFlow2.0教程，TensorFlow 2.0 入门系列文章，第八篇，强化学习 DQN (Deep Q-Learning) 玩转 OpenAI gym game MountainCar-v0。
 tags:
 - 强化学习
 - TensorFlow
@@ -9,6 +9,8 @@ tags:
 - Python
 - DQN
 keywords:
+- TensorFlow2教程
+- TensorFlow2.0教程
 - Double DQN
 - DDQN
 nav: TensorFlow

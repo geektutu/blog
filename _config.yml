@@ -61,7 +61,8 @@ post_tips:
   zhihu_zhuanlan: https://zhuanlan.zhihu.com/geektutu # 欢迎关注我的「 知乎专栏 」，所有文章可在「 知乎APP 」查看。
 
 widgets:
-  caidan: false  # 开启彩蛋，点击屏幕会随机弹出 '点个赞','留个言'等  
+  caidan: false  # 开启彩蛋，点击屏幕会随机弹出 '点个赞','留个言'等
+  busuanzi: true # 开启不蒜子统计 https://busuanzi.ibruce.info/
 
 # 自定义推广链接：宽度250，高度不限。
 custom_ads:
@@ -70,6 +71,5 @@ custom_ads:
 
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
 ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
-cnzz_track_id: 1277693649 # CNZZ Analytics
 google_analysis: UA-142641425-1 # Google Analytics
 google_ad_client: ca-pub-9394187906225546 # Google Ad
