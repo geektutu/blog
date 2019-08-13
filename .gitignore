@@ -7,8 +7,10 @@ source/_posts/*
 db.json
 baidu_push.sh
 urls.txt
+# unpublished post
+*.mdx
 # git repo alone
 themes
 posts/tensorflow2-docs
-interview-questions
-go-gin-tutorial-samples
+posts/interview-questions
+posts/7days-gee-golang-web
