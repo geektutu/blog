@@ -13,4 +13,6 @@ urls.txt
 themes
 posts/tensorflow2-docs
 posts/interview-questions
-posts/7days-gee-golang-web
+posts/7days-golang
+# github comments
+source/tool/comments.json

@@ -19,7 +19,7 @@ image: post/quick-go2/go2.jpg
 
 图片引用自`udemy.com`
 
-## GO 的演进
+## Go 的演进
 
 Go语言/golang 诞生于2007年，经过12年的发展，Go逐渐成为了云计算领域新一代的开发语言。Go语言在牺牲很少性能的情况下，语法简洁，功能强大。我是Python的重度用户，在学习Go时，却有一种在学习Python的感觉。并非语法相似，而是Go语言作为一门编译型语言，竟然能够像Python一样，少量的代码就能够完成尽可能多的事情。Go语言仿佛是C和Python的结合体。
 
@@ -242,7 +242,7 @@ keysB := Keys(string, string)(map[string]string{"name":"geektutu", "age": "twent
 
 > 参考：[Go2 wiki - Github](https://github.com/golang/go/wiki/Go2)
 
-## GO 2 新特性
+## Go 2 新特性
 
 Go2还未正式发布，发布后更新
 
