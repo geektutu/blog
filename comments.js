@@ -78,7 +78,7 @@ class Comments {
             }
         }
         let obj = Object.keys(simpleComments).map(key => simpleComments[key])
-        fs.writeFileSync("public/comments.json", JSON.stringify(obj), { encoding: 'utf-8' });
+        fs.writeFileSync("source/tool/comments.json", JSON.stringify(obj), { encoding: 'utf-8' });
         console.log(`write ${obj.length} success!`)
     }
 
