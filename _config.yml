@@ -23,7 +23,7 @@ seo:
 
 # 开启博客资源的相对链接 https://hexo.io/zh-cn/docs/asset-folders
 post_asset_folder: true 
-
+skip_render: tool/comments.json
 # Site settings
 header_icon: img/icon.png
 
