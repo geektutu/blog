@@ -74,7 +74,12 @@ class Comments {
                 user: comment.user.login,
                 icon: comment.user.avatar_url,
                 date: this.deltaDate(comment.created_at),
-                body: comment.body.replace(/</g, " ").replace(/>/g, " ").replace(/\s+/g, " ").trim()
+                body: comment.body
+                    .replace(/�/g, "")
+                    .replace(/</g, " ")
+                    .replace(/>/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim()
             }
         }
         let obj = Object.keys(simpleComments).map(key => simpleComments[key])
