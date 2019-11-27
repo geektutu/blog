@@ -21,6 +21,8 @@ image: post/link/link.png
 | [hutusi](http://hutusi.com) | 浪漫主义诗人 |
 | [寒夏汢](https://hanxiatu.com) | 做一个有趣的人 | 
 | [肆月之风](https://acme.top) | 爱技术、爱分享 | 
+| [JustSong](https://iamazing.cn) | 计算机专业求学过程中的思考 |
+| [Muniao](https://www.qtmuniao.com/) | 摄影，技术，分布式 |
 
 ## 注意
 
