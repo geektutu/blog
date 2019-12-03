@@ -131,7 +131,7 @@ options = "metadata,umask=22,fmask=11"
 `vim ~/.profile`，添加
 
 ```bash
-[ "$(umask)" == '0000' ] && umask 0022
+umask 0022
 ```
 
 修改完上述两个文件，并不会即时生效，需要执行以下命令关闭 WSL 服务，再重新打开。 
@@ -144,6 +144,12 @@ options = "metadata,umask=22,fmask=11"
 C:\Users\admin>wsl -l
 适用于 Linux 的 Windows 子系统:
 Ubuntu (默认)
+```
+
+附：如果在 Visual Studio Code (VS Code) 中 使用了 Remote - WSL 打开 WSL 中的文件夹，会发现 `umask 0022` 仍没有生效，在 VS Code 中创建的文件夹权限仍旧是 777，则需要将`umask 0022`添加到`~/.vscode-server/server-env-setup`（不存在则新建）中。VS Code 连接 WSL 时会执行该脚本，可以用以下命令快速添加，重新启动 VS Code 即可生效。
+
+```bash
+echo "umask 0022" | tee -a ~/.vscode-server/server-env-setup
 ```
 
 > 参考：[WSL Config - Microsoft](https://docs.microsoft.com/en-us/windows/wsl/wsl-config)
