@@ -10,7 +10,7 @@
     "build": "node prepare.js && hexo clean && hexo generate",
     "start": "hexo server --draft",
     "deploy": "hexo deploy",
-    "qiniu": "/Users/gzdaijie/tools/upload.sh"
+    "qiniu": "qshell qupload qiniu.conf"
   },
   "dependencies": {
     "hexo": "^3.8.0",
