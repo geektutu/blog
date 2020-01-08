@@ -23,6 +23,7 @@ image: post/link/link.png
 | [肆月之风](https://acme.top) | 爱技术、爱分享 | 
 | [JustSong](https://iamazing.cn) | 计算机专业求学过程中的思考 |
 | [Muniao](https://www.qtmuniao.com/) | 摄影，技术，分布式 |
+| [IT人技术博客](https://itren.tech) | 站点描述：记录所学、所感、所想 |
 
 ## 注意
 
