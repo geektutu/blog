@@ -66,8 +66,11 @@ widgets:
 
 # 自定义推广链接：宽度250，高度不限。
 custom_ads:
-- link: https://s.click.taobao.com/KNqTA4w
-  img: https://img.alicdn.com/tps/TB1FKhrOFXXXXXrXXXXXXXXXXXX-300-100.jpg
+- link: https://s.click.taobao.com/0ZEThqv
+  img: https://img.alicdn.com/tfs/TB1QJC6dOrpK1RjSZFhXXXSdXXa-300-100.jpg
+- link: https://url.cn/5bE04oI
+  img: http://ww1.sinaimg.cn/large/005Awedrgy1gaqtgjgmkgj30dw04nq2z.jpg
+
 
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
 ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
