@@ -45,6 +45,9 @@ $ find . -name "*.go" | xargs cat | wc -l
 
 ## 安装Go & Gin
 
+> 初学者建议先阅读 [Go 语言简明教程](https://geektutu.com/post/quick-golang.html)。
+> 一篇文章介绍了 Go 基本类型，结构体，单元测试，并发编程，依赖管理等内容。Go 1.13 以上版本的安装推荐该教程的方式。
+
 - 安装 Go (Ubuntu)
 
 ```bash
