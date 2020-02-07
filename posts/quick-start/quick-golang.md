@@ -1,12 +1,13 @@
 ---
 title: Go 语言简明教程
 seo_title: 快速入门
-date: 2020-01-18 01:00:00
+date: 2019-08-06 01:00:00
 description: 一篇文章入门Go语言，Go语言(Golang)简明教程，Go语言入门教程，Go语言中文教程(golang tutorial)。Go 是一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。本文介绍了 Go 语言的安装、基本类型(字符串str，整型，数组，切片slice，字典 map 等)、控制流(if, for range, for循环, switch 等)、复杂类型(结构体 struct, 接口 interface，方法 method 等)，并发编程(sync, chan)，错误处理(panic, error)，Go Modules 引入第三方依赖，以及如何写测试代码(Unit Test)等。
 tags:
 - Go
 categories:
-- 简明教程
+- Go 简明教程
+nav: 简明教程
 keywords:
 - Go语言
 - Go语言程序设计

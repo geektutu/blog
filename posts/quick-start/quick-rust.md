@@ -6,7 +6,8 @@ description: Rust简明教程，Rust入门教程，Rust 是一门系统编程语
 tags:
 - Rust
 categories:
-- 简明教程
+- Rust 简明教程
+nav: 简明教程
 keywords:
 - Rust语言
 - Rust程序设计

@@ -6,7 +6,8 @@ description: 本文介绍了 Go 语言（Golang）中远程过程调用(Remote P
 tags:
 - Go
 categories:
-- 简明教程
+- Go 简明教程
+nav: 简明教程
 keywords:
 - TLS
 - Golang

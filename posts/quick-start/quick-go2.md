@@ -6,7 +6,8 @@ description: GO 2 (golang 2) 的变化和新特性，与Go1相比Go2的变化。
 tags:
 - Go
 categories:
-- 简明教程
+- Go 简明教程
+nav: 简明教程
 keywords:
 - Go语言
 - GO2

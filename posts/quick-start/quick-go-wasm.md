@@ -6,7 +6,8 @@ description: 本文介绍了如何使用Go 语言(golang)、WebAssembly 和 goph
 tags:
 - Go
 categories:
-- 简明教程
+- Go 简明教程
+nav: 简明教程
 keywords:
 - Go WebAssembly
 - wasm

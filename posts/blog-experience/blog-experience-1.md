@@ -9,6 +9,7 @@ tags:
 - 关于我
 categories: 
 - 建站经历
+nav: 杂谈
 image: post/blog-experience-1/loading.gif
 ---
 

@@ -7,7 +7,8 @@ tags:
 keywords:
 - Python
 categories: 
-- Pandas
+- Pandas 数据处理
+nav: 简明教程
 image: post/pandas-select-data/pandas.gif
 ---
 

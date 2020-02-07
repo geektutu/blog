@@ -6,7 +6,8 @@ description: protobuf 即 Protocol Buffers，是一种轻便高效的结构化�
 tags:
 - Go
 categories:
-- 简明教程
+- Go 简明教程
+nav: 简明教程
 keywords:
 - Protocol Buffers
 - Protobuf

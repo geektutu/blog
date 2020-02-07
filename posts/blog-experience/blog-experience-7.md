@@ -8,6 +8,7 @@ tags:
 - 关于我
 categories: 
 - 建站经历
+nav: 杂谈
 image: post/blog-experience-7/comment.jpg
 github: https://gist.github.com/geektutu/f379d87767787979507a0e4a20da64ba
 ---

@@ -9,7 +9,8 @@ keywords:
 tags:
 - Pandas
 categories: 
-- Pandas
+- Pandas 数据处理
+nav: 简明教程
 image: post/pandas-cheat-sheet-zh-cn/cheat_sheet_part.png
 ---
 

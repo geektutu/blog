@@ -6,7 +6,8 @@ description: Gin教程，Gin框架教程，Gin快速入门，Gin中文教程，G
 tags:
 - Go
 categories:
-- 简明教程
+- Go 简明教程
+nav: 简明教程
 keywords:
 - Gin教程
 image: post/quick-go-gin/gin.jpg
