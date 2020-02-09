@@ -7,7 +7,7 @@ tags:
 image: post/link/link.png
 ---
 
-<style> article th:first-child { width: 124px; } </style>
+<style> article th:first-child { width: 140px; } </style>
 
 ## 互粉
 
@@ -22,9 +22,11 @@ image: post/link/link.png
 | [寒夏汢](https://hanxiatu.com) | 做一个有趣的人 | 
 | [肆月之风](https://acme.top) | 爱技术、爱分享 | 
 | [JustSong](https://iamazing.cn) | 计算机专业求学过程中的思考 |
-| [Muniao](https://www.qtmuniao.com/) | 摄影，技术，分布式 |
+| [Muniao](https://www.qtmuniao.com) | 摄影，技术，分布式 |
 | [IT人技术博客](https://itren.tech) | 站点描述：记录所学、所感、所想 |
 | [wujunze blog](https://wujunze.com) | 一个程序员的博客 |
+| [zhang0peter](https://zhang0peter.com) | 做有进步的分享 |
+| [格物](https://shockerli.net) | 一个程序员的博客 |
 
 ## 注意
 
