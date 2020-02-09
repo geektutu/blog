@@ -25,8 +25,8 @@ image: post/link/link.png
 | [Muniao](https://www.qtmuniao.com) | 摄影，技术，分布式 |
 | [IT人技术博客](https://itren.tech) | 站点描述：记录所学、所感、所想 |
 | [wujunze blog](https://wujunze.com) | 一个程序员的博客 |
-| [zhang0peter](https://zhang0peter.com) | 做有进步的分享 |
-| [格物](https://shockerli.net) | 一个程序员的博客 |
+| [zhang0peter](https://zhang0peter.com) | 记录学习与生活 |
+| [格物](https://shockerli.net) | 做有进步的分享 |
 
 ## 注意
 
