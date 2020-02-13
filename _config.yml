@@ -49,17 +49,18 @@ reward:
   wechat: wxp://f2f0qgGBlfD1nZXjvBjievxB0z0fc0W2sBq5
 
 related_links:
-- link: https://zhuanlan.zhihu.com/geektutu
-  img: img/related_links/zhihu.png
 - link: https://github.com/geektutu/hexo-theme-geektutu
   img: img/related_links/github.png
+- link: https://zhuanlan.zhihu.com/geektutu
+  img: img/related_links/zhihu.png
 - link: https://weibo.com/geektutu
   img: img/related_links/weibo.jpg
 
 # 文章末尾配置一些提示信息，可选，默认关闭
 post_tips:
   find_me: true # 本站永久域名「 xx.domain 」， 也可以通过搜索「 xx 」找到我。
-  zhihu_zhuanlan: https://zhuanlan.zhihu.com/geektutu # 欢迎关注我的「 知乎专栏 」，所有文章可在「 知乎APP 」查看。
+  zhihu_zhuanlan: https://zhuanlan.zhihu.com/geektutu # 欢迎关注我的「 知乎专栏 」。
+  weibo: https://weibo.com/geektutu # 欢迎关注我的「 微博 」。
 
 widgets:
   caidan: false  # 开启彩蛋，点击屏幕会随机弹出 '点个赞','留个言'等
