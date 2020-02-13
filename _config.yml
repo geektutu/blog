@@ -53,8 +53,8 @@ related_links:
   img: img/related_links/zhihu.png
 - link: https://github.com/geektutu/hexo-theme-geektutu
   img: img/related_links/github.png
-- link: https://github.com/geekcircle
-  img: img/related_links/geekcircle.png
+- link: https://weibo.com/geektutu
+  img: img/related_links/weibo.jpg
 
 # 文章末尾配置一些提示信息，可选，默认关闭
 post_tips:
