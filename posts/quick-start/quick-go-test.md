@@ -83,7 +83,7 @@ $ go test
 ok      example 0.009s
 ```
 
-或 `go test -v`，`-v` 参数会显示每个用例的测试结果。
+或 `go test -v`，`-v` 参数会显示每个用例的测试结果，另外 `-cover` 参数可以查看覆盖率。
 
 ```bash
 $ go test -v
@@ -461,5 +461,6 @@ BenchmarkParallel-16   3325430     375 ns/op   272 B/op   8 allocs/op
 
 ## 附 参考
 
+- [Go Mock (gomock) 简明教程](https://geektutu.com/post/quick-gomock.html)
 - [testing - golang.org](https://golang.org/pkg/testing/)
 - [Advanced Testing in Go - sourcegraph.com](https://about.sourcegraph.com/go/advanced-testing-in-go)
