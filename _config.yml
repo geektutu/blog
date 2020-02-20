@@ -51,6 +51,8 @@ reward:
 related_links:
 - link: https://github.com/geektutu/hexo-theme-geektutu
   img: img/related_links/github.png
+- link: https://zhuanlan.zhihu.com/geekgo
+  img: img/related_links/go.png
 - link: https://zhuanlan.zhihu.com/geektutu
   img: img/related_links/zhihu.png
 - link: https://weibo.com/geektutu
