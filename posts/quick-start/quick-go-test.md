@@ -273,8 +273,9 @@ func Test2(t *testing.T) {
 
 func TestMain(m *testing.M) {
 	setup()
-	os.Exit(m.Run())
+	code := m.Run()
 	teardown()
+	os.Exit(code)
 }
 
 ```
