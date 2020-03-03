@@ -1,22 +1,19 @@
 #!/bin/bash
 set -eou pipefail
 
-cur=$PWD
-
 pull(){
-    if [ -d $1/.git ]; then
-        echo "Pull $1" && git -C $1 pull
-    fi
+    dir=$1
+    repo=$2
+    if [ -d "$dir/$repo" ]; then
+        echo "Pull $2" && git -C "$dir/$repo" pull
+    else
+        git -C "$dir" clone "https://github.com/geektutu/$2"
+    fi;
 }
 
-# geektutu-blog
-pull $cur
-
-# geektutu theme
-pull $cur/themes/geektutu
-
+pull . .
+pull themes geektutu
 # geektutu posts
-for item in $(ls -d $cur/posts/*/)
-do
-    pull $item
-done
+pull posts 7days-golang
+pull posts interview-questions
+pull posts tensorflow2-docs-zh

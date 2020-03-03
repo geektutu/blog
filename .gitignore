@@ -11,7 +11,7 @@ urls.txt
 *.mdx
 # git repo alone
 themes
-posts/tensorflow2-docs
+posts/tensorflow2-docs-zh
 posts/interview-questions
 posts/7days-golang
 # github comments
