@@ -1,6 +1,6 @@
 # Geektutu's Blog
 
-[![travis][travis-image]][travis-url] 
+[![travis](https://travis-ci.com/geektutu/geektutu-blog.svg?branch=master)](https://travis-ci.com/geektutu/geektutu-blog)
 
 [极客兔兔的博客](https://geektutu.com)， 使用主题[geektutu](https://github.com/geektutu/hexo-theme-geektutu)
 
