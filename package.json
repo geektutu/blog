@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.8.0"
+    "version": "3.9.0"
   },
   "scripts": {
+    "comment": "node myscripts/comments.js",
     "build": "node myscripts/prepare.js && hexo clean && hexo generate",
     "start": "hexo server --draft",
     "deploy": "hexo deploy",

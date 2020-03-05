@@ -13,8 +13,11 @@ mv ./qshell-linux-x86-v2.4.1 qshell
 export PATH=$root/myscripts:$PATH
 ./qshell account ${QQ_AccessKey} ${QQ_SecretKey} ${QQ_Name}
 
-echo "hexo build"
+echo "github comment"
+yarn comment
+
 cd $root
+echo "hexo build"
 yarn build
 
 echo "upload qiniu"

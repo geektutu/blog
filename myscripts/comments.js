@@ -50,6 +50,9 @@ class Comments {
         let issueApi = issueUrl.slice(issueUrl.indexOf(PREFIX) + PREFIX.length)
         if (!this.issueMap[issueApi]) {
             let issue = await this.get(issueApi)
+            if (!issue.labels.find(label => label.name === 'Gitalk')) {
+                return
+            }
             issue.post = issue.labels.find(label => label.name.startsWith("/")).name
             issue.title = issue.title.split('|')[0].trim()
             this.issueMap[issueApi] = issue
@@ -61,6 +64,9 @@ class Comments {
         let simpleComments = {}
         for (const comment of this.comments) {
             let issue = await this.fetchIssue(comment.issue_url)
+            if (!issue) {
+                continue
+            }
             if (issue.user.login === comment.user.login) {
                 continue
             }
