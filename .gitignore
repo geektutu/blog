@@ -7,5 +7,6 @@ source/_posts/*
 db.json
 baidu_push.sh
 urls.txt
+qshell*
 # github comments
 source/tool/comments.json

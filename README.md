@@ -1,5 +1,7 @@
 # Geektutu's Blog
 
+[![travis][travis-image]][travis-url] 
+
 [极客兔兔的博客](https://geektutu.com)， 使用主题[geektutu](https://github.com/geektutu/hexo-theme-geektutu)
 
 如果你喜欢该主题，点个 [Star](https://github.com/geektutu/hexo-theme-geektutu) 吧。
