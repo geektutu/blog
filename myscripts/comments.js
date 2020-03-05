@@ -1,15 +1,16 @@
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
+
+const COMMENTS_FILE=path.join(__dirname, '..', 'source/tool/comments.json');
 
 const github = {
-    client_id: 'c1fdd456a4caae5f7df0',
-    client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879',
     repo: 'geektutu-blog',
-    owner: 'geektutu'
+    owner: 'geektutu',
+    basicAuth: 'YzFmZGQ0NTZhNGNhYWU1ZjdkZjA6YjI2NzQ0NTFlMjFmZWFlNTA1MjBmOTkzMzdlYzE1ZDJhZWJlNzg3OQ=='
 }
 
 const PREFIX = `/repos/${github.owner}/${github.repo}/`
-const AUTH = `&client_id=${github.client_id}&client_secret=${github.client_secret}`
 const PAGING = '&sort=created&direction=desc&per_page=100'
 
 class Comments {
@@ -48,7 +49,7 @@ class Comments {
     async fetchIssue(issueUrl) {
         let issueApi = issueUrl.slice(issueUrl.indexOf(PREFIX) + PREFIX.length)
         if (!this.issueMap[issueApi]) {
-            let issue = await this.get(issueApi + '?')
+            let issue = await this.get(issueApi)
             issue.post = issue.labels.find(label => label.name.startsWith("/")).name
             issue.title = issue.title.split('|')[0].trim()
             this.issueMap[issueApi] = issue
@@ -83,15 +84,18 @@ class Comments {
             }
         }
         let obj = Object.keys(simpleComments).map(key => simpleComments[key])
-        fs.writeFileSync("source/tool/comments.json", JSON.stringify(obj), { encoding: 'utf-8' });
+        fs.writeFileSync(COMMENTS_FILE, JSON.stringify(obj), { encoding: 'utf-8' });
         console.log(`write ${obj.length} success!`)
     }
 
     get(api) {
         let options = {
             hostname: 'api.github.com',
-            path: `${PREFIX}${api}${AUTH}`,
-            headers: { 'User-Agent': 'Node Https Client' }
+            path: `${PREFIX}${api}`,
+            headers: { 
+                'User-Agent': 'Node Https Client',
+                'Authorization': `Basic ${github.basicAuth}`,
+            }
         };
         console.log(`GET ${options.path}`)
         return new Promise((resolve, reject) => {

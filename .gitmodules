@@ -1,0 +1,12 @@
+[submodule "themes/geektutu"]
+	path = themes/geektutu
+	url = https://github.com/geektutu/hexo-theme-geektutu
+[submodule "posts/tensorflow2-docs-zh"]
+	path = posts/tensorflow2-docs-zh
+	url = https://github.com/geektutu/tensorflow2-docs-zh
+[submodule "posts/interview-questions"]
+	path = posts/interview-questions
+	url = https://github.com/geektutu/interview-questions
+[submodule "posts/7days-golang"]
+	path = posts/7days-golang
+	url = https://github.com/geektutu/7days-golang

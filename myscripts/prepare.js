@@ -2,9 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const exec = require('child_process').execSync;
 
-
-const SOURCE_POST_DIR = 'source/_posts/';
-const EXCLUDE_DIR = ['posts/interview-questions/ml/']
+const ROOT_PATH=path.join(__dirname, '..');
+const SOURCE_POST_DIR = path.join(ROOT_PATH, 'source/_posts/');
+const EXCLUDE_DIR = [path.join(ROOT_PATH, 'posts/interview-questions/ml/')]
 
 const walkDir = (dir, callback) => {
     fs.readdirSync(dir).forEach(f => {
@@ -22,7 +22,7 @@ exec(['rm -rf', SOURCE_POST_DIR].join(' '))
 exec(['mkdir -p', SOURCE_POST_DIR].join(' '))
 
 let count = 0;
-walkDir('./posts', (filePath) => {
+walkDir(path.join(ROOT_PATH, "posts"), (filePath) => {
     if (!filePath.endsWith('.md') || filePath.endsWith('README.md')
         || EXCLUDE_DIR.find(d => filePath.startsWith(d))) {
         return;

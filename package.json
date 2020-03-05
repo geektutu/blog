@@ -6,11 +6,10 @@
     "version": "3.8.0"
   },
   "scripts": {
-    "update": "rm -rf themes/geektutu && git clone https://github.com/geektutu/hexo-theme-geektutu.git themes/geektutu",
-    "build": "node prepare.js && hexo clean && hexo generate",
+    "build": "node myscripts/prepare.js && hexo clean && hexo generate",
     "start": "hexo server --draft",
     "deploy": "hexo deploy",
-    "qiniu": "qshell qupload qiniu.conf"
+    "qiniu": "qshell qupload myscripts/qiniu.conf"
   },
   "dependencies": {
     "hexo": "^3.8.0",

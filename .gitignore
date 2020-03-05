@@ -7,12 +7,5 @@ source/_posts/*
 db.json
 baidu_push.sh
 urls.txt
-# unpublished post
-*.mdx
-# git repo alone
-themes
-posts/tensorflow2-docs-zh
-posts/interview-questions
-posts/7days-golang
 # github comments
 source/tool/comments.json
