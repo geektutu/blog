@@ -4,4 +4,8 @@ node_js:
   - 8
 
 script:
-    - bash myscripts/travis.sh
+    - bash myscripts/install_qiniu.sh
+    - yarn update
+    - yarn comment
+    - yarn build
+    - yarn qiniu

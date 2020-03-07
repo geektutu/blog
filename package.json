@@ -6,6 +6,7 @@
     "version": "3.9.0"
   },
   "scripts": {
+    "update": "bash myscripts/git_pull.sh",
     "comment": "node myscripts/comments.js",
     "build": "node myscripts/prepare.js && hexo clean && hexo generate",
     "start": "hexo server --draft",

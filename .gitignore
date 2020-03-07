@@ -10,3 +10,8 @@ urls.txt
 qshell*
 # github comments
 source/tool/comments.json
+# integrated posts
+themes/geektutu
+posts/7days-golang
+posts/interview-questions
+posts/tensorflow2-docs-zh
