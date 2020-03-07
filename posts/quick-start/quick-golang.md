@@ -712,7 +712,7 @@ real    0m1.528s
 
 ## 8 单元测试(unit test)
 
-假设我们希望测试 package main 下 `calc.go` 中的函数，要只需要新建 `calc_test.go`函数，在`calc_test.go`中新建测试用例即可。
+假设我们希望测试 package main 下 `calc.go` 中的函数，要只需要新建 `calc_test.go` 文件，在`calc_test.go`中新建测试用例即可。
 
 ```go
 // calc.go

@@ -27,6 +27,9 @@ git config --global user.email <email@example.com>
 
 # 针对 https 协议的仓库，记住密码，避免每次都要求输入密码
 git config --global credential.helper store
+
+# 自动拉取 submodule
+git config --global submodule.recurse true
 ```
 
 ### alias 提高效率
