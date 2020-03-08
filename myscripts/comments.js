@@ -57,7 +57,7 @@ class Comments {
             for (const issue of issues) {
                 let post = issue.labels.find(label => label.name.startsWith("/")).name
                 postMap[post] = {
-                    "url": issue.url,
+                    "url": issue.html_url,
                     "comments": issue.comments
                 }
                 size++
