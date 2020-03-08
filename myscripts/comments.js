@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const COMMENTS_FILE=path.join(__dirname, '..', 'source/tool/comments.json');
+const ISSUES_FILE=path.join(__dirname, '..', 'source/tool/issues.json');
 
 const github = {
     repo: 'geektutu-blog',
@@ -44,6 +45,30 @@ class Comments {
         this.comments = await this.get(`issues/comments?${PAGING}`)
         console.log(`comments.length: ${this.comments.length}`)
         await this.writeComments()
+    }
+
+    async writeIssues() {
+        let postMap = {}
+        let page = 0
+        let size = 0
+        while(true) {
+            page++
+            let issues = await this.get(`issues?labels=Gitalk&per_page=100&page=${page}`)
+            for (const issue of issues) {
+                let post = issue.labels.find(label => label.name.startsWith("/")).name
+                postMap[post] = {
+                    "url": issue.url,
+                    "comments": issue.comments
+                }
+                size++
+            }
+            if (issues.length < 100) {
+                break
+            }
+        }
+
+        fs.writeFileSync(ISSUES_FILE, JSON.stringify(postMap), { encoding: 'utf-8' });
+        console.log(`write ${ISSUES_FILE} ${size} success!`)
     }
 
     async fetchIssue(issueUrl) {
@@ -91,7 +116,7 @@ class Comments {
         }
         let obj = Object.keys(simpleComments).map(key => simpleComments[key])
         fs.writeFileSync(COMMENTS_FILE, JSON.stringify(obj), { encoding: 'utf-8' });
-        console.log(`write ${obj.length} success!`)
+        console.log(`write ${COMMENTS_FILE} ${obj.length} success!`)
     }
 
     get(api) {
@@ -120,6 +145,7 @@ class Comments {
 
 (async () => {
     client = new Comments()
+    await client.writeIssues()
     await client.parse()
 })();
 

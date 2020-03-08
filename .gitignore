@@ -10,6 +10,7 @@ urls.txt
 qshell*
 # github comments
 source/tool/comments.json
+source/tool/issues.json
 # integrated posts
 themes/geektutu
 posts/7days-golang
