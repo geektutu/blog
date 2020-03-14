@@ -11,7 +11,7 @@
     "build": "node myscripts/prepare.js && hexo clean && hexo generate",
     "start": "hexo server --draft",
     "deploy": "hexo deploy",
-    "qiniu": "qshell qupload myscripts/qiniu.conf"
+    "qiniu": "qshell qupload -c 50 myscripts/qiniu.conf"
   },
   "dependencies": {
     "hexo": "^3.9.0",
