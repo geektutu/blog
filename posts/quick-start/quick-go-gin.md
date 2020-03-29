@@ -207,13 +207,13 @@ Hello geektutu
 r.GET("/users", func(c *gin.Context) {
 	name := c.Query("name")
 	role := c.DefaultQuery("role", "teacher")
-	c.String(http.StatusOK, "%s is %s", name, role)
+	c.String(http.StatusOK, "%s is a %s", name, role)
 })
 ```
 
 ```bash
-$ curl http://localhost:9999/user/geektutu/student
-geektutu is /student
+$ curl "http://localhost:9999/users?name=Tom&role=student"
+Tom is a student
 ```
 
 #### 获取POST参数
@@ -222,7 +222,7 @@ geektutu is /student
 // POST
 r.POST("/form", func(c *gin.Context) {
 	username := c.PostForm("username")
-	password := c.DefaultPostForm("username", "000000") // 可设置默认值
+	password := c.DefaultPostForm("password", "000000") // 可设置默认值
 
 	c.JSON(http.StatusOK, gin.H{
 		"username": username,
