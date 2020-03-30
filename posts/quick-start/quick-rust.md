@@ -89,7 +89,7 @@ Hello, world!
 
 - 新建二进制(Binary/Executable)项目
 
-```
+```bash
 $ cargo new tutu --bin
 $ cd tutu && tree
 ├── Cargo.toml
@@ -118,7 +118,7 @@ Hello, Cargo!
 
 - 新建 Library 项目
 
-```
+```bash
 $ cargo new tutu --lib
 $ cd tutu && tree
 ├── Cargo.toml
@@ -226,7 +226,7 @@ fn plus_one(a: i32) -> i32 {
 
 可以利用元组(tuple)返回多个值
 
-```
+```rust
 fn plus_one(a: i32) -> (i32, i32) {
     (a, &a + 1)
 }
@@ -293,7 +293,7 @@ println!("{:?}", a); //(1, 1.5, true, 'a', "Hello, world!")
 
 切片并没有拷贝原有的数组，只是指向原有数组的一个连续部分，行为同数组。访问切片指向的数组/数据结构，可以使用`&`操作符。
 
-```
+```rust
 let a: [i32; 4] = [1, 2, 3, 4];
 
 let b: &[i32] = &a; // 全部
@@ -815,7 +815,7 @@ fn plus(x: i8, y: Option<i8>) {
 
 - 实现方法(impl)
 
-```
+```rust
 struct Rectangle {
     width: u32,
     height: u32,
@@ -866,7 +866,7 @@ trait Summary {
 
 impl Summary for Rectangle {
     fn summarize(&self) -> String {
-        format!("{width={}, height={}}", self.width, self.height)
+        format!("{{width={}, height={}}}", self.width, self.height)
     }
 }
 
@@ -1100,7 +1100,7 @@ assert_eq!(Some('h'), v.chars().nth(0));
 
 - 遍历
 
-```
+```rust
 let v = String::from("hello");
 for c in v.chars() {
     println!("{}", c);
@@ -1171,7 +1171,7 @@ fn main() {
 
 执行 *cargo run* 将打印出
 
-```
+```bash
 $ cargo run
 Compiling tutu v0.1.0 (/xxx/demo/tutu)
     Finished dev [unoptimized + debuginfo] target(s) in 0.28s
@@ -1196,7 +1196,7 @@ fn main() {
 
 例如执行 *RUST_BACKTRACE=1 cargo run*，这种方式的好处在于，环境变量只作用于当前命令。
 
-```
+```bash
 $ RUST_BACKTRACE=1 cargo run
 Finished dev [unoptimized + debuginfo] target(s) in 0.00s
      Running `target/debug/tutu`
