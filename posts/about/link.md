@@ -27,6 +27,11 @@ image: post/link/link.png
 | [wujunze blog](https://wujunze.com) | 一个程序员的博客 |
 | [zhang0peter](https://zhang0peter.com) | 记录学习与生活 |
 | [格物](https://shockerli.net) | 做有进步的分享 |
+| [Ryan的技术笔记](https://yuanxuxu.com) | 记录全栈开发以及区块链开发技术笔记 |
+| [四畳半神话大系](http://blog.amoyiki.com/) | 一个后端程序员的踩坑经历 |
+| [影留](https://leftshadow.com) | 读书、念经 |
+| [BBruceyuan](https://bbruceyuan.github.io) | 站点描述：没有故事，写点技术，同时打点酱油! |
+| [曹阿宇的博客](https://www.caoayu.xyz) | 简单的分享和记录 |
 
 ## 注意
 
