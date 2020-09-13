@@ -32,6 +32,8 @@ image: post/link/link.png
 | [影留](https://leftshadow.com) | 读书、念经 |
 | [BBruceyuan](https://bbruceyuan.github.io) | 站点描述：没有故事，写点技术，同时打点酱油! |
 | [曹阿宇的博客](https://www.caoayu.xyz) | 简单的分享和记录 |
+| [Schwarzeni's blog](https://blog.schwarzeni.com/) | Welcome to my secret garden, coding & life |
+| [HelloWorld](https://helloworld.net) | 专业开发者平台 |
 
 ## 注意
 
