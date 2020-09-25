@@ -69,11 +69,11 @@ widgets:
   busuanzi: true # 开启不蒜子统计 https://busuanzi.ibruce.info/
 
 # 自定义推广链接：宽度250，高度不限。
-custom_ads:
-- link: https://s.click.taobao.com/0ZEThqv
-  img: https://img.alicdn.com/tfs/TB1QJC6dOrpK1RjSZFhXXXSdXXa-300-100.jpg
-- link: https://url.cn/5bE04oI
-  img: https://s2.ax1x.com/2020/02/12/1bns2D.jpg
+# custom_ads:
+# - link: https://s.click.taobao.com/0ZEThqv
+#   img: https://img.alicdn.com/tfs/TB1QJC6dOrpK1RjSZFhXXXSdXXa-300-100.jpg
+# - link: https://url.cn/5bE04oI
+#   img: https://s2.ax1x.com/2020/02/12/1bns2D.jpg
 
 
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
