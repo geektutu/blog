@@ -34,6 +34,7 @@ image: post/link/link.png
 | [曹阿宇的博客](https://www.caoayu.xyz) | 简单的分享和记录 |
 | [Schwarzeni's blog](https://blog.schwarzeni.com/) | Welcome to my secret garden, coding & life |
 | [HelloWorld](https://helloworld.net) | 专业开发者平台 |
+| [李文周的博客](https://www.liwenzhou.com) | Go 语言学习之路 🔝 |
 
 ## 注意
 
