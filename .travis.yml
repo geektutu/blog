@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - 14
+  - 8
 
 script:
     - yarn update
