@@ -61,7 +61,7 @@ related_links:
 # 文章末尾配置一些提示信息，可选，默认关闭
 post_tips:
   find_me: true # 本站永久域名「 xx.domain 」， 也可以通过搜索「 xx 」找到我。
-  zhihu_zhuanlan: https://zhuanlan.zhihu.com/geekgo # 欢迎关注我的「 知乎专栏 」。
+  zhihu: https://www.zhihu.com/people/gzdaijie # 欢迎关注我的「 知乎 」。
   weibo: https://weibo.com/geektutu # 欢迎关注我的「 微博 」。
 
 widgets:
@@ -79,3 +79,11 @@ widgets:
 ba_auto_push: true # Baidu 自动推送，以下均为可选配置
 ba_track_id: 1a0ec38c52c08db815b0046c2783b1aa # Baidu Analytics
 google_analysis: UA-142641425-1 # Google Analytics
+
+feed:
+  enable: true
+  limit: 0
+  type: rss2
+  content: false
+  path: feed.xml
+  icon: img/icon.png
