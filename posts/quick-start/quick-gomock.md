@@ -185,7 +185,7 @@ func TestGetFromDB(t *testing.T) {
 
 ```go
 func GetFromDB(key string) int {
-    db := NewDB()
+	db := NewDB()
 	if value, err := db.Get(key); err == nil {
 		return value
 	}
