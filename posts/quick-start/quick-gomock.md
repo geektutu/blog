@@ -42,7 +42,7 @@ type DB interface {
 }
 
 func GetFromDB(db DB, key string) int {
-	if value, err := db.Get(key); err != nil {
+	if value, err := db.Get(key); err == nil {
 		return value
 	}
 
@@ -66,7 +66,7 @@ func TestGetFromDB(t *testing.T) {
 	defer ctrl.Finish() // 断言 DB.Get() 方法是否被调用
 
 	m := NewMockDB(ctrl)
-	m.EXPECT().Get(gomock.Eq("Tom")).Return(0, errors.New("not exist"))
+	m.EXPECT().Get(gomock.Eq("Tom")).Return(100, errors.New("not exist"))
 
 	if v := GetFromDB(m, "Tom"); v != -1 {
 		t.Fatal("expected -1, but got", v)
