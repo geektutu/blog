@@ -246,3 +246,7 @@ Continue from
 > 源代码&数据集已上传到 [Github](https://github.com/geektutu/tensorflow-tutorial-samples)
 
 **觉得还不错，不要吝惜你的[star](https://github.com/geektutu/tensorflow-tutorial-samples)，支持是持续不断更新的动力。**
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

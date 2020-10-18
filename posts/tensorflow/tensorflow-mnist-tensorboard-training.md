@@ -177,3 +177,7 @@ python -m tensorboard.main --logdir=./log
 `./log`是summary数据存储的路径，即在tf.summary.FileWriter中传入的路径。tensorboard 开始运行后，在浏览器中输入 `localhost:6006` 即可看到本文最开始的效果。
 
 **觉得还不错，不要吝惜你的[star](https://github.com/geektutu/tensorflow-tutorial-samples)，支持是持续不断更新的动力。**
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

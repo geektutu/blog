@@ -275,4 +275,6 @@ score: -161.0
 
 代码已经上传到[Github - tensorflow-tutorial-samples](https://github.com/geektutu/tensorflow-tutorial-samples/tree/master/gym/MountainCar-v0-dqn)，**dqn.py**只有90行，不妨试一试吧~
 
+## 附 推荐
 
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

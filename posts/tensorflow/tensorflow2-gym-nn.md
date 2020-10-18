@@ -238,3 +238,7 @@ using nn, score:  200.0
 ![gym cartpole-v0 success](tensorflow2-gym-nn/cartpole_v0_success.gif)
 
 在[Github - tensorflow-tutorial-samples](https://github.com/geektutu/tensorflow-tutorial-samples/tree/master/gym/CartPole-v0-nn)上提供了`.py`和`.ipynb`2种格式的代码。
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

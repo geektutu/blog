@@ -260,3 +260,7 @@ using policy gradient, score:  200.0
 教程中，每个回合不管多少条训练数据，直接训练，而没有固定大小的`batch`，不利于训练。有时间可以尝试，设置一个大小为2000的队列，存储历史的训练数据，每次固定取32/64条训练集，对比下两者的效果。
 
 代码已上传至 [Github - CartPole-v0-policy-gradient](https://github.com/geektutu/tensorflow-tutorial-samples/tree/master/gym/CartPole-v0-policy-gradient)
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

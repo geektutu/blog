@@ -41,3 +41,7 @@ Pandas的[英文文档](https://pandas.pydata.org/pandas-docs/stable/)内容过�
 点击查看/下载pdf版本 [Pandas_Cheat_Sheet_zh_CN.pdf](pandas-cheat-sheet-zh-cn/Pandas_Cheat_Sheet_zh_CN.pdf)
 
 也欢迎把本文分享给对pandas感兴趣的小伙伴。
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

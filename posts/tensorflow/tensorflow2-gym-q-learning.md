@@ -210,3 +210,7 @@ score: -151.0
 代码已经上传到[Github - tensorflow-tutorial-samples](https://github.com/geektutu/tensorflow-tutorial-samples/tree/master/gym/MountainCar-v0-q-learning)，**q_learning.py**只有50行，不妨试一试吧~
 
 我们这里的预测模型保存在了`Q-Table`中，输入是State，输出是3个Action的价值，Q-Table是一个字典，有着准确的映射关系，那如果我们用深度神经网络(Deep Neural Network, DNN)模拟这个字典呢？那这就被称为 `DQN(Deep Q-Learning Network)`。好，那我们下一篇文章，就借助`TensorFlow 2.0`用神经网络替换掉`Q-Table`吧。
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

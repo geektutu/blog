@@ -275,7 +275,11 @@ $ python predict.py
         -> Predict digit 4
 ```
 
-## 附：与TensorFlow1.0的区别总结
+## 与TensorFlow1.0的区别总结
 
 1. 数据集从**tensorflow.examples.tutorials.mnist**切换到了**tensorflow.keras.datasets**
 2. Keras的接口成为了主力，**datasets, layers, models**都是从Keras引入的，而且在网络的搭建上，代码更少，更为简洁。
+
+## 附： 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)

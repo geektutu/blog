@@ -262,3 +262,7 @@ if __name__ == "__main__":
 > 项目已更新在[Github](https://github.com/geektutu/tensorflow-tutorial-samples)，数据集由于国内网络等因素，有时候不能正确下载，所以数据集也一并同步了。
 
 **觉得还不错，不要吝惜你的[star](https://github.com/geektutu/tensorflow-tutorial-samples)，支持是持续不断更新的动力。**
+
+## 附 推荐
+
+- [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)
