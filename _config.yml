@@ -51,12 +51,16 @@ reward:
 related_links:
 - link: https://github.com/geektutu/hexo-theme-geektutu
   img: img/related_links/github.png
+  name: Github
 - link: https://zhuanlan.zhihu.com/geekgo
   img: img/related_links/go.png
+  name: 专栏
 - link: https://www.zhihu.com/people/gzdaijie
   img: img/related_links/zhihu.png
+  name: 知乎
 - link: https://weibo.com/geektutu
   img: img/related_links/weibo.jpg
+  name: 微博
 
 # 文章末尾配置一些提示信息，可选，默认关闭
 post_tips:
