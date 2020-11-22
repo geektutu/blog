@@ -7,9 +7,9 @@ tags:
 - TensorFlow
 - OpenAI gym
 - Python
-nav: TensorFlow
+nav: 简明教程
 categories:
-- TensorFlow教程
+- TensorFlow 教程
 keywords:
 - TensorFlow2教程
 - TensorFlow2.0教程

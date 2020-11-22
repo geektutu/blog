@@ -13,9 +13,9 @@ keywords:
 - TensorFlow2.0教程
 - Double DQN
 - DDQN
-nav: TensorFlow
+nav: 简明教程
 categories:
-- TensorFlow教程
+- TensorFlow 教程
 image: post/tensorflow2-gym-dqn/mountaincar_v0_scores.jpg
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

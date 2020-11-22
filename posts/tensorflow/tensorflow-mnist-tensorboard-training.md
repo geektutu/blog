@@ -7,9 +7,9 @@ tags:
 - TensorFlow
 - mnist
 - Python
-nav: TensorFlow
+nav: 简明教程
 categories:
-- TensorFlow教程
+- TensorFlow 教程
 image: post/tensorflow-mnist-tensorboard-training/tensorboard_mnist_graph.png
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

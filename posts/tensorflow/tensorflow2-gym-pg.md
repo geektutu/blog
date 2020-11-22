@@ -12,9 +12,9 @@ keywords:
 - 策略梯度
 - TensorFlow2教程
 - TensorFlow2.0教程
-nav: TensorFlow
+nav: 简明教程
 categories:
-- TensorFlow教程
+- TensorFlow 教程
 image: post/tensorflow2-gym-pg/pg_plot.jpg
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---

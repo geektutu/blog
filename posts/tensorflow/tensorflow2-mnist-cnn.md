@@ -11,9 +11,9 @@ tags:
 keywords:
 - TensorFlow2教程
 - TensorFlow2.0教程
-nav: TensorFlow
+nav: 简明教程
 categories:
-- TensorFlow教程
+- TensorFlow 教程
 image: post/tensorflow2-mnist-cnn/cnn_image_sample.gif
 github: https://github.com/geektutu/tensorflow-tutorial-samples
 ---
