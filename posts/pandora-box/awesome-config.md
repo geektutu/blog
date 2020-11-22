@@ -4,8 +4,9 @@ date: 2019-12-03 00:30:00
 description: 记录开发过程中一些工具的常用配置，加速在新环境上的准备效率。工具包括不限于微软 Linux 子系统 Ubuntu (WSL, WSL2), Git, 微软最新发布的命令行神器( Mircosoft Terminal )等。
 tags:
 - 百宝箱
+nav: 百宝箱
 categories:
-- 百宝箱
+- 工具
 keywords:
 - WSL
 - Ubuntu

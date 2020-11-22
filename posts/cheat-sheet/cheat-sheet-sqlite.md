@@ -9,10 +9,9 @@ tags:
 keywords:
 - SQLite 使用教程
 - 数据库
-nav:
-- 速查表
+nav: 百宝箱
 categories:
-- SQLite 常用命令
+- SQLite 速查表
 image: post/cheat-sheet-sqlite/sqlite.jpg
 ---
 
