@@ -1,6 +1,8 @@
 name: public blog
 
 on:
+  workflow_dispatch:
+    ref: refs/heads/master
   schedule:
     - cron: '0 21 * * *'
 
