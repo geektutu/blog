@@ -14,6 +14,8 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+    
+    environment: QQ
 
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +24,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: yarn build
+      env:
+        QQ_NAME: ${{ secrets.QQ_NAME }}
+        QQ_SECRETKEY: ${{ secrets.QQ_SECRETKEY }}
+        QQ_ACCESSKEY: ${{ secrets.QQ_ACCESSKEY }}
       run: |
+        echo $QQ_NAME
         yarn install
         yarn update
         yarn comment
