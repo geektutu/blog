@@ -91,3 +91,11 @@ feed:
   content: false
   path: feed.xml
   icon: img/icon.png
+
+index_rec:
+- link: https://geektutu.com/post/gee.html
+  name: 📘 七天用 Go 从零实现
+- link: https://geektutu.com/post/high-performance-go.html
+  name: 📘 Go 语言高性能编程
+- link: https://studygolang.com
+  name: 🔗 Go 语言中文网
