@@ -76,7 +76,7 @@ func TestGetFromDB(t *testing.T) {
 
 - 这个测试用例有2个目的，一是使用 `ctrl.Finish()` 断言 `DB.Get()` 被是否被调用，如果没有被调用，后续的 mock 就失去了意义；
 - 二是测试方法 `GetFromDB()` 的逻辑是否正确(如果 `DB.Get()` 返回 error，那么 `GetFromDB()` 返回 -1)。
-- `NewMockDB()` 的定义在 `db_test.go` 中，由 mockgen 自动生成。
+- `NewMockDB()` 的定义在 `db_mock.go` 中，由 mockgen 自动生成。
 
 最终的代码结构如下：
 
