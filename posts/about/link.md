@@ -34,7 +34,8 @@ image: post/link/link.png
 | [曹阿宇的博客](https://www.caoayu.xyz) | 简单的分享和记录 |
 | [Schwarzeni's blog](https://blog.schwarzeni.com/) | Welcome to my secret garden, coding & life |
 | [HelloWorld](https://helloworld.net) | 专业开发者平台 |
-| [李文周的博客](https://www.liwenzhou.com) | Go 语言学习之路 🔝 |
+| [李文周的博客](https://www.liwenzhou.com) | Go 语言学习之路 |
+| [真白的年轮面包](https://mashiro.best) | 此生无悔恋真白，来世愿入樱花庄 |
 
 ## 注意
 
