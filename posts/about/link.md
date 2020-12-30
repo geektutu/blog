@@ -7,7 +7,7 @@ tags:
 image: post/link/link.png
 ---
 
-<style> article th:first-child { width: 140px; } </style>
+<style> article th:first-child { width: 160px; } </style>
 
 ## 互粉
 
@@ -36,6 +36,9 @@ image: post/link/link.png
 | [HelloWorld](https://helloworld.net) | 专业开发者平台 |
 | [李文周的博客](https://www.liwenzhou.com) | Go 语言学习之路 |
 | [真白的年轮面包](https://mashiro.best) | 此生无悔恋真白，来世愿入樱花庄 |
+| [呱牛笔记](https://guaniutech.com/) | 瓜牛的个人技术博客 |
+| [lipsuper](https://www.lipsuper.com) | 走在全栈路上，专注产出高质量原创手打文章 |
+| [倪旭晨的技术博客](http://nxc.1207game.com/) | 一个全栈开发者的技术博客 |
 
 ## 注意
 
