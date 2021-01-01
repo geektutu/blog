@@ -1254,4 +1254,4 @@ OK
 
 ## 附
 
-这篇文章托管在 [github](https://github.com/geektutu/geektutu-blog/tree/master/posts/quick-start/python)，如果有错别字或其他修改建议，可以直接提 PR，感谢您的阅读和贡献。
+这篇文章托管在 [github](https://github.com/geektutu/blog/tree/master/posts/quick-start/python)，如果有错别字或其他修改建议，可以直接提 PR，感谢您的阅读和贡献。

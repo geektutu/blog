@@ -40,7 +40,7 @@ gitalk:
   client_id: 'c1fdd456a4caae5f7df0'
   client_secret: 'b2674451e21feae50520f99337ec15d2aebe7879'
   accessToken: '513dc2f1e6df8c07a12fbf1547874f54679d9712'
-  repo: 'geektutu-blog'
+  repo: 'blog'
   owner: 'geektutu'
 
 # alipay wechatpay 的二维码转换的网址，不使用二维码图片，提高加载速率。
