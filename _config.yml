@@ -52,12 +52,12 @@ reward:
   wechat: wxp://f2f0qgGBlfD1nZXjvBjievxB0z0fc0W2sBq5
 
 related_links:
-- link: https://geektutu.com/feed.xml
-  img: img/related_links/rss.jpg
-  name: 订阅
 - link: https://github.com/geektutu
   img: img/related_links/github.png
   name: Github
+- link: https://geektutu.com/feed.xml
+  img: img/related_links/rss.jpg
+  name: RSS
 - link: https://www.zhihu.com/people/gzdaijie
   img: img/related_links/zhihu.png
   name: 知乎
