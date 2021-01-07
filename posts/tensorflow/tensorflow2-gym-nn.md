@@ -19,6 +19,11 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 ![gym cartpole-v0 failed](tensorflow2-gym-nn/cartpole_v0_failed.gif)
 
+<style>
+@media (min-width: 992px) {.gkt-article-start + p > img {min-height: 15rem;}}
+.gkt-article-start + p > img {width: auto;}
+</style>
+
 这篇文章是 **TensorFlow 2.0 Tutorial** 入门教程的第六篇文章，介绍如何使用 **TensorFlow 2.0** 搭建神经网络(Neural Network, NN)，使用纯监督学习(Supervised Learning)的方法，玩转 OpenAI gym game。示例代码基于 Python 3 和 TensorFlow 2.0 。
 
 [OpenAI gym](https://gym.openai.com/)是一个开源的游戏模拟环境，主要用来开发和比较强化学习(Reinforcement Learning, RL)的算法。这篇文章是 Tensorflow 2.0 系列使用 gym 的第一篇文章，网上介绍强化学习玩 gym 的文章比较多，而纯监督学习的文章极少。我们先使用纯监督学习的算法，一起感受 gym 的魅力吧。

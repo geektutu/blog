@@ -20,6 +20,11 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 ![Geektutu Q-Learning MountainCar Failed](tensorflow2-gym-q-learning/mountaincar_v0_failed.gif)
 
+<style>
+@media (min-width: 992px) {.gkt-article-start + p > img {min-height: 15rem;}}
+.gkt-article-start + p > img {width: auto;}
+</style>
+
 这篇文章是 **TensorFlow 2.0 Tutorial** 入门教程的第七篇文章，介绍如何使用强化学习(Reinforcement Learning, RL)的一个经典算法(Q-Learning)，玩转 OpenAI gym game。
 
 **代码仅50行~**

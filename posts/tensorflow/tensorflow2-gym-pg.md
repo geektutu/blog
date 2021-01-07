@@ -21,6 +21,11 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 ![Geektutu Policy Gradient Success](tensorflow2-gym-pg/pg_success.gif)
 
+<style>
+@media (min-width: 992px) {.gkt-article-start + p > img {min-height: 15rem;}}
+.gkt-article-start + p > img {width: auto;}
+</style>
+
 这篇文章是 **TensorFlow 2.0 Tutorial** 入门教程的第九篇文章。
 
 实战策略梯度算法(Policy Gradient)，**代码70行**

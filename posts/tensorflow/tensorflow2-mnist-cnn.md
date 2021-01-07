@@ -20,6 +20,11 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 ![卷积神经网络gif动图](tensorflow2-mnist-cnn/cnn_image_sample.gif)
 
+<style>
+@media (min-width: 992px) {.gkt-article-start + p > img {min-height: 15rem;}}
+.gkt-article-start + p > img {width: auto;}
+</style>
+
 [大白话讲解卷积神经网络工作原理](https://www.bilibili.com/video/av35087157/)，推荐一个bilibili的讲卷积神经网络的视频，up主从youtube搬运过来，用中文讲了一遍。
 
 这篇文章是 **TensorFlow 2.0 Tutorial** 入门教程的第五篇文章，介绍如何使用**卷积神经网络**（Convolutional Neural Network, **CNN**）来提高mnist手写数字识别的准确性。之前使用了最简单的784x10的神经网络，达到了 `0.91` 的正确性，而这篇文章在使用了卷积神经网络后，正确性达到了`0.99`

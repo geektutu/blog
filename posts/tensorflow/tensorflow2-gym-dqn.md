@@ -22,6 +22,11 @@ github: https://github.com/geektutu/tensorflow-tutorial-samples
 
 ![Geektutu Q-Learning MountainCar Failed](tensorflow2-gym-dqn/mountaincar_v0_success.gif)
 
+<style>
+@media (min-width: 992px) {.gkt-article-start + p > img {min-height: 15rem;}}
+.gkt-article-start + p > img {width: auto;}
+</style>
+
 这篇文章是 **TensorFlow 2.0 Tutorial** 入门教程的第八篇文章。
 
 实现DQN(Deep Q-Learning Network)算法，**代码90行**
