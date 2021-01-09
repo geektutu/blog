@@ -11,7 +11,7 @@ Coding 创建有趣的开源项目，戳：[https://geektutu.com/](https://geekt
 - 方式一：右上角，**watch** 本仓库，每一篇文章更新，你都能收到邮件通知
 - 方式二：通过 [RSS](https://geektutu.com/feed.xml) 订阅，推荐 RSS 阅读器 [Rolly](https://www.coolapk.com/apk/239500)。
 
-### 比较成体系的专题系列有：
+**较为完整的系列有：**
 
 - 一篇文章入门系列
   - [一篇文章入门 Python](https://geektutu.com/post/quick-python.html)
