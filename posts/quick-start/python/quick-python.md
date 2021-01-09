@@ -20,7 +20,7 @@ image: post/quick-python/python.jpg
 
 > Python is a programming language that lets you work more quickly and integrate your systems more effectively. -- [python.org](https://www.python.org)
 
-## 1 安装
+## 0 安装
 
 可以直接从官网 [python.org/downloads](https://www.python.org/downloads/) 下载安装，最新版本是 3.9.0。安装过程和普通的 Windows 软件一致。安装完成后，需将安装路径添加到环境变量中。
 
