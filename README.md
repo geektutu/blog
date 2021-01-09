@@ -34,8 +34,6 @@ Coding 创建有趣的开源项目，戳：[https://geektutu.com/](https://geekt
 
 ## 关于 hexo 主题
 
-### 应用主题
-
 使用主题 [hexo-theme-geektutu](https://github.com/geektutu/hexo-theme-geektutu)
 
 ```bash
@@ -45,14 +43,14 @@ yarn build  # 将posts的文章拷贝到source目录下的_posts，并执行hexo
 yarn deploy # 部署到_config.xml中配置的仓库地址
 ```
 
-如果你使用的是yarn，将下面的npm换成yarn即可。
+如果你使用的是 yarn，将下面的 npm 换成 yarn 即可。
 
-posts目录的存在仅仅是为了博主做博客分类使用， npm build时会拷贝到source/_posts。
-因此， 直接新建source/_posts目录，并直接在该文件夹下写文章是没有问题的。
+`posts` 目录的存在仅仅是为了博主做博客分类使用， `yarn build` 时会拷贝到 `source/_posts`。
+因此， 直接新建 `source/_posts` 目录，并直接在该文件夹下写文章是没有问题的。
 
-可以在package.json里的scripts部分，定制你自己的npm/yarn命令。
+可以在 package.json 里的 scripts 部分，定制你自己的 npm/yarn 命令。
 
-### 七牛使用文档
+本站使用对象存储 + CDN 方式托管在[七牛云](https://marketing.qiniu.com/cps/redirect?redirect_id=4&cps_key=1hetil5x65e8i)
 
 - [账号配置](https://github.com/qiniu/qshell)
 - [上传配置](https://github.com/qiniu/qshell/blob/master/docs/qupload.md)
