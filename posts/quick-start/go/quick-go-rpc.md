@@ -63,7 +63,7 @@ func (cal *Cal) Square(num int) *Result {
 
 func main() {
 	cal := new(Cal)
-	result := cal.Square(11)
+	result := cal.Square(12)
 	log.Printf("%d^2 = %d", result.Num, result.Ans)
 }
 ```
