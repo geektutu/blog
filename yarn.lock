@@ -633,9 +633,9 @@ hexo@5.2.0:
     warehouse "^4.0.0"
 
 highlight.js@^10.0.0:
-  version "10.2.1"
-  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-10.2.1.tgz#09784fe2e95612abbefd510948945d4fe6fa9668"
-  integrity sha1-CXhP4ulWEqu+/VEJSJRdT+b6lmg=
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.6.0.tgz#0073aa71d566906965ba6e1b7be7b2682f5e18b6"
+  integrity sha512-8mlRcn5vk/r4+QcqerapwBYTe+iPL5ih6xrNylxrnBdHQiijDETfXX7VIxC3UiCRiINBJfANBAsPzAvRQj8RpQ==
 
 htmlparser2@^4.0.0:
   version "4.1.0"
