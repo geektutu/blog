@@ -6,7 +6,7 @@ const COMMENTS_FILE=path.join(__dirname, '..', 'source/tool/comments.json');
 const ISSUES_FILE=path.join(__dirname, '..', 'source/tool/issues.json');
 
 const github = {
-    repo: 'geektutu-blog',
+    repo: 'blog',
     owner: 'geektutu',
     basicAuth: 'YzFmZGQ0NTZhNGNhYWU1ZjdkZjA6YjI2NzQ0NTFlMjFmZWFlNTA1MjBmOTkzMzdlYzE1ZDJhZWJlNzg3OQ=='
 }
