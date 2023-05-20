@@ -1,7 +1,7 @@
 ---
-title: WSL, Git, Mircosoft Terminal 等常用工具配置
+title: WSL, Git, Microsoft Terminal 等常用工具配置
 date: 2019-12-03 00:30:00
-description: 记录开发过程中一些工具的常用配置，加速在新环境上的准备效率。工具包括不限于微软 Linux 子系统 Ubuntu (WSL, WSL2), Git, 微软最新发布的命令行神器( Mircosoft Terminal )等。
+description: 记录开发过程中一些工具的常用配置，加速在新环境上的准备效率。工具包括不限于微软 Linux 子系统 Ubuntu (WSL, WSL2), Git, 微软最新发布的命令行神器( Microsoft Terminal )等。
 tags:
 - 百宝箱
 nav: 百宝箱
@@ -10,7 +10,7 @@ categories:
 keywords:
 - WSL
 - Ubuntu
-- Mircosoft Terminal
+- Microsoft Terminal
 image: post/awesome-config/wsl.jpg
 ---
 
@@ -159,7 +159,7 @@ echo "umask 0022" | tee -a ~/.vscode-server/server-env-setup
 > 参考：[WSL Config - Microsoft](https://docs.microsoft.com/en-us/windows/wsl/wsl-config)
 > 参考: [Updates to wsl.conf no longer immediate - Github](https://github.com/microsoft/WSL/issues/3994)
 
-## Mircosoft Terminal
+## Microsoft Terminal
 
 微软新开发的命令行程序，可以算是良心之作了，同样可以在 Microsoft Store 中搜索安装。支持多页签切换，支持选择不同的 Shell，结合 WSL 使用，显示效果也非常棒。
 
