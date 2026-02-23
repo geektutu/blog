@@ -34,4 +34,9 @@ jobs:
         yarn update
         yarn comment
         yarn build
-        bash myscripts/qiniu_upload.sh      
+      # bash myscripts/qiniu_upload.sh
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public

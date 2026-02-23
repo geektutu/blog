@@ -10,7 +10,7 @@ pull() {
     if [ -d "$dest" ]; then
         git -C "$dest" pull
     else
-        git clone "https://github.com/$repo" "$dest"
+        git clone "git@github.com:/$repo.git" "$dest"
     fi;
 }
 
