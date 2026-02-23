@@ -2,11 +2,11 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const COMMENTS_FILE=path.join(__dirname, '..', 'source/tool/comments.json');
-const ISSUES_FILE=path.join(__dirname, '..', 'source/tool/issues.json');
+const COMMENTS_FILE = path.join(__dirname, '..', 'source/tool/comments.json');
+const ISSUES_FILE = path.join(__dirname, '..', 'source/tool/issues.json');
 
 const github = {
-    repo: 'blog',
+    repo: 'geektutu.github.io',
     owner: 'geektutu',
     basicAuth: 'YzFmZGQ0NTZhNGNhYWU1ZjdkZjA6YjI2NzQ0NTFlMjFmZWFlNTA1MjBmOTkzMzdlYzE1ZDJhZWJlNzg3OQ=='
 }
@@ -51,7 +51,7 @@ class Comments {
         let postMap = {}
         let page = 0
         let size = 0
-        while(true) {
+        while (true) {
             page++
             let issues = await this.get(`issues?labels=Gitalk&per_page=100&page=${page}`)
             for (const issue of issues) {
@@ -123,7 +123,7 @@ class Comments {
         let options = {
             hostname: 'api.github.com',
             path: `${PREFIX}${api}`,
-            headers: { 
+            headers: {
                 'User-Agent': 'Node Https Client',
                 'Authorization': `Basic ${github.basicAuth}`,
             }
