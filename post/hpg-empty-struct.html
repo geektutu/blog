@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  <meta name="baidu-site-verification" content="p7Pz3jlx4t" />
+  <meta name="google-site-verification" content="X31OY0d2sKImNbS2x8-OpITWRK4nn7nZCcXe3_hA9ew" />
+  <meta name="msvalidate.01" content="7E2AEE3378AC93764DEAB411177A21A1" />
+  <meta name="360-site-verification" content="1d1e81a1a48a1ed2e3308d7cb8e548e7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- if page has tags, then add tags to keyword -->
+  
+  
+  <meta name="keywords" content="geektutu,jiketutu,Go语言,golang,python,Go语言高性能编程,golang,struct{},空结构体">
+  <!-- page.description has higher priority -->
+  <meta name="description" content="Go 语言/golang 高性能编程，Go 语言进阶教程，Go 语言高性能编程(high performance go)。本文介绍了使用空 struct{}/空结构体的优点：不占用内存，且具有良好的语义。">
+  <link rel="shortcut icon" href="/img/icon.png">
+  <title>
+    
+    Go 空结构体 struct{} 的使用 | Go 语言高性能编程 | 极客兔兔
+    
+  </title>
+
+  <link rel="canonical" href="https://geektutu.com/post/hpg-empty-struct.html">
+  
+<link rel="stylesheet" href="/css/geektutu.css">
+
+  <!-- global function -->
+  <script>
+    window.globalAddScript = function (url, onload, onerror) {
+      var s = document.createElement('script');
+      s.src = url;
+      onload && (s.onload = onload);
+      onerror && (s.onerror = onerror);
+      document.body.appendChild(s);
+    }
+    window.globalAddCss = function (url) {
+      var s = document.createElement('link');
+      s.rel = 'stylesheet';
+      s.href = url;
+      document.body.appendChild(s);
+    }
+    window.getPosition = function (ele) {
+      var x = 0, y = 0;
+      while (ele) {
+        x += (ele.offsetLeft - ele.scrollLeft + ele.clientLeft);
+        y += (ele.offsetTop - ele.scrollTop + ele.clientTop);
+        ele = ele.offsetParent;
+      }
+      return { x: x, y: y };
+    }
+    window.getDom = function (str) { return document.querySelector(str) }
+  </script>
+  <!-- google ad -->
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/feed.xml" title="极客兔兔" type="application/rss+xml">
+</head>
+
+<body>
+    
+<style>
+    body {
+        background: white;
+    }
+    .gkt-header-placeholder, .gkt-header {
+        display: none;
+    }
+    .main-container {
+        width: 100%;
+        padding-top: 0;
+        max-width: 100%;
+    }
+</style>
+
+<header class="gkt-header col-xs-12 padding-0">
+    <div id="gkt-nav" class="gkt-header-container">
+        <a href="/" class="gkt-header-title float-left">
+            <img class="float-left" src="/img/icon.png" alt="">
+            <span>极客兔兔</span>
+        </a>
+        <nav class="gkt-header-nav text-right">
+            <ul>
+                <li><a class="hidden-xs" href="/feed.xml">订阅</a></li>
+                <li><a href="/series/">专题</a></li>
+                <li><a href="/archives/">归档</a></li>
+                <li><a href="/post/link.html">友链</a></li>
+                <li><a href="/post/about.html">关于</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="gkt-cate-nav" class="gkt-header-container hidden-xs">
+        
+        <nav class="gkt-header-nav float-left">
+            <ul>
+                
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/tensorflow-mnist-simplest.html">简明教程 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/tensorflow-mnist-simplest.html">TensorFlow 教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/pandas-dataframe-series.html">Pandas 数据处理</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/tf2doc.html">TensorFlow2 文档</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-golang.html">Go 简明教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-rust.html">Rust 简明教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-python.html">Python 简明教程</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/blog-experience-1.html">杂谈 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/blog-experience-1.html">建站经历</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/2020.html">年终总结</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/qa-ml.html">面试 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/qa-ml.html">机器学习面试题</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/qa-golang.html">Go 语言面试题</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/gee.html">从零实现 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/gee.html">Web框架 - Gee</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geecache.html">分布式缓存 - GeeCache</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geeorm.html">ORM框架 - GeeORM</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geerpc.html">RPC框架 - GeeRPC</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/7days-golang-q1.html">7days-golang Q &amp; A</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/box-tools.html">百宝箱 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/box-tools.html">工具</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/cheat-sheet-sqlite.html">SQLite 速查表</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left active">
+                    <a class="float-left" href="/post/high-performance-go.html">高性能编程 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/high-performance-go.html">序言</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-benchmark.html">性能分析</a></li>
+                        
+                        <li class="gkt-sub-cate-name active"><a class="float-left"
+                                href="/post/hpg-string-concat.html">常用数据结构</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-mutex.html">并发编程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-reduce-size.html">编译优化</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-gotchas-array-slice.html">语言陷阱</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="gkt-header-placeholder" style="height: 44px"></div>
+<div class="gkt-header-placeholder hidden-xs" style="height: 44px"></div>
+<script>
+    (function () {
+        window.addEventListener('scroll', function () {
+            if (window.innerWidth < 768) {
+                return;
+            }
+            var nav = document.querySelector('#gkt-nav');
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            scrollTop > 50 && (nav.classList.add('hide'));
+            scrollTop <= 50 && (nav.classList.remove('hide'));
+        });
+        var cateNavs = document.querySelectorAll('#gkt-cate-nav>nav>ul>li');
+        [].slice.call(cateNavs).forEach(function (item) {
+            var sub = item.querySelector('.gkt-sub-cate');
+            if (!sub) return;
+            item.addEventListener('mouseenter', function (e) { sub.style.display = 'block'; }, false);
+            item.addEventListener('mouseleave', function (e) { sub.style.display = 'none'; }, false);
+        })
+    })();
+</script>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Main Content -->
+<main class="col-xs-12 padding-0 markdown-it">
+    <!-- Post Container -->
+    
+    
+    <!-- Post Content -->
+<style>
+  .markdown-it article h1, .markdown-it article h2, .markdown-it article h3 {
+    padding-top: 5px;
+    margin-top: 0px;
+  }
+  .post-container {
+    padding: 0 !important;
+    width: 100%;
+  }
+  .post-container article {
+    padding: 0 15px !important;
+  }
+  .gkt-book {
+    max-width: 80rem;
+    margin: 1rem auto;
+    display: flex;
+  }
+  .gkt-book-title {
+    color: #343a40;
+    font-size: 1.2em;
+  }
+  .gkt-sidebar-wrapper {
+    position: fixed;
+    margin-top: 15px;
+  }
+  .gkt-book-menu {
+    flex: 0 0 16rem;
+    padding-left: 15px;
+    padding-top: 5px;
+    z-index: 999;
+  }
+  .gkt-book-menu a {
+    color: #343a40;
+  }
+  .gkt-book-menu a.active {
+    color: #337ab7;
+  }
+  .gkt-book-menu > nav {
+    position: fixed;
+    overflow: auto;
+    padding-right: 15px;
+    height: 95%;
+    font-size: 0.85em;
+    line-height: 2;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-left: 1px solid #eee;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar-thumb {
+      background-color: #c1c1c1;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar {
+    width: 5px !important;
+  }
+  .gkt-book-menu hr {
+    padding: 2px;
+  }
+  .gkt-book-menu > nav > ul {
+    padding-left: 0;
+  }
+  .gkt-book-menu > nav ul,
+  .gkt-book-toc ul,
+  .gkt-book-toc ol {
+    list-style: none !important;
+  }
+  @media (min-width: 992px) {
+    .gkt-book-page {
+      width: calc(100% - 32rem);
+    }
+  }
+  .gkt-book-page {
+    min-width: 20rem;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+  }
+  .gkt-page-tips {
+    color: #555;
+    margin-top: -10px;
+  }
+  .gkt-book-toc {
+    flex: 0 0 16rem;
+    font-size: 0.85em;
+  }
+  .gkt-book .series_links {
+    border: 1px solid #eaecef;
+    padding: 0 15px;
+    background-color: #fff8dc;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .gkt-book-menu-icon {
+    padding: 0 15px;
+    font-size: 16px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    .gkt-book-menu-hidden {
+      margin-left: -16rem;
+    }
+  }
+  .gkt-book-menu-checked {
+    opacity: 0.4;
+    margin-right: -16rem;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+  }
+</style>
+<div class="gkt-book post-container">
+  <aside class="gkt-book-menu gkt-book-menu-hidden">
+    <nav>
+      
+      <h3 class="text-center">
+        <a class="gkt-book-title" href="/post/high-performance-go.html">Go 语言高性能编程</a>
+      </h3>
+      
+      <ul class="col-xs-12 text-center">
+        <li><a href="/">极客兔兔</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://github.com/geektutu">Github</a></li>
+        
+        <li><a href="https://geektutu.com/feed.xml">RSS</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/gzdaijie">知乎</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://weibo.com/geektutu">微博</a></li>
+        
+      </ul>
+      
+      <hr />
+      
+      <ul>
+        
+        <li>
+          <a>序言</a>
+          <ul>
+            
+            <li><a href="/post/high-performance-go.html" class=" ">关于本书</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>性能分析</a>
+          <ul>
+            
+            <li><a href="/post/hpg-benchmark.html" class=" ">benchmark 基准测试</a></li>
+            
+            <li><a href="/post/hpg-pprof.html" class=" ">pprof 性能分析</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>常用数据结构</a>
+          <ul>
+            
+            <li><a href="/post/hpg-string-concat.html" class=" ">字符串拼接性能及原理</a></li>
+            
+            <li><a href="/post/hpg-slice.html" class=" ">切片(slice)性能及陷阱</a></li>
+            
+            <li><a href="/post/hpg-range.html" class=" ">for 和 range 的性能比较</a></li>
+            
+            <li><a href="/post/hpg-reflect.html" class=" ">反射(reflect)性能</a></li>
+            
+            <li><a href="/post/hpg-empty-struct.html" class="active ">使用空结构体节省内存</a></li>
+            
+            <li><a href="/post/hpg-struct-alignment.html" class=" ">内存对齐对性能的影响</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>并发编程</a>
+          <ul>
+            
+            <li><a href="/post/hpg-mutex.html" class=" ">读写锁和互斥锁的性能比较</a></li>
+            
+            <li><a href="/post/hpg-timeout-goroutine.html" class=" ">如何退出协程(超时场景)</a></li>
+            
+            <li><a href="/post/hpg-exit-goroutine.html" class=" ">如何退出协程(其他场景)</a></li>
+            
+            <li><a href="/post/hpg-concurrency-control.html" class=" ">控制协程的并发数量</a></li>
+            
+            <li><a href="/post/hpg-sync-pool.html" class=" ">sync.Pool 复用对象</a></li>
+            
+            <li><a href="/post/hpg-sync-once.html" class=" ">sync.Once 如何提升性能</a></li>
+            
+            <li><a href="/post/hpg-sync-cond.html" class=" ">sync.Cond 条件变量</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>编译优化</a>
+          <ul>
+            
+            <li><a href="/post/hpg-reduce-size.html" class=" ">减小编译体积</a></li>
+            
+            <li><a href="/post/hpg-escape-analysis.html" class=" ">逃逸分析对性能的影响</a></li>
+            
+            <li><a href="/post/hpg-dead-code-elimination.html" class=" ">死码消除与调试模式</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>语言陷阱</a>
+          <ul>
+            
+            <li><a href="/post/hpg-gotchas-array-slice.html" class=" ">数组和切片</a></li>
+            
+          </ul>
+        </li>
+        
+      </ul>
+    </nav>
+  </aside>
+  <div class="gkt-book-page">
+    <div class="hidden-sm hidden-md hidden-lg gkt-book-menu-icon">
+      <label for="book-menu">
+        <svg class="float-left" name="book-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </label>
+      <strong class="float-right">Go 语言高性能编程</strong>
+    </div>
+    <div class="u-arrow-wrapper hidden-xs">
+        
+        <a class="float-left" href="/post/hpg-concurrency-control.html"><i class="u-arrow-left"></i></a>
+        
+        
+        <a class="float-right" href="/post/hpg-struct-alignment.html"><i class="u-arrow-right"></i></a>
+        
+    </div>
+    <article class="col-xs-12">
+      <h1>Go 空结构体 struct{} 的使用</h1>
+       
+      <div class="hidden-lg hidden-md hidden-sm series_links">
+        <p><strong> 常用数据结构系列文章链接：</strong></p>
+        <ul>
+          
+          <li>
+            <a href="/post/hpg-string-concat.html">字符串拼接性能及原理</a>
+            <span class="post-item-date">(Nov 24, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/hpg-slice.html">切片(slice)性能及陷阱</a>
+            <span class="post-item-date">(Nov 30, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/hpg-range.html">for 和 range 的性能比较</a>
+            <span class="post-item-date">(Dec 1, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/hpg-reflect.html">Go Reflect 提高反射性能</a>
+            <span class="post-item-date">(Dec 6, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/hpg-empty-struct.html">Go 空结构体 struct{} 的使用</a>
+            <span class="post-item-date">(Dec 25, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/hpg-struct-alignment.html">Go struct 内存对齐</a>
+            <span class="post-item-date">(Dec 27, 2020)</span>
+          </li>
+          
+        </ul>
+      </div>
+       
+      <blockquote>
+        <p>
+          源代码/数据集已上传到
+          <a href="https://github.com/geektutu/high-performance-go" target="_blank" rel="noopener">Github - high-performance-go</a>
+        </p>
+      </blockquote>
+      
+      <div class="gkt-article-start"></div>
+      <p><img src="hpg-string-concat/data-structure.jpg" alt="high performance go - data structure"></p>
+<h2 id="1-空结构体占用空间么"><a href="#1-空结构体占用空间么" class="headerlink" title="1 空结构体占用空间么"></a>1 空结构体占用空间么</h2><p>在 Go 语言中，我们可以使用 <code>unsafe.Sizeof</code> 计算出一个数据类型实例需要占用的字节数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;unsafe&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(unsafe.Sizeof(<span class="keyword">struct</span>&#123;&#125;&#123;&#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的例子将会输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run main.go</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，空结构体 struct{} 实例不占据任何的内存空间。</p>
+<h2 id="2-空结构体的作用"><a href="#2-空结构体的作用" class="headerlink" title="2 空结构体的作用"></a>2 空结构体的作用</h2><p>因为空结构体不占据内存空间，因此被广泛作为各种场景下的占位符使用。一是节省资源，二是空结构体本身就具备很强的语义，即这里不需要任何值，仅作为占位符。</p>
+<h3 id="2-1-实现集合-Set"><a href="#2-1-实现集合-Set" class="headerlink" title="2.1 实现集合(Set)"></a>2.1 实现集合(Set)</h3><p>Go 语言标准库没有提供 Set 的实现，通常使用 map 来代替。事实上，对于集合来说，只需要 map 的键，而不需要值。即使是将值设置为 bool 类型，也会多占据 1 个字节，那假设 map 中有一百万条数据，就会浪费 1MB 的空间。</p>
+<p>因此呢，将 map 作为集合(Set)使用时，可以将值类型定义为空结构体，仅作为占位符使用即可。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Set <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span></span> Has(key <span class="type">string</span>) <span class="type">bool</span> &#123;</span><br><span class="line">	_, ok := s[key]</span><br><span class="line">	<span class="keyword">return</span> ok</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span></span> Add(key <span class="type">string</span>) &#123;</span><br><span class="line">	s[key] = <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Set)</span></span> Delete(key <span class="type">string</span>) &#123;</span><br><span class="line">	<span class="built_in">delete</span>(s, key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="built_in">make</span>(Set)</span><br><span class="line">	s.Add(<span class="string">&quot;Tom&quot;</span>)</span><br><span class="line">	s.Add(<span class="string">&quot;Sam&quot;</span>)</span><br><span class="line">	fmt.Println(s.Has(<span class="string">&quot;Tom&quot;</span>))</span><br><span class="line">	fmt.Println(s.Has(<span class="string">&quot;Jack&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-不发送数据的信道-channel"><a href="#2-2-不发送数据的信道-channel" class="headerlink" title="2.2 不发送数据的信道(channel)"></a>2.2 不发送数据的信道(channel)</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">(ch <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	&lt;-ch</span><br><span class="line">	fmt.Println(<span class="string">&quot;do something&quot;</span>)</span><br><span class="line">	<span class="built_in">close</span>(ch)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">go</span> worker(ch)</span><br><span class="line">	ch &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有时候使用 channel 不需要发送任何的数据，只用来通知子协程(goroutine)执行任务，或只用来控制协程并发度。这种情况下，使用空结构体作为占位符就非常合适了。</p>
+<h3 id="2-3-仅包含方法的结构体"><a href="#2-3-仅包含方法的结构体" class="headerlink" title="2.3 仅包含方法的结构体"></a>2.3 仅包含方法的结构体</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Door <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d Door)</span></span> Open() &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Open the door&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d Door)</span></span> Close() &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Close the door&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在部分场景下，结构体只包含方法，不包含任何的字段。例如上面例子中的 <code>Door</code>，在这种情况下，<code>Door</code> 事实上可以用任何的数据结构替代。例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Door <span class="type">int</span></span><br><span class="line"><span class="keyword">type</span> Door <span class="type">bool</span></span><br></pre></td></tr></table></figure>
+
+<p>无论是 <code>int</code> 还是 <code>bool</code> 都会浪费额外的内存，因此呢，这种情况下，声明为空结构体是最合适的。</p>
+<h2 id="附-推荐与参考"><a href="#附-推荐与参考" class="headerlink" title="附 推荐与参考"></a>附 推荐与参考</h2><ul>
+<li><a href="https://geektutu.com/post/qa-golang.html">Go 语言笔试面试题汇总</a></li>
+<li><a href="https://geektutu.com/post/gee.html">七天用Go从零实现系列</a></li>
+</ul>
+
+      
+<script src="/js/qrious.min.js"></script>
+
+
+      <hr />
+      <p>
+        <a target="_blank" rel="noopener" href="https://github.com/geektutu/high-performance-go/blob/master/charpter-2/hpg-empty-struct.md"><span class="float-left gkt-page-tips">edit this page</span></a>
+        <span class="float-right gkt-page-tips">last updated at 2026-02-23</span>
+      </p>
+    </article>
+    <!-- 赞赏 -->
+    <!--打赏-->
+
+<style>
+    #reward .reward-btn-wrapper {
+        width: 100px;
+        padding-top: 35px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    #reward .reward-btn {
+        padding: 2px 15px;
+        color: #fff;
+        background-color: #ea6f5a;
+        border-radius: 20px;
+    }
+
+    #reward .reward-code {
+        position: absolute;
+        top: -220px;
+        left: 50%;
+        display: none;
+        width: 360px;
+        height: 240px;
+        margin-left: -180px;
+        padding: 15px 20px;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        box-shadow: 0 1px 1px 1px #efefef;
+    }
+
+    #reward .reward-code:after,
+    #reward .reward-code:before {
+        position: absolute;
+        content: '';
+        border: 10px solid transparent
+    }
+
+    #reward .reward-code:after {
+        bottom: -19px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #fff
+    }
+
+    #reward .reward-code:before {
+        bottom: -20px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #e6e6e6
+    }
+
+    #reward .qr-code {
+        width: 50%;
+        float: left;
+        padding: 5px;
+    }
+
+    #reward .qr-code p {
+        margin-top: -6px;
+    }
+
+    #reward img {
+        transform: none;
+        -webkit-transform: none;
+        margin-left: 0;
+    }
+
+    #reward img[alt='i'] {
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+        position: absolute;
+        margin: 65px 0 0 65px;
+    }
+
+    #reward img[alt="ali"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #0f9be0;
+    }
+
+    #reward img[alt="wechat"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #3db034;
+    }
+
+    #reward .reward-tip {
+        font-size: 1.2em;
+        margin-bottom: 0;
+        color: #ea6f5a;
+    }
+</style>
+<div id="reward" class="col-xs-12">
+    <div class="reward-btn-wrapper">
+        <div class="reward-btn text-center">赞赏支持</div>
+    </div>
+    <div class="reward-code text-center">
+        <p class="text-center reward-tip"><strong>请我吃胡萝卜 =^_^= </strong></p>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-ali" src="" alt="ali">
+            <p><small>支付宝</small></p>
+        </div>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-wechat" src="" alt="wechat">
+            <p><small>微信</small></p>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window, document) {
+        var aliQr = new QRious({ value: 'HTTPS://QR.ALIPAY.COM/FKX060337TUXBAX9LIFJE8' });
+        var wechatQr = new QRious({ value: 'wxp://f2f0qgGBlfD1nZXjvBjievxB0z0fc0W2sBq5' });
+        document.querySelector('#reward-ali').src = aliQr.toDataURL();
+        document.querySelector('#reward-wechat').src = wechatQr.toDataURL();
+
+        var rewardBtn = document.querySelector('#reward .reward-btn-wrapper');
+        var qrCode = document.querySelector('#reward .reward-code')
+        var activeFunc = function (e) {
+            qrCode.style.display = 'block';
+        }
+        var hideFunc = function (e) {
+            qrCode.style.display = 'none';
+        }
+
+        rewardBtn.addEventListener('mouseenter', activeFunc, false)
+        rewardBtn.addEventListener('mouseover', activeFunc, false)
+        rewardBtn.addEventListener('mouseleave', hideFunc, false)
+        qrCode.addEventListener('mouseenter', activeFunc, false)
+        qrCode.addEventListener('mouseover', activeFunc, false)
+        qrCode.addEventListener('mouseleave', hideFunc, false)
+    })(window, document);
+</script>
+
+    
+<div class="col-xs-12 text-center" style="margin-top: 30px;">
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://github.com/geektutu" title="Github"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/github.png" /></a>
+    
+    <a style="display:inline-block;" href="https://geektutu.com/feed.xml" title="RSS"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/rss.jpg" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://www.zhihu.com/people/gzdaijie" title="知乎"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/zhihu.png" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://weibo.com/geektutu" title="微博"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/weibo.jpg" /></a>
+    
+</div>
+
+    <!-- 评论 -->
+    
+    <div class="col-xs-12">
+      
+<div class="col-xs-12 padding-0">
+    <div id="gitalk-container">
+        <div class="gt-container text-center" style="margin-top: 50px;">
+            <button class="gt-btn gt-btn-public"><span class="gt-btn-text">去 Github 评论</span></button>
+        </div>
+    </div>
+    <div id="gitalk-related"></div>
+</div>
+
+<link rel="stylesheet" href="/css/gitalk.css">
+
+
+<script src="/js/gitalk.min.js"></script>
+
+<script>
+    window.addEventListener('load', function () {
+        function renderCommentUrl(data) {
+            var url = (data[window.location.pathname] || {}).url
+            url && getDom('#gitalk-container button').addEventListener('click', function (e) { window.open(url)})
+            url || (getDom('#gitalk-container').style.display = 'none')
+        }
+        const gitalk = new Gitalk({
+            clientID: 'c1fdd456a4caae5f7df0',
+            clientSecret: 'b2674451e21feae50520f99337ec15d2aebe7879',
+            accessToken: '513dc2f1e6df8c07a12fbf1547874f54679d9712',
+            repo: 'blog',
+            owner: 'geektutu',
+            admin: ['geektutu'],
+            id: window.location.pathname,
+            distractionFreeMode: false
+        });
+        fetch("https://api.github.com/user").then(function(resp){
+            gitalk.render('gitalk-container');
+        }).catch(function(e){
+            fetch('/tool/issues.json').then(function (r) { return r.json() }).then(renderCommentUrl).catch(function (e) { })
+        })
+        getDom('#gitalk-container').addEventListener('click', function (e) {
+            e && e.stopPropagation && e.stopPropagation();
+        });
+    })
+</script>
+<script>
+    window.addEventListener('load', function () {
+        function render(comments) {
+            var template = '<a href="${comment.url}?utm_source=gitalk" class="dis-item-url"><h3 class="dis-item-title">${comment.title}</h3>' +
+                '<p class="dis-item-des">${comment.count} 评论 ● ${comment.date}</p>' +
+                '<div class="dis-item-content"><img class="dis-item-img" src="${comment.icon}" alt="icon"><p><b><span class="dis-item-user">${comment.user}</span></b>&nbsp;——&nbsp;${comment.body}</p></div>' +
+                '</a>'
+
+            var wrapper = getDom('#gitalk-related');
+            comments = shuffle(comments);
+            comments.slice(0, 4).forEach(function (c) {
+                var div = document.createElement('div');
+                div.classList.add('dis-item');
+                div.innerHTML = template.replace("${comment.url}", c.url)
+                    .replace("${comment.title}", c.title)
+                    .replace("${comment.count}", c.count)
+                    .replace("${comment.date}", c.date)
+                    .replace("${comment.icon}", c.icon)
+                    .replace("${comment.user}", c.user)
+                    .replace("${comment.body}", c.body)
+                wrapper.appendChild(div)
+            })
+            var p = document.createElement('p')
+            p.innerHTML = '<a href="https://geektutu.com/post/blog-experience-7.html">Gitalk Plus</a>';
+            p.classList.add('dis-divide');
+            wrapper.appendChild(p);
+            wrapper.classList.add('dis-wrapper')
+        }
+        function shuffle(a) {
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        fetch('/tool/comments.json').then(function (r) { return r.json() }).then(render).catch(function (e) { })
+    })
+</script>
+
+    </div>
+    
+  </div>
+  <aside class="gkt-book-toc hidden-xs hidden-sm">
+    <div style="clear: both"></div>
+    <div class="gkt-sidebar-wrapper">
+      <!-- Table of Contents -->
+<div id="sidebar-toc">
+  <!-- TOC  -->
+  
+  
+  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E5%8D%A0%E7%94%A8%E7%A9%BA%E9%97%B4%E4%B9%88"><span class="toc-nav-text">1 空结构体占用空间么</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-nav-text">2 空结构体的作用</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-1-%E5%AE%9E%E7%8E%B0%E9%9B%86%E5%90%88-Set"><span class="toc-nav-text">2.1 实现集合(Set)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-2-%E4%B8%8D%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BF%A1%E9%81%93-channel"><span class="toc-nav-text">2.2 不发送数据的信道(channel)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#2-3-%E4%BB%85%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-nav-text">2.3 仅包含方法的结构体</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%99%84-%E6%8E%A8%E8%8D%90%E4%B8%8E%E5%8F%82%E8%80%83"><span class="toc-nav-text">附 推荐与参考</span></a></li></ol>
+  
+</div>
+
+<script>
+  (function () {
+    var h2 = document.querySelectorAll('article h2');
+    var h3 = document.querySelectorAll('article h3');
+    var linkList = document.querySelectorAll('#sidebar-toc a');
+
+    function findLinkElement(name) {
+      for (var i = 0; i < linkList.length; i++) {
+        var items = linkList[i].href.split('#');
+        if (items && items[items.length - 1] === encodeURIComponent(name)) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    function activeLink(titleList) {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      for (var i = titleList.length - 1; i >= 0; i--) {
+        if (scrollTop - titleList[i].offsetTop > 0) {
+          var index = findLinkElement(titleList[i].id);
+          index != -1 && linkList[index].classList.add('gkt-sidebar-active');
+          break;
+        }
+      }
+    }
+
+    window.addEventListener("scroll", function (e) {
+      [].slice.call(linkList).forEach(function (link) {
+        link.classList.remove('gkt-sidebar-active');
+      })
+      activeLink(h2);
+    })
+  })();
+</script>
+    </div>
+  </aside>
+</div>
+<script>
+    (function () {
+        function resizeUArrow() {
+            var s = getDom('.u-arrow-wrapper').style
+            var pc = getDom('.gkt-book-page')
+            s.left = getPosition(pc).x - 15 + 'px';
+            s.width = pc.clientWidth + 30 + 'px';
+        }
+        resizeUArrow()
+        window.addEventListener('resize', resizeUArrow);
+        var nav = getDom('.gkt-book-menu nav');
+        var key = 'gkt_book_Go 语言高性能编程_' + parseInt(new Date().getTime()/1000/3600/24/7)
+        nav.scrollTo(0, localStorage.getItem(key) * 1)
+        nav.addEventListener('scroll', function(){ localStorage.setItem(key, nav.scrollTop) })
+    })();
+    (function(){
+      getDom(".gkt-book-menu-icon").addEventListener('click', function() {
+        var menu = getDom(".gkt-book-menu").classList
+        var article = getDom(".gkt-book-page").classList
+        if (menu.contains("gkt-book-menu-hidden")) {
+          menu.remove('gkt-book-menu-hidden')
+          article.add('gkt-book-menu-checked')
+        } else {
+          menu.add('gkt-book-menu-hidden')
+          article.remove('gkt-book-menu-checked')
+        }
+      })
+    })();
+</script>
+
+
+    
+
+</main>
+    </div>
+    <style>
+    img#go-top {
+        position: fixed;
+        bottom: 100px;
+        width: 50px;
+        cursor: pointer;
+        z-index: 9999;
+    }
+</style>
+<img id="go-top" src="/icon/top.png" class="hidden-xs" style="display: none" />
+<script>
+    (function () {
+        var goTop = document.getElementById('go-top');
+        var mainContainer = document.querySelector('.main-container');
+        
+        goTop.addEventListener('click', function () {
+            window.scroll(0, 0);
+        }, false);
+        window.addEventListener('scroll', function () {
+            var right = document.body.offsetWidth - mainContainer.getBoundingClientRect().right;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            goTop.style.right = right + 10 + 'px'
+            scrollTop > 700 && (goTop.style.display = "block");
+            scrollTop <= 700 && (goTop.style.display = "none");
+        });
+    })();
+</script>
+    <style>
+    #geektutu-click-img-container {
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        display: none;
+        z-index: 9999;
+    }
+
+    #geektutu-click-img-container img {
+        object-fit: contain;
+        background: #eaecef;
+        padding: 15px;
+        border-radius: 10px;
+        height: auto;
+        width: auto;
+        vertical-align: middle;
+    }
+</style>
+
+
+<div id="geektutu-click-img-container">
+    <img src="" alt="Big Image">
+</div>
+
+<script>
+    (function () {
+        var container = document.querySelector('#geektutu-click-img-container')
+        var targetImg = container.querySelector('img')
+        var imgs = document.querySelectorAll('article img');
+        targetImg.addEventListener('click', function (e) {
+            container.style.display = 'none';
+            e && e.stopPropagation && e.stopPropagation();
+        }, false);
+
+        for (var i = 0; i < imgs.length; ++i) {
+            var img = imgs[i];
+            img.addEventListener('click', (function (src, rate) {
+                return function (e) {
+                    e && e.stopPropagation && e.stopPropagation();
+                    if (window.innerWidth < 980) {
+                        return
+                    }
+                    targetImg.style.height = targetImg.style.width = 'auto';
+                    if (window.innerWidth / window.innerHeight > rate) {
+                        targetImg.style.height = (window.innerHeight - 20) + 'px';
+                    } else {
+                        targetImg.style.width = (window.innerWidth - 20) + 'px';
+                    }
+                    container.style.height = window.innerHeight + 'px'
+                    container.style.lineHeight = window.innerHeight + 'px'
+                    container.style.display = 'block';
+                    targetImg.src = src;
+                };
+            }(img.src, img.width / img.height)), false)
+        }
+    })();
+</script>
+    <!-- Footer -->
+    <!-- Footer -->
+<style>
+    footer {
+        width: 100%;
+        line-height: 1.5;
+        padding: 20px;
+    }
+
+    footer a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .footer-hexo img {
+        height: 20px;
+        margin-bottom: -5px;
+    }
+
+    .footer-hexo a {
+        color: #337ab7;
+    }
+</style>
+<footer class="text-center col-xs-12">
+    <p>
+        <small>© 2026 - 极客兔兔 - </small>
+        <small>
+            <a target="_blank" rel="nofollow noopener" href="http://beian.miit.gov.cn/">沪ICP备18001798号-1</a>
+        </small>
+    </p>
+    <p class="footer-hexo">
+        <!-- 但若直接使用或修改主题，请务必保留这段声明 -->
+        <small>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme
+            <a target="_blank" href="https://geektutu.com">Geektutu</a>
+            <a target="_blank" rel="noopener" href="https://github.com/geektutu/hexo-theme-geektutu">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIACIAUAMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAAAQQFBwIDBgj/2gAIAQEAAAAA9KrHSgAYL5/z6zZGuJd12uugbhq3uKtmuRtix20IS7lTLAfAAAn/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oACAECEAAAAAAB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAxAAAAAAAf/EADEQAAICAQIEBQEGBwAAAAAAAAECAwQFAAYREhORBxQhUlQxQVFic5KxJDJCYYGC0f/aAAgBAQABPwCFHnjWUzuvN6hV4cANSRLGjO9yRVUcSzMoA7jVXJYe5N0a2dhmk9kc0bN2GvLN8mbuNeWb5M3ca8s3yZu415Y/Jm7jXlm+TN3H/NeVPyZu40vOk3TZywK8wJ+v3EHVM/wsI/Dq2lrxN3Nnca16eti8chSAIoMbzByhMwP14kHVfwIiSaF5c96J6kwwCOTnHsYk8uvCrdmQy1TI4rJuz3cZLyGR/wCd4+YoOf8AEpUjXitubLYPG4paFsUxcuiGe7yc5gTW3LW44szXmobsi3Dhmic2+Z4+vCVH9CpraPiQ+QvbgTJrPFBWd5YpWrmNIIEXiRO32Pqt4p7cnfHk18lFBdmEVW1LVdIZGOrniTt6plrWKaO69yCykDRxwF+LMAewB0Txtr+Sf31VI8tEPw62fZt7N3Humtbpzz13ucX6CGSWMSuzpLyD1eNgeUka3PuvHbaxq3biTMHfkiSNCS78CwU+3Xg7Vu3MhuTcU6cq3Zemn3Eh2dv8Lzcut+29x1atKbHYqLJUhLwyNMwiZ3j9yDWOxUOV3tgb+3No5LDx1pi9+aeIwRlNY6bc+Jv+IFGrhLxtXJZ7VKcw81diiAAEn0JOrkWZyNfbEr0tz27UGQgkuGzXdIIvyowq99bRxk9ffO/L81SZBPZgEEroQroIxxMZOgeNsfkn99QypHGqO4Vl9CDrN4LDZkwyzyyQ2IgRHZrzGCZVP1XnQglT9oOtw4LC7iqV6uRkZoYpxKFSQpzFRw4EjVRMfSrQ1qqwxQxKFjjTgFUD7BoWYR6iVe+mtxt9Zwf9teaj4AdccPu5tedX5A/VrzUR+sy/q1CwksF19VEfDj/cnQRW+qg66cfsXtrpx+xe2unH7F7a6cfsXtrpx+xe2unH7F7a6cfsXtoxx+xe2gAAOA1//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k="
+                    alt="Github Star">
+            </a>
+        </small>
+    </p>
+    
+    <p>
+        <small>
+            <span id="busuanzi_container_site_pv">👁<span id="busuanzi_value_site_pv"></span></span> &nbsp;
+            <span id="busuanzi_container_page_pv">📚<span id="busuanzi_value_page_pv"></span></span>
+        </small>
+    </p>
+    
+    
+
+</footer>
+
+
+<script>
+    window.addEventListener('load', function () {
+        globalAddScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js');
+    })
+</script>
+
+<!-- Baidu Tongji -->
+
+<script>
+    window.addEventListener('load', function () {
+        var _hmt = _hmt || [];
+        globalAddScript('//hm.baidu.com/hm.js?1a0ec38c52c08db815b0046c2783b1aa')
+    })
+</script>
+
+
+
+<!-- baidu auto push for seo -->
+<script>
+    window.addEventListener('load', function () {
+        var src = 'http://push.zhanzhang.baidu.com/push.js'
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        globalAddScript(src);
+    })
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-142641425-1');
+
+    window.addEventListener('load', function () {
+        globalAddScript('https://www.googletagmanager.com/gtag/js?id=UA-142641425-1');
+    });
+</script>
+
+
+    <script>
+        // 非本站网址，新开tab页签
+        (function () {
+            var stopBubble = function (e) {
+                e && e.stopPropagation && e.stopPropagation();
+            }
+            var links = document.querySelectorAll('a');
+            [].slice.call(links).forEach(function (item) {
+                if (item.href && item.href.indexOf(window.location.host) === -1) {
+                    item.target = '_blank'
+                }
+                // 阻止冒泡，不触发彩蛋。
+                item.addEventListener('click', stopBubble, false);
+            });
+            var article = document.querySelector('article');
+            article && article.addEventListener('click', stopBubble, false)
+        })();
+    </script>
+    
+</body>
+
+</html>

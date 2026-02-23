@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  <meta name="baidu-site-verification" content="p7Pz3jlx4t" />
+  <meta name="google-site-verification" content="X31OY0d2sKImNbS2x8-OpITWRK4nn7nZCcXe3_hA9ew" />
+  <meta name="msvalidate.01" content="7E2AEE3378AC93764DEAB411177A21A1" />
+  <meta name="360-site-verification" content="1d1e81a1a48a1ed2e3308d7cb8e548e7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- if page has tags, then add tags to keyword -->
+  
+  
+  <meta name="keywords" content="geektutu,jiketutu,Go语言,golang,python,Go,Go语言,从零实现RPC框架,反射,服务">
+  <!-- page.description has higher priority -->
+  <meta name="description" content="7天用 Go语言/golang 从零实现 RPC 框架 GeeRPC 教程(7 days implement golang remote procedure call framework from scratch tutorial)，动手写 RPC 框架，参照 golang 标准库 net/rpc 的实现，实现了服务端(server)、支持异步和并发的客户端(client)、消息编码与解码(message encoding and decoding)、服务注册(service register)、支持 TCP/Unix/HTTP 等多种传输协议。第三天实现了服务注册，即将 Go 语言结构体通过反射映射为服务。">
+  <link rel="shortcut icon" href="/img/icon.png">
+  <title>
+    
+    动手写RPC框架 - GeeRPC第三天 服务注册(service register) | 极客兔兔
+    
+  </title>
+
+  <link rel="canonical" href="https://geektutu.com/post/geerpc-day3.html">
+  
+<link rel="stylesheet" href="/css/geektutu.css">
+
+  <!-- global function -->
+  <script>
+    window.globalAddScript = function (url, onload, onerror) {
+      var s = document.createElement('script');
+      s.src = url;
+      onload && (s.onload = onload);
+      onerror && (s.onerror = onerror);
+      document.body.appendChild(s);
+    }
+    window.globalAddCss = function (url) {
+      var s = document.createElement('link');
+      s.rel = 'stylesheet';
+      s.href = url;
+      document.body.appendChild(s);
+    }
+    window.getPosition = function (ele) {
+      var x = 0, y = 0;
+      while (ele) {
+        x += (ele.offsetLeft - ele.scrollLeft + ele.clientLeft);
+        y += (ele.offsetTop - ele.scrollTop + ele.clientTop);
+        ele = ele.offsetParent;
+      }
+      return { x: x, y: y };
+    }
+    window.getDom = function (str) { return document.querySelector(str) }
+  </script>
+  <!-- google ad -->
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/feed.xml" title="极客兔兔" type="application/rss+xml">
+</head>
+
+<body>
+    
+<style>
+    body {
+        background: white;
+    }
+    .gkt-header-placeholder, .gkt-header {
+        display: none;
+    }
+    .main-container {
+        width: 100%;
+        padding-top: 0;
+        max-width: 100%;
+    }
+</style>
+
+<header class="gkt-header col-xs-12 padding-0">
+    <div id="gkt-nav" class="gkt-header-container">
+        <a href="/" class="gkt-header-title float-left">
+            <img class="float-left" src="/img/icon.png" alt="">
+            <span>极客兔兔</span>
+        </a>
+        <nav class="gkt-header-nav text-right">
+            <ul>
+                <li><a class="hidden-xs" href="/feed.xml">订阅</a></li>
+                <li><a href="/series/">专题</a></li>
+                <li><a href="/archives/">归档</a></li>
+                <li><a href="/post/link.html">友链</a></li>
+                <li><a href="/post/about.html">关于</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="gkt-cate-nav" class="gkt-header-container hidden-xs">
+        
+        <nav class="gkt-header-nav float-left">
+            <ul>
+                
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/tensorflow-mnist-simplest.html">简明教程 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/tensorflow-mnist-simplest.html">TensorFlow 教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/pandas-dataframe-series.html">Pandas 数据处理</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/tf2doc.html">TensorFlow2 文档</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-golang.html">Go 简明教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-rust.html">Rust 简明教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-python.html">Python 简明教程</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/blog-experience-1.html">杂谈 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/blog-experience-1.html">建站经历</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/2020.html">年终总结</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/qa-ml.html">面试 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/qa-ml.html">机器学习面试题</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/qa-golang.html">Go 语言面试题</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left active">
+                    <a class="float-left" href="/post/gee.html">从零实现 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/gee.html">Web框架 - Gee</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geecache.html">分布式缓存 - GeeCache</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geeorm.html">ORM框架 - GeeORM</a></li>
+                        
+                        <li class="gkt-sub-cate-name active"><a class="float-left"
+                                href="/post/geerpc.html">RPC框架 - GeeRPC</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/7days-golang-q1.html">7days-golang Q &amp; A</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/box-tools.html">百宝箱 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/box-tools.html">工具</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/cheat-sheet-sqlite.html">SQLite 速查表</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/high-performance-go.html">高性能编程 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/high-performance-go.html">序言</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-benchmark.html">性能分析</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-string-concat.html">常用数据结构</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-mutex.html">并发编程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-reduce-size.html">编译优化</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-gotchas-array-slice.html">语言陷阱</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="gkt-header-placeholder" style="height: 44px"></div>
+<div class="gkt-header-placeholder hidden-xs" style="height: 44px"></div>
+<script>
+    (function () {
+        window.addEventListener('scroll', function () {
+            if (window.innerWidth < 768) {
+                return;
+            }
+            var nav = document.querySelector('#gkt-nav');
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            scrollTop > 50 && (nav.classList.add('hide'));
+            scrollTop <= 50 && (nav.classList.remove('hide'));
+        });
+        var cateNavs = document.querySelectorAll('#gkt-cate-nav>nav>ul>li');
+        [].slice.call(cateNavs).forEach(function (item) {
+            var sub = item.querySelector('.gkt-sub-cate');
+            if (!sub) return;
+            item.addEventListener('mouseenter', function (e) { sub.style.display = 'block'; }, false);
+            item.addEventListener('mouseleave', function (e) { sub.style.display = 'none'; }, false);
+        })
+    })();
+</script>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Main Content -->
+<main class="col-xs-12 padding-0 markdown-it">
+    <!-- Post Container -->
+    
+    
+    <!-- Post Content -->
+<style>
+  .markdown-it article h1, .markdown-it article h2, .markdown-it article h3 {
+    padding-top: 5px;
+    margin-top: 0px;
+  }
+  .post-container {
+    padding: 0 !important;
+    width: 100%;
+  }
+  .post-container article {
+    padding: 0 15px !important;
+  }
+  .gkt-book {
+    max-width: 80rem;
+    margin: 1rem auto;
+    display: flex;
+  }
+  .gkt-book-title {
+    color: #343a40;
+    font-size: 1.2em;
+  }
+  .gkt-sidebar-wrapper {
+    position: fixed;
+    margin-top: 15px;
+  }
+  .gkt-book-menu {
+    flex: 0 0 16rem;
+    padding-left: 15px;
+    padding-top: 5px;
+    z-index: 999;
+  }
+  .gkt-book-menu a {
+    color: #343a40;
+  }
+  .gkt-book-menu a.active {
+    color: #337ab7;
+  }
+  .gkt-book-menu > nav {
+    position: fixed;
+    overflow: auto;
+    padding-right: 15px;
+    height: 95%;
+    font-size: 0.85em;
+    line-height: 2;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-left: 1px solid #eee;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar-thumb {
+      background-color: #c1c1c1;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar {
+    width: 5px !important;
+  }
+  .gkt-book-menu hr {
+    padding: 2px;
+  }
+  .gkt-book-menu > nav > ul {
+    padding-left: 0;
+  }
+  .gkt-book-menu > nav ul,
+  .gkt-book-toc ul,
+  .gkt-book-toc ol {
+    list-style: none !important;
+  }
+  @media (min-width: 992px) {
+    .gkt-book-page {
+      width: calc(100% - 32rem);
+    }
+  }
+  .gkt-book-page {
+    min-width: 20rem;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+  }
+  .gkt-page-tips {
+    color: #555;
+    margin-top: -10px;
+  }
+  .gkt-book-toc {
+    flex: 0 0 16rem;
+    font-size: 0.85em;
+  }
+  .gkt-book .series_links {
+    border: 1px solid #eaecef;
+    padding: 0 15px;
+    background-color: #fff8dc;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .gkt-book-menu-icon {
+    padding: 0 15px;
+    font-size: 16px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    .gkt-book-menu-hidden {
+      margin-left: -16rem;
+    }
+  }
+  .gkt-book-menu-checked {
+    opacity: 0.4;
+    margin-right: -16rem;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+  }
+</style>
+<div class="gkt-book post-container">
+  <aside class="gkt-book-menu gkt-book-menu-hidden">
+    <nav>
+      
+      <h3 class="text-center">
+        <a class="gkt-book-title" href="/post/gee.html">七天用Go从零实现系列</a>
+      </h3>
+      
+      <ul class="col-xs-12 text-center">
+        <li><a href="/">极客兔兔</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://github.com/geektutu">Github</a></li>
+        
+        <li><a href="https://geektutu.com/feed.xml">RSS</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/gzdaijie">知乎</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://weibo.com/geektutu">微博</a></li>
+        
+      </ul>
+      
+      <hr />
+      
+      <ul>
+        
+        <li>
+          <a>Web框架 - Gee</a>
+          <ul>
+            
+            <li><a href="/post/gee.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/gee-day1.html" class=" ">Day1 HTTP 基础</a></li>
+            
+            <li><a href="/post/gee-day2.html" class=" ">Day2 上下文</a></li>
+            
+            <li><a href="/post/gee-day3.html" class=" ">Day3 前缀树路由</a></li>
+            
+            <li><a href="/post/gee-day4.html" class=" ">Day4 分组控制</a></li>
+            
+            <li><a href="/post/gee-day5.html" class=" ">Day5 中间件</a></li>
+            
+            <li><a href="/post/gee-day6.html" class=" ">Day6 模板 Template</a></li>
+            
+            <li><a href="/post/gee-day7.html" class=" ">Day7 错误恢复</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>分布式缓存 - GeeCache</a>
+          <ul>
+            
+            <li><a href="/post/geecache.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/geecache-day1.html" class=" ">Day1 LRU 缓存淘汰策略</a></li>
+            
+            <li><a href="/post/geecache-day2.html" class=" ">Day2 单机并发缓存</a></li>
+            
+            <li><a href="/post/geecache-day3.html" class=" ">Day3 HTTP 服务端</a></li>
+            
+            <li><a href="/post/geecache-day4.html" class=" ">Day4 一致性哈希</a></li>
+            
+            <li><a href="/post/geecache-day5.html" class=" ">Day5 分布式节点</a></li>
+            
+            <li><a href="/post/geecache-day6.html" class=" ">Day6 防止缓存击穿</a></li>
+            
+            <li><a href="/post/geecache-day7.html" class=" ">Day7 使用 Protobuf 通信</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>ORM框架 - GeeORM</a>
+          <ul>
+            
+            <li><a href="/post/geeorm.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/geeorm-day1.html" class=" ">Day1 database/sql 基础</a></li>
+            
+            <li><a href="/post/geeorm-day2.html" class=" ">Day2 对象表结构映射</a></li>
+            
+            <li><a href="/post/geeorm-day3.html" class=" ">Day3 记录新增和查询</a></li>
+            
+            <li><a href="/post/geeorm-day4.html" class=" ">Day4 链式操作与更新删除</a></li>
+            
+            <li><a href="/post/geeorm-day5.html" class=" ">Day5 实现钩子</a></li>
+            
+            <li><a href="/post/geeorm-day6.html" class=" ">Day6 支持事务</a></li>
+            
+            <li><a href="/post/geeorm-day7.html" class=" ">Day7 数据库迁移</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>RPC框架 - GeeRPC</a>
+          <ul>
+            
+            <li><a href="/post/geerpc.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/geerpc-day1.html" class=" ">Day1 服务端与消息编码</a></li>
+            
+            <li><a href="/post/geerpc-day2.html" class=" ">Day2 高性能客户端</a></li>
+            
+            <li><a href="/post/geerpc-day3.html" class="active ">Day3 服务注册</a></li>
+            
+            <li><a href="/post/geerpc-day4.html" class=" ">Day4 超时处理</a></li>
+            
+            <li><a href="/post/geerpc-day5.html" class=" ">Day5 支持HTTP协议</a></li>
+            
+            <li><a href="/post/geerpc-day6.html" class=" ">Day6 负载均衡</a></li>
+            
+            <li><a href="/post/geerpc-day7.html" class=" ">Day7 服务发现与注册中心</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>7days-golang Q &amp; A</a>
+          <ul>
+            
+            <li><a href="/post/7days-golang-q1.html" class=" ">接口型函数</a></li>
+            
+          </ul>
+        </li>
+        
+      </ul>
+    </nav>
+  </aside>
+  <div class="gkt-book-page">
+    <div class="hidden-sm hidden-md hidden-lg gkt-book-menu-icon">
+      <label for="book-menu">
+        <svg class="float-left" name="book-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </label>
+      <strong class="float-right">七天用Go从零实现系列</strong>
+    </div>
+    <div class="u-arrow-wrapper hidden-xs">
+        
+        <a class="float-left" href="/post/geerpc-day2.html"><i class="u-arrow-left"></i></a>
+        
+        
+        <a class="float-right" href="/post/geerpc-day4.html"><i class="u-arrow-right"></i></a>
+        
+    </div>
+    <article class="col-xs-12">
+      <h1>动手写RPC框架 - GeeRPC第三天 服务注册(service register)</h1>
+       
+      <div class="hidden-lg hidden-md hidden-sm series_links">
+        <p><strong> RPC框架 - GeeRPC系列文章链接：</strong></p>
+        <ul>
+          
+          <li>
+            <a href="/post/geerpc.html">7天用Go从零实现RPC框架GeeRPC</a>
+            <span class="post-item-date">(Oct 6, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day1.html">动手写RPC框架 - GeeRPC第一天 服务端与消息编码</a>
+            <span class="post-item-date">(Oct 6, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day2.html">动手写RPC框架 - GeeRPC第二天 支持并发与异步的客户端</a>
+            <span class="post-item-date">(Oct 7, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day3.html">动手写RPC框架 - GeeRPC第三天 服务注册(service register)</a>
+            <span class="post-item-date">(Oct 7, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day4.html">动手写RPC框架 - GeeRPC第四天 超时处理(timeout)</a>
+            <span class="post-item-date">(Oct 7, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day5.html">动手写RPC框架 - GeeRPC第五天 支持HTTP协议</a>
+            <span class="post-item-date">(Oct 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day6.html">动手写RPC框架 - GeeRPC第六天 负载均衡(load balance)</a>
+            <span class="post-item-date">(Oct 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geerpc-day7.html">动手写RPC框架 - GeeRPC第七天 服务发现与注册中心(registry)</a>
+            <span class="post-item-date">(Oct 8, 2020)</span>
+          </li>
+          
+        </ul>
+      </div>
+       
+      <blockquote>
+        <p>
+          源代码/数据集已上传到
+          <a href="https://github.com/geektutu/7days-golang" target="_blank" rel="noopener">Github - 7days-golang</a>
+        </p>
+      </blockquote>
+      
+      <div class="gkt-article-start"></div>
+      <p><img src="geerpc/geerpc.jpg" alt="golang RPC framework"></p>
+<p>本文是<a href="https://geektutu.com/post/geerpc.html">7天用Go从零实现RPC框架GeeRPC</a>的第三篇。</p>
+<ul>
+<li>通过反射实现服务注册功能</li>
+<li>在服务端实现服务调用，代码约 150 行</li>
+</ul>
+<h2 id="结构体映射为服务"><a href="#结构体映射为服务" class="headerlink" title="结构体映射为服务"></a>结构体映射为服务</h2><p>RPC 框架的一个基础能力是：像调用本地程序一样调用远程服务。那如何将程序映射为服务呢？那么对 Go 来说，这个问题就变成了如何将结构体的方法映射为服务。</p>
+<p>对 <code>net/rpc</code> 而言，一个函数需要能够被远程调用，需要满足如下五个条件：</p>
+<ul>
+<li>the method’s type is exported. – 方法所属类型是导出的。</li>
+<li>the method is exported. – 方式是导出的。</li>
+<li>the method has two arguments, both exported (or builtin) types. – 两个入参，均为导出或内置类型。</li>
+<li>the method’s second argument is a pointer. – 第二个入参必须是一个指针。</li>
+<li>the method has return type error. – 返回值为 error 类型。</li>
+</ul>
+<p>更直观一些：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span></span> MethodName(argType T1, replyType *T2) <span class="type">error</span></span><br></pre></td></tr></table></figure>
+
+<p>假设客户端发过来一个请求，包含 ServiceMethod 和 Argv。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="string">&quot;ServiceMethod&quot;</span>： <span class="string">&quot;T.MethodName&quot;</span></span><br><span class="line">    <span class="string">&quot;Argv&quot;</span>：<span class="string">&quot;0101110101...&quot;</span> <span class="comment">// 序列化之后的字节流</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 “T.MethodName” 可以确定调用的是类型 T 的 MethodName，如果硬编码实现这个功能，很可能是这样：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> req.ServiceMethod &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;T.MethodName&quot;</span>:</span><br><span class="line">        t := <span class="built_in">new</span>(t)</span><br><span class="line">        reply := <span class="built_in">new</span>(T2)</span><br><span class="line">        <span class="keyword">var</span> argv T1</span><br><span class="line">        gob.NewDecoder(conn).Decode(&amp;argv)</span><br><span class="line">        err := t.MethodName(argv, reply)</span><br><span class="line">        server.sendMessage(reply, err)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;Foo.Sum&quot;</span>:</span><br><span class="line">        f := <span class="built_in">new</span>(Foo)</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，如果使用硬编码的方式来实现结构体与服务的映射，那么每暴露一个方法，就需要编写等量的代码。那有没有什么方式，能够将这个映射过程自动化呢？可以借助反射。</p>
+<p>通过反射，我们能够非常容易地获取某个结构体的所有方法，并且能够通过方法，获取到该方法所有的参数类型与返回值。例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">	typ := reflect.TypeOf(&amp;wg)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; typ.NumMethod(); i++ &#123;</span><br><span class="line">		method := typ.Method(i)</span><br><span class="line">		argv := <span class="built_in">make</span>([]<span class="type">string</span>, <span class="number">0</span>, method.Type.NumIn())</span><br><span class="line">		returns := <span class="built_in">make</span>([]<span class="type">string</span>, <span class="number">0</span>, method.Type.NumOut())</span><br><span class="line">		<span class="comment">// j 从 1 开始，第 0 个入参是 wg 自己。</span></span><br><span class="line">		<span class="keyword">for</span> j := <span class="number">1</span>; j &lt; method.Type.NumIn(); j++ &#123;</span><br><span class="line">			argv = <span class="built_in">append</span>(argv, method.Type.In(j).Name())</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> j := <span class="number">0</span>; j &lt; method.Type.NumOut(); j++ &#123;</span><br><span class="line">			returns = <span class="built_in">append</span>(returns, method.Type.Out(j).Name())</span><br><span class="line">		&#125;</span><br><span class="line">		log.Printf(<span class="string">&quot;func (w *%s) %s(%s) %s&quot;</span>,</span><br><span class="line">			typ.Elem().Name(),</span><br><span class="line">			method.Name,</span><br><span class="line">			strings.Join(argv, <span class="string">&quot;,&quot;</span>),</span><br><span class="line">			strings.Join(returns, <span class="string">&quot;,&quot;</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行的结果是：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *WaitGroup)</span></span> Add(<span class="type">int</span>)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *WaitGroup)</span></span> Done()</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *WaitGroup)</span></span> Wait()</span><br></pre></td></tr></table></figure>
+
+<h2 id="通过反射实现-service"><a href="#通过反射实现-service" class="headerlink" title="通过反射实现 service"></a>通过反射实现 service</h2><p>前面两天我们完成了客户端和服务端，客户端相对来说功能是比较完整的，但是服务端的功能并不完整，仅仅将请求的 header 打印了出来，并没有真正地处理。那今天的主要目的是补全这部分功能。首先通过反射实现结构体与服务的映射关系，代码独立放置在 <code>service.go</code> 中。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-rpc/day3-service">day3-service/service.go</a></p>
+<p>第一步，定义结构体 methodType：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> methodType <span class="keyword">struct</span> &#123;</span><br><span class="line">	method    reflect.Method</span><br><span class="line">	ArgType   reflect.Type</span><br><span class="line">	ReplyType reflect.Type</span><br><span class="line">	numCalls  <span class="type">uint64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *methodType)</span></span> NumCalls() <span class="type">uint64</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> atomic.LoadUint64(&amp;m.numCalls)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *methodType)</span></span> newArgv() reflect.Value &#123;</span><br><span class="line">	<span class="keyword">var</span> argv reflect.Value</span><br><span class="line">	<span class="comment">// arg may be a pointer type, or a value type</span></span><br><span class="line">	<span class="keyword">if</span> m.ArgType.Kind() == reflect.Ptr &#123;</span><br><span class="line">		argv = reflect.New(m.ArgType.Elem())</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		argv = reflect.New(m.ArgType).Elem()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> argv</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *methodType)</span></span> newReplyv() reflect.Value &#123;</span><br><span class="line">	<span class="comment">// reply must be a pointer type</span></span><br><span class="line">	replyv := reflect.New(m.ReplyType.Elem())</span><br><span class="line">	<span class="keyword">switch</span> m.ReplyType.Elem().Kind() &#123;</span><br><span class="line">	<span class="keyword">case</span> reflect.Map:</span><br><span class="line">		replyv.Elem().Set(reflect.MakeMap(m.ReplyType.Elem()))</span><br><span class="line">	<span class="keyword">case</span> reflect.Slice:</span><br><span class="line">		replyv.Elem().Set(reflect.MakeSlice(m.ReplyType.Elem(), <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> replyv</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每一个 methodType 实例包含了一个方法的完整信息。包括</p>
+<ul>
+<li>method：方法本身</li>
+<li>ArgType：第一个参数的类型</li>
+<li>ReplyType：第二个参数的类型</li>
+<li>numCalls：后续统计方法调用次数时会用到</li>
+</ul>
+<p>另外，我们还实现了 2 个方法 <code>newArgv</code> 和 <code>newReplyv</code>，用于创建对应类型的实例。<code>newArgv</code> 方法有一个小细节，指针类型和值类型创建实例的方式有细微区别。</p>
+<p>第二步，定义结构体 service：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> service <span class="keyword">struct</span> &#123;</span><br><span class="line">	name   <span class="type">string</span></span><br><span class="line">	typ    reflect.Type</span><br><span class="line">	rcvr   reflect.Value</span><br><span class="line">	method <span class="keyword">map</span>[<span class="type">string</span>]*methodType</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>service 的定义也是非常简洁的，name 即映射的结构体的名称，比如 <code>T</code>，比如 <code>WaitGroup</code>；typ 是结构体的类型；rcvr 即结构体的实例本身，保留 rcvr 是因为在调用时需要 rcvr 作为第 0 个参数；method 是 map 类型，存储映射的结构体的所有符合条件的方法。</p>
+<p>接下来，完成构造函数 <code>newService</code>，入参是任意需要映射为服务的结构体实例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">newService</span><span class="params">(rcvr <span class="keyword">interface</span>&#123;&#125;)</span></span> *service &#123;</span><br><span class="line">	s := <span class="built_in">new</span>(service)</span><br><span class="line">	s.rcvr = reflect.ValueOf(rcvr)</span><br><span class="line">	s.name = reflect.Indirect(s.rcvr).Type().Name()</span><br><span class="line">	s.typ = reflect.TypeOf(rcvr)</span><br><span class="line">	<span class="keyword">if</span> !ast.IsExported(s.name) &#123;</span><br><span class="line">		log.Fatalf(<span class="string">&quot;rpc server: %s is not a valid service name&quot;</span>, s.name)</span><br><span class="line">	&#125;</span><br><span class="line">	s.registerMethods()</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *service)</span></span> registerMethods() &#123;</span><br><span class="line">	s.method = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]*methodType)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; s.typ.NumMethod(); i++ &#123;</span><br><span class="line">		method := s.typ.Method(i)</span><br><span class="line">		mType := method.Type</span><br><span class="line">		<span class="keyword">if</span> mType.NumIn() != <span class="number">3</span> || mType.NumOut() != <span class="number">1</span> &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> mType.Out(<span class="number">0</span>) != reflect.TypeOf((*<span class="type">error</span>)(<span class="literal">nil</span>)).Elem() &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		argType, replyType := mType.In(<span class="number">1</span>), mType.In(<span class="number">2</span>)</span><br><span class="line">		<span class="keyword">if</span> !isExportedOrBuiltinType(argType) || !isExportedOrBuiltinType(replyType) &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		s.method[method.Name] = &amp;methodType&#123;</span><br><span class="line">			method:    method,</span><br><span class="line">			ArgType:   argType,</span><br><span class="line">			ReplyType: replyType,</span><br><span class="line">		&#125;</span><br><span class="line">		log.Printf(<span class="string">&quot;rpc server: register %s.%s\n&quot;</span>, s.name, method.Name)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isExportedOrBuiltinType</span><span class="params">(t reflect.Type)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> ast.IsExported(t.Name()) || t.PkgPath() == <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>registerMethods</code> 过滤出了符合条件的方法：</p>
+<ul>
+<li>两个导出或内置类型的入参（反射时为 3 个，第 0 个是自身，类似于 python 的 self，java 中的 this）</li>
+<li>返回值有且只有 1 个，类型为 error</li>
+</ul>
+<p>最后，我们还需要实现 <code>call</code> 方法，即能够通过反射值调用方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *service)</span></span> call(m *methodType, argv, replyv reflect.Value) <span class="type">error</span> &#123;</span><br><span class="line">	atomic.AddUint64(&amp;m.numCalls, <span class="number">1</span>)</span><br><span class="line">	f := m.method.Func</span><br><span class="line">	returnValues := f.Call([]reflect.Value&#123;s.rcvr, argv, replyv&#125;)</span><br><span class="line">	<span class="keyword">if</span> errInter := returnValues[<span class="number">0</span>].Interface(); errInter != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errInter.(<span class="type">error</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="service-的测试用例"><a href="#service-的测试用例" class="headerlink" title="service 的测试用例"></a>service 的测试用例</h2><p>为了保证 service 实现的正确性，我们为 service.go 写了几个测试用例。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-rpc/day3-service">day3-service/service_test.go</a></p>
+<p>定义结构体 Foo，实现 2 个方法，导出方法 Sum 和 非导出方法 sum。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Foo <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Args <span class="keyword">struct</span>&#123; Num1, Num2 <span class="type">int</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f Foo)</span></span> Sum(args Args, reply *<span class="type">int</span>) <span class="type">error</span> &#123;</span><br><span class="line">	*reply = args.Num1 + args.Num2</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// it&#x27;s not a exported Method</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f Foo)</span></span> sum(args Args, reply *<span class="type">int</span>) <span class="type">error</span> &#123;</span><br><span class="line">	*reply = args.Num1 + args.Num2</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">assert</span><span class="params">(condition <span class="type">bool</span>, msg <span class="type">string</span>, v ...<span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> !condition &#123;</span><br><span class="line">		<span class="built_in">panic</span>(fmt.Sprintf(<span class="string">&quot;assertion failed: &quot;</span>+msg, v...))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试 newService 和 call 方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestNewService</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> foo Foo</span><br><span class="line">	s := newService(&amp;foo)</span><br><span class="line">	_assert(<span class="built_in">len</span>(s.method) == <span class="number">1</span>, <span class="string">&quot;wrong service Method, expect 1, but got %d&quot;</span>, <span class="built_in">len</span>(s.method))</span><br><span class="line">	mType := s.method[<span class="string">&quot;Sum&quot;</span>]</span><br><span class="line">	_assert(mType != <span class="literal">nil</span>, <span class="string">&quot;wrong Method, Sum shouldn&#x27;t nil&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestMethodType_Call</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> foo Foo</span><br><span class="line">	s := newService(&amp;foo)</span><br><span class="line">	mType := s.method[<span class="string">&quot;Sum&quot;</span>]</span><br><span class="line"></span><br><span class="line">	argv := mType.newArgv()</span><br><span class="line">	replyv := mType.newReplyv()</span><br><span class="line">	argv.Set(reflect.ValueOf(Args&#123;Num1: <span class="number">1</span>, Num2: <span class="number">3</span>&#125;))</span><br><span class="line">	err := s.call(mType, argv, replyv)</span><br><span class="line">	_assert(err == <span class="literal">nil</span> &amp;&amp; *replyv.Interface().(*<span class="type">int</span>) == <span class="number">4</span> &amp;&amp; mType.NumCalls() == <span class="number">1</span>, <span class="string">&quot;failed to call Foo.Sum&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="集成到服务端"><a href="#集成到服务端" class="headerlink" title="集成到服务端"></a>集成到服务端</h2><p>通过反射结构体已经映射为服务，但请求的处理过程还没有完成。从接收到请求到回复还差以下几个步骤：第一步，根据入参类型，将请求的 body 反序列化；第二步，调用 <code>service.call</code>，完成方法调用；第三步，将 reply 序列化为字节流，构造响应报文，返回。</p>
+<p>回到代码本身，补全之前在 <code>server.go</code> 中遗留的 2 个 TODO 任务 <code>readRequest</code> 和 <code>handleRequest</code> 即可。</p>
+<p>在这之前，我们还需要为 Server 实现一个方法 <code>Register</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-rpc/day3-service">day3-service/server.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Server represents an RPC Server.</span></span><br><span class="line"><span class="keyword">type</span> Server <span class="keyword">struct</span> &#123;</span><br><span class="line">	serviceMap sync.Map</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Register publishes in the server the set of methods of the</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> Register(rcvr <span class="keyword">interface</span>&#123;&#125;) <span class="type">error</span> &#123;</span><br><span class="line">	s := newService(rcvr)</span><br><span class="line">	<span class="keyword">if</span> _, dup := server.serviceMap.LoadOrStore(s.name, s); dup &#123;</span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">&quot;rpc: service already defined: &quot;</span> + s.name)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Register publishes the receiver&#x27;s methods in the DefaultServer.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Register</span><span class="params">(rcvr <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">error</span> &#123; <span class="keyword">return</span> DefaultServer.Register(rcvr) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>配套实现 <code>findService</code> 方法，即通过 <code>ServiceMethod</code> 从 serviceMap 中找到对应的 service</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> findService(serviceMethod <span class="type">string</span>) (svc *service, mtype *methodType, err <span class="type">error</span>) &#123;</span><br><span class="line">	dot := strings.LastIndex(serviceMethod, <span class="string">&quot;.&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> dot &lt; <span class="number">0</span> &#123;</span><br><span class="line">		err = errors.New(<span class="string">&quot;rpc server: service/method request ill-formed: &quot;</span> + serviceMethod)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	serviceName, methodName := serviceMethod[:dot], serviceMethod[dot+<span class="number">1</span>:]</span><br><span class="line">	svci, ok := server.serviceMap.Load(serviceName)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		err = errors.New(<span class="string">&quot;rpc server: can&#x27;t find service &quot;</span> + serviceName)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	svc = svci.(*service)</span><br><span class="line">	mtype = svc.method[methodName]</span><br><span class="line">	<span class="keyword">if</span> mtype == <span class="literal">nil</span> &#123;</span><br><span class="line">		err = errors.New(<span class="string">&quot;rpc server: can&#x27;t find method &quot;</span> + methodName)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>findService</code> 的实现看似比较繁琐，但是逻辑还是非常清晰的。因为 ServiceMethod 的构成是 “Service.Method”，因此先将其分割成 2 部分，第一部分是 Service 的名称，第二部分即方法名。现在 serviceMap 中找到对应的 service 实例，再从 service 实例的 method 中，找到对应的 methodType。</p>
+<p>准备工具已经就绪，我们首先补全 readRequest 方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// request stores all information of a call</span></span><br><span class="line"><span class="keyword">type</span> request <span class="keyword">struct</span> &#123;</span><br><span class="line">	h            *codec.Header <span class="comment">// header of request</span></span><br><span class="line">	argv, replyv reflect.Value <span class="comment">// argv and replyv of request</span></span><br><span class="line">	mtype        *methodType</span><br><span class="line">	svc          *service</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> readRequest(cc codec.Codec) (*request, <span class="type">error</span>) &#123;</span><br><span class="line">	h, err := server.readRequestHeader(cc)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	req := &amp;request&#123;h: h&#125;</span><br><span class="line">	req.svc, req.mtype, err = server.findService(h.ServiceMethod)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> req, err</span><br><span class="line">	&#125;</span><br><span class="line">	req.argv = req.mtype.newArgv()</span><br><span class="line">	req.replyv = req.mtype.newReplyv()</span><br><span class="line"></span><br><span class="line">	<span class="comment">// make sure that argvi is a pointer, ReadBody need a pointer as parameter</span></span><br><span class="line">	argvi := req.argv.Interface()</span><br><span class="line">	<span class="keyword">if</span> req.argv.Type().Kind() != reflect.Ptr &#123;</span><br><span class="line">		argvi = req.argv.Addr().Interface()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err = cc.ReadBody(argvi); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Println(<span class="string">&quot;rpc server: read body err:&quot;</span>, err)</span><br><span class="line">		<span class="keyword">return</span> req, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> req, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>readRequest 方法中最重要的部分，即通过 <code>newArgv()</code> 和 <code>newReplyv()</code> 两个方法创建出两个入参实例，然后通过 <code>cc.ReadBody()</code> 将请求报文反序列化为第一个入参 argv，在这里同样需要注意 argv 可能是值类型，也可能是指针类型，所以处理方式有点差异。</p>
+<p>接下来补全 handleRequest 方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> handleRequest(cc codec.Codec, req *request, sending *sync.Mutex, wg *sync.WaitGroup) &#123;</span><br><span class="line">	<span class="keyword">defer</span> wg.Done()</span><br><span class="line">	err := req.svc.call(req.mtype, req.argv, req.replyv)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		req.h.Error = err.Error()</span><br><span class="line">		server.sendResponse(cc, req.h, invalidRequest, sending)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	server.sendResponse(cc, req.h, req.replyv.Interface(), sending)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相对于 readRequest，handleRequest 的实现非常简单，通过 <code>req.svc.call</code> 完成方法调用，将 replyv 传递给 sendResponse 完成序列化即可。</p>
+<p>到这里，今天的所有内容已经实现完成，成功在服务端实现了服务注册与调用。</p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>最后，还是需要写一个可执行程序(main)验证今天的成果。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-rpc/day3-service">day3-service/main/main.go</a></p>
+<p>第一步，定义结构体 Foo 和方法 Sum</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;geerpc&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;net&quot;</span></span><br><span class="line">	<span class="string">&quot;sync&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Foo <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Args <span class="keyword">struct</span>&#123; Num1, Num2 <span class="type">int</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f Foo)</span></span> Sum(args Args, reply *<span class="type">int</span>) <span class="type">error</span> &#123;</span><br><span class="line">	*reply = args.Num1 + args.Num2</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二步，注册 Foo 到 Server 中，并启动 RPC 服务</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startServer</span><span class="params">(addr <span class="keyword">chan</span> <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> foo Foo</span><br><span class="line">	<span class="keyword">if</span> err := geerpc.Register(&amp;foo); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;register error:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// pick a free port</span></span><br><span class="line">	l, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, <span class="string">&quot;:0&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;network error:&quot;</span>, err)</span><br><span class="line">	&#125;</span><br><span class="line">	log.Println(<span class="string">&quot;start rpc server on&quot;</span>, l.Addr())</span><br><span class="line">	addr &lt;- l.Addr().String()</span><br><span class="line">	geerpc.Accept(l)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第三步，构造参数，发送 RPC 请求，并打印结果。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	log.SetFlags(<span class="number">0</span>)</span><br><span class="line">	addr := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">string</span>)</span><br><span class="line">	<span class="keyword">go</span> startServer(addr)</span><br><span class="line">	client, _ := geerpc.Dial(<span class="string">&quot;tcp&quot;</span>, &lt;-addr)</span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; _ = client.Close() &#125;()</span><br><span class="line"></span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	<span class="comment">// send request &amp; receive response</span></span><br><span class="line">	<span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">		wg.Add(<span class="number">1</span>)</span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">			<span class="keyword">defer</span> wg.Done()</span><br><span class="line">			args := &amp;Args&#123;Num1: i, Num2: i * i&#125;</span><br><span class="line">			<span class="keyword">var</span> reply <span class="type">int</span></span><br><span class="line">			<span class="keyword">if</span> err := client.Call(<span class="string">&quot;Foo.Sum&quot;</span>, args, &amp;reply); err != <span class="literal">nil</span> &#123;</span><br><span class="line">				log.Fatal(<span class="string">&quot;call Foo.Sum error:&quot;</span>, err)</span><br><span class="line">			&#125;</span><br><span class="line">			log.Printf(<span class="string">&quot;%d + %d = %d&quot;</span>, args.Num1, args.Num2, reply)</span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rpc server: register Foo.Sum</span><br><span class="line">start rpc server on [::]:57509</span><br><span class="line">1 + 1 = 2</span><br><span class="line">2 + 4 = 6</span><br><span class="line">3 + 9 = 12</span><br><span class="line">0 + 0 = 0</span><br><span class="line">4 + 16 = 20</span><br></pre></td></tr></table></figure>
+
+<h2 id="附-推荐阅读"><a href="#附-推荐阅读" class="headerlink" title="附 推荐阅读"></a>附 推荐阅读</h2><ul>
+<li><a href="https://geektutu.com/post/quick-golang.html">Go 语言简明教程</a></li>
+<li><a href="https://geektutu.com/post/qa-golang.html">Go 语言笔试面试题</a></li>
+</ul>
+
+      
+<script src="/js/qrious.min.js"></script>
+
+
+      <hr />
+      <p>
+        
+        <span class="float-right gkt-page-tips">last updated at 2026-02-23</span>
+      </p>
+    </article>
+    <!-- 赞赏 -->
+    <!--打赏-->
+
+<style>
+    #reward .reward-btn-wrapper {
+        width: 100px;
+        padding-top: 35px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    #reward .reward-btn {
+        padding: 2px 15px;
+        color: #fff;
+        background-color: #ea6f5a;
+        border-radius: 20px;
+    }
+
+    #reward .reward-code {
+        position: absolute;
+        top: -220px;
+        left: 50%;
+        display: none;
+        width: 360px;
+        height: 240px;
+        margin-left: -180px;
+        padding: 15px 20px;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        box-shadow: 0 1px 1px 1px #efefef;
+    }
+
+    #reward .reward-code:after,
+    #reward .reward-code:before {
+        position: absolute;
+        content: '';
+        border: 10px solid transparent
+    }
+
+    #reward .reward-code:after {
+        bottom: -19px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #fff
+    }
+
+    #reward .reward-code:before {
+        bottom: -20px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #e6e6e6
+    }
+
+    #reward .qr-code {
+        width: 50%;
+        float: left;
+        padding: 5px;
+    }
+
+    #reward .qr-code p {
+        margin-top: -6px;
+    }
+
+    #reward img {
+        transform: none;
+        -webkit-transform: none;
+        margin-left: 0;
+    }
+
+    #reward img[alt='i'] {
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+        position: absolute;
+        margin: 65px 0 0 65px;
+    }
+
+    #reward img[alt="ali"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #0f9be0;
+    }
+
+    #reward img[alt="wechat"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #3db034;
+    }
+
+    #reward .reward-tip {
+        font-size: 1.2em;
+        margin-bottom: 0;
+        color: #ea6f5a;
+    }
+</style>
+<div id="reward" class="col-xs-12">
+    <div class="reward-btn-wrapper">
+        <div class="reward-btn text-center">赞赏支持</div>
+    </div>
+    <div class="reward-code text-center">
+        <p class="text-center reward-tip"><strong>请我吃胡萝卜 =^_^= </strong></p>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-ali" src="" alt="ali">
+            <p><small>支付宝</small></p>
+        </div>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-wechat" src="" alt="wechat">
+            <p><small>微信</small></p>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window, document) {
+        var aliQr = new QRious({ value: 'HTTPS://QR.ALIPAY.COM/FKX060337TUXBAX9LIFJE8' });
+        var wechatQr = new QRious({ value: 'wxp://f2f0qgGBlfD1nZXjvBjievxB0z0fc0W2sBq5' });
+        document.querySelector('#reward-ali').src = aliQr.toDataURL();
+        document.querySelector('#reward-wechat').src = wechatQr.toDataURL();
+
+        var rewardBtn = document.querySelector('#reward .reward-btn-wrapper');
+        var qrCode = document.querySelector('#reward .reward-code')
+        var activeFunc = function (e) {
+            qrCode.style.display = 'block';
+        }
+        var hideFunc = function (e) {
+            qrCode.style.display = 'none';
+        }
+
+        rewardBtn.addEventListener('mouseenter', activeFunc, false)
+        rewardBtn.addEventListener('mouseover', activeFunc, false)
+        rewardBtn.addEventListener('mouseleave', hideFunc, false)
+        qrCode.addEventListener('mouseenter', activeFunc, false)
+        qrCode.addEventListener('mouseover', activeFunc, false)
+        qrCode.addEventListener('mouseleave', hideFunc, false)
+    })(window, document);
+</script>
+
+    
+<div class="col-xs-12 text-center" style="margin-top: 30px;">
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://github.com/geektutu" title="Github"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/github.png" /></a>
+    
+    <a style="display:inline-block;" href="https://geektutu.com/feed.xml" title="RSS"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/rss.jpg" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://www.zhihu.com/people/gzdaijie" title="知乎"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/zhihu.png" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://weibo.com/geektutu" title="微博"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/weibo.jpg" /></a>
+    
+</div>
+
+    <!-- 评论 -->
+    
+    <div class="col-xs-12">
+      
+<div class="col-xs-12 padding-0">
+    <div id="gitalk-container">
+        <div class="gt-container text-center" style="margin-top: 50px;">
+            <button class="gt-btn gt-btn-public"><span class="gt-btn-text">去 Github 评论</span></button>
+        </div>
+    </div>
+    <div id="gitalk-related"></div>
+</div>
+
+<link rel="stylesheet" href="/css/gitalk.css">
+
+
+<script src="/js/gitalk.min.js"></script>
+
+<script>
+    window.addEventListener('load', function () {
+        function renderCommentUrl(data) {
+            var url = (data[window.location.pathname] || {}).url
+            url && getDom('#gitalk-container button').addEventListener('click', function (e) { window.open(url)})
+            url || (getDom('#gitalk-container').style.display = 'none')
+        }
+        const gitalk = new Gitalk({
+            clientID: 'c1fdd456a4caae5f7df0',
+            clientSecret: 'b2674451e21feae50520f99337ec15d2aebe7879',
+            accessToken: '513dc2f1e6df8c07a12fbf1547874f54679d9712',
+            repo: 'blog',
+            owner: 'geektutu',
+            admin: ['geektutu'],
+            id: window.location.pathname,
+            distractionFreeMode: false
+        });
+        fetch("https://api.github.com/user").then(function(resp){
+            gitalk.render('gitalk-container');
+        }).catch(function(e){
+            fetch('/tool/issues.json').then(function (r) { return r.json() }).then(renderCommentUrl).catch(function (e) { })
+        })
+        getDom('#gitalk-container').addEventListener('click', function (e) {
+            e && e.stopPropagation && e.stopPropagation();
+        });
+    })
+</script>
+<script>
+    window.addEventListener('load', function () {
+        function render(comments) {
+            var template = '<a href="${comment.url}?utm_source=gitalk" class="dis-item-url"><h3 class="dis-item-title">${comment.title}</h3>' +
+                '<p class="dis-item-des">${comment.count} 评论 ● ${comment.date}</p>' +
+                '<div class="dis-item-content"><img class="dis-item-img" src="${comment.icon}" alt="icon"><p><b><span class="dis-item-user">${comment.user}</span></b>&nbsp;——&nbsp;${comment.body}</p></div>' +
+                '</a>'
+
+            var wrapper = getDom('#gitalk-related');
+            comments = shuffle(comments);
+            comments.slice(0, 4).forEach(function (c) {
+                var div = document.createElement('div');
+                div.classList.add('dis-item');
+                div.innerHTML = template.replace("${comment.url}", c.url)
+                    .replace("${comment.title}", c.title)
+                    .replace("${comment.count}", c.count)
+                    .replace("${comment.date}", c.date)
+                    .replace("${comment.icon}", c.icon)
+                    .replace("${comment.user}", c.user)
+                    .replace("${comment.body}", c.body)
+                wrapper.appendChild(div)
+            })
+            var p = document.createElement('p')
+            p.innerHTML = '<a href="https://geektutu.com/post/blog-experience-7.html">Gitalk Plus</a>';
+            p.classList.add('dis-divide');
+            wrapper.appendChild(p);
+            wrapper.classList.add('dis-wrapper')
+        }
+        function shuffle(a) {
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        fetch('/tool/comments.json').then(function (r) { return r.json() }).then(render).catch(function (e) { })
+    })
+</script>
+
+    </div>
+    
+  </div>
+  <aside class="gkt-book-toc hidden-xs hidden-sm">
+    <div style="clear: both"></div>
+    <div class="gkt-sidebar-wrapper">
+      <!-- Table of Contents -->
+<div id="sidebar-toc">
+  <!-- TOC  -->
+  
+  
+  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%98%A0%E5%B0%84%E4%B8%BA%E6%9C%8D%E5%8A%A1"><span class="toc-nav-text">结构体映射为服务</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%80%9A%E8%BF%87%E5%8F%8D%E5%B0%84%E5%AE%9E%E7%8E%B0-service"><span class="toc-nav-text">通过反射实现 service</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#service-%E7%9A%84%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B"><span class="toc-nav-text">service 的测试用例</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%9B%86%E6%88%90%E5%88%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-nav-text">集成到服务端</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Demo"><span class="toc-nav-text">Demo</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%99%84-%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="toc-nav-text">附 推荐阅读</span></a></li></ol>
+  
+</div>
+
+<script>
+  (function () {
+    var h2 = document.querySelectorAll('article h2');
+    var h3 = document.querySelectorAll('article h3');
+    var linkList = document.querySelectorAll('#sidebar-toc a');
+
+    function findLinkElement(name) {
+      for (var i = 0; i < linkList.length; i++) {
+        var items = linkList[i].href.split('#');
+        if (items && items[items.length - 1] === encodeURIComponent(name)) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    function activeLink(titleList) {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      for (var i = titleList.length - 1; i >= 0; i--) {
+        if (scrollTop - titleList[i].offsetTop > 0) {
+          var index = findLinkElement(titleList[i].id);
+          index != -1 && linkList[index].classList.add('gkt-sidebar-active');
+          break;
+        }
+      }
+    }
+
+    window.addEventListener("scroll", function (e) {
+      [].slice.call(linkList).forEach(function (link) {
+        link.classList.remove('gkt-sidebar-active');
+      })
+      activeLink(h2);
+    })
+  })();
+</script>
+    </div>
+  </aside>
+</div>
+<script>
+    (function () {
+        function resizeUArrow() {
+            var s = getDom('.u-arrow-wrapper').style
+            var pc = getDom('.gkt-book-page')
+            s.left = getPosition(pc).x - 15 + 'px';
+            s.width = pc.clientWidth + 30 + 'px';
+        }
+        resizeUArrow()
+        window.addEventListener('resize', resizeUArrow);
+        var nav = getDom('.gkt-book-menu nav');
+        var key = 'gkt_book_七天用Go从零实现系列_' + parseInt(new Date().getTime()/1000/3600/24/7)
+        nav.scrollTo(0, localStorage.getItem(key) * 1)
+        nav.addEventListener('scroll', function(){ localStorage.setItem(key, nav.scrollTop) })
+    })();
+    (function(){
+      getDom(".gkt-book-menu-icon").addEventListener('click', function() {
+        var menu = getDom(".gkt-book-menu").classList
+        var article = getDom(".gkt-book-page").classList
+        if (menu.contains("gkt-book-menu-hidden")) {
+          menu.remove('gkt-book-menu-hidden')
+          article.add('gkt-book-menu-checked')
+        } else {
+          menu.add('gkt-book-menu-hidden')
+          article.remove('gkt-book-menu-checked')
+        }
+      })
+    })();
+</script>
+
+
+    
+
+</main>
+    </div>
+    <style>
+    img#go-top {
+        position: fixed;
+        bottom: 100px;
+        width: 50px;
+        cursor: pointer;
+        z-index: 9999;
+    }
+</style>
+<img id="go-top" src="/icon/top.png" class="hidden-xs" style="display: none" />
+<script>
+    (function () {
+        var goTop = document.getElementById('go-top');
+        var mainContainer = document.querySelector('.main-container');
+        
+        goTop.addEventListener('click', function () {
+            window.scroll(0, 0);
+        }, false);
+        window.addEventListener('scroll', function () {
+            var right = document.body.offsetWidth - mainContainer.getBoundingClientRect().right;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            goTop.style.right = right + 10 + 'px'
+            scrollTop > 700 && (goTop.style.display = "block");
+            scrollTop <= 700 && (goTop.style.display = "none");
+        });
+    })();
+</script>
+    <style>
+    #geektutu-click-img-container {
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        display: none;
+        z-index: 9999;
+    }
+
+    #geektutu-click-img-container img {
+        object-fit: contain;
+        background: #eaecef;
+        padding: 15px;
+        border-radius: 10px;
+        height: auto;
+        width: auto;
+        vertical-align: middle;
+    }
+</style>
+
+
+<div id="geektutu-click-img-container">
+    <img src="" alt="Big Image">
+</div>
+
+<script>
+    (function () {
+        var container = document.querySelector('#geektutu-click-img-container')
+        var targetImg = container.querySelector('img')
+        var imgs = document.querySelectorAll('article img');
+        targetImg.addEventListener('click', function (e) {
+            container.style.display = 'none';
+            e && e.stopPropagation && e.stopPropagation();
+        }, false);
+
+        for (var i = 0; i < imgs.length; ++i) {
+            var img = imgs[i];
+            img.addEventListener('click', (function (src, rate) {
+                return function (e) {
+                    e && e.stopPropagation && e.stopPropagation();
+                    if (window.innerWidth < 980) {
+                        return
+                    }
+                    targetImg.style.height = targetImg.style.width = 'auto';
+                    if (window.innerWidth / window.innerHeight > rate) {
+                        targetImg.style.height = (window.innerHeight - 20) + 'px';
+                    } else {
+                        targetImg.style.width = (window.innerWidth - 20) + 'px';
+                    }
+                    container.style.height = window.innerHeight + 'px'
+                    container.style.lineHeight = window.innerHeight + 'px'
+                    container.style.display = 'block';
+                    targetImg.src = src;
+                };
+            }(img.src, img.width / img.height)), false)
+        }
+    })();
+</script>
+    <!-- Footer -->
+    <!-- Footer -->
+<style>
+    footer {
+        width: 100%;
+        line-height: 1.5;
+        padding: 20px;
+    }
+
+    footer a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .footer-hexo img {
+        height: 20px;
+        margin-bottom: -5px;
+    }
+
+    .footer-hexo a {
+        color: #337ab7;
+    }
+</style>
+<footer class="text-center col-xs-12">
+    <p>
+        <small>© 2026 - 极客兔兔 - </small>
+        <small>
+            <a target="_blank" rel="nofollow noopener" href="http://beian.miit.gov.cn/">沪ICP备18001798号-1</a>
+        </small>
+    </p>
+    <p class="footer-hexo">
+        <!-- 但若直接使用或修改主题，请务必保留这段声明 -->
+        <small>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme
+            <a target="_blank" href="https://geektutu.com">Geektutu</a>
+            <a target="_blank" rel="noopener" href="https://github.com/geektutu/hexo-theme-geektutu">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIACIAUAMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAAAQQFBwIDBgj/2gAIAQEAAAAA9KrHSgAYL5/z6zZGuJd12uugbhq3uKtmuRtix20IS7lTLAfAAAn/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oACAECEAAAAAAB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAxAAAAAAAf/EADEQAAICAQIEBQEGBwAAAAAAAAECAwQFAAYREhORBxQhUlQxQVFic5KxJDJCYYGC0f/aAAgBAQABPwCFHnjWUzuvN6hV4cANSRLGjO9yRVUcSzMoA7jVXJYe5N0a2dhmk9kc0bN2GvLN8mbuNeWb5M3ca8s3yZu415Y/Jm7jXlm+TN3H/NeVPyZu40vOk3TZywK8wJ+v3EHVM/wsI/Dq2lrxN3Nnca16eti8chSAIoMbzByhMwP14kHVfwIiSaF5c96J6kwwCOTnHsYk8uvCrdmQy1TI4rJuz3cZLyGR/wCd4+YoOf8AEpUjXitubLYPG4paFsUxcuiGe7yc5gTW3LW44szXmobsi3Dhmic2+Z4+vCVH9CpraPiQ+QvbgTJrPFBWd5YpWrmNIIEXiRO32Pqt4p7cnfHk18lFBdmEVW1LVdIZGOrniTt6plrWKaO69yCykDRxwF+LMAewB0Txtr+Sf31VI8tEPw62fZt7N3Humtbpzz13ucX6CGSWMSuzpLyD1eNgeUka3PuvHbaxq3biTMHfkiSNCS78CwU+3Xg7Vu3MhuTcU6cq3Zemn3Eh2dv8Lzcut+29x1atKbHYqLJUhLwyNMwiZ3j9yDWOxUOV3tgb+3No5LDx1pi9+aeIwRlNY6bc+Jv+IFGrhLxtXJZ7VKcw81diiAAEn0JOrkWZyNfbEr0tz27UGQgkuGzXdIIvyowq99bRxk9ffO/L81SZBPZgEEroQroIxxMZOgeNsfkn99QypHGqO4Vl9CDrN4LDZkwyzyyQ2IgRHZrzGCZVP1XnQglT9oOtw4LC7iqV6uRkZoYpxKFSQpzFRw4EjVRMfSrQ1qqwxQxKFjjTgFUD7BoWYR6iVe+mtxt9Zwf9teaj4AdccPu5tedX5A/VrzUR+sy/q1CwksF19VEfDj/cnQRW+qg66cfsXtrpx+xe2unH7F7a6cfsXtrpx+xe2unH7F7a6cfsXtoxx+xe2gAAOA1//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k="
+                    alt="Github Star">
+            </a>
+        </small>
+    </p>
+    
+    <p>
+        <small>
+            <span id="busuanzi_container_site_pv">👁<span id="busuanzi_value_site_pv"></span></span> &nbsp;
+            <span id="busuanzi_container_page_pv">📚<span id="busuanzi_value_page_pv"></span></span>
+        </small>
+    </p>
+    
+    
+
+</footer>
+
+
+<script>
+    window.addEventListener('load', function () {
+        globalAddScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js');
+    })
+</script>
+
+<!-- Baidu Tongji -->
+
+<script>
+    window.addEventListener('load', function () {
+        var _hmt = _hmt || [];
+        globalAddScript('//hm.baidu.com/hm.js?1a0ec38c52c08db815b0046c2783b1aa')
+    })
+</script>
+
+
+
+<!-- baidu auto push for seo -->
+<script>
+    window.addEventListener('load', function () {
+        var src = 'http://push.zhanzhang.baidu.com/push.js'
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        globalAddScript(src);
+    })
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-142641425-1');
+
+    window.addEventListener('load', function () {
+        globalAddScript('https://www.googletagmanager.com/gtag/js?id=UA-142641425-1');
+    });
+</script>
+
+
+    <script>
+        // 非本站网址，新开tab页签
+        (function () {
+            var stopBubble = function (e) {
+                e && e.stopPropagation && e.stopPropagation();
+            }
+            var links = document.querySelectorAll('a');
+            [].slice.call(links).forEach(function (item) {
+                if (item.href && item.href.indexOf(window.location.host) === -1) {
+                    item.target = '_blank'
+                }
+                // 阻止冒泡，不触发彩蛋。
+                item.addEventListener('click', stopBubble, false);
+            });
+            var article = document.querySelector('article');
+            article && article.addEventListener('click', stopBubble, false)
+        })();
+    </script>
+    
+</body>
+
+</html>

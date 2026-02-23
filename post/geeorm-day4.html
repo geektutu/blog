@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  <meta name="baidu-site-verification" content="p7Pz3jlx4t" />
+  <meta name="google-site-verification" content="X31OY0d2sKImNbS2x8-OpITWRK4nn7nZCcXe3_hA9ew" />
+  <meta name="msvalidate.01" content="7E2AEE3378AC93764DEAB411177A21A1" />
+  <meta name="360-site-verification" content="1d1e81a1a48a1ed2e3308d7cb8e548e7" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- if page has tags, then add tags to keyword -->
+  
+  
+  <meta name="keywords" content="geektutu,jiketutu,Go语言,golang,python,Go,Go语言,从零实现ORM框架,database/sql,sqlite,chain operation,delete from">
+  <!-- page.description has higher priority -->
+  <meta name="description" content="7天用 Go语言/golang 从零实现 ORM 框架 GeeORM 教程(7 days implement golang object relational mapping framework from scratch tutorial)，动手写 ORM 框架，参照 gorm, xorm 的实现。通过链式(chain)操作，支持查询条件(where, order by, limit 等)的叠加；实现记录的更新(update)、删除(delete)和统计(count)功能。">
+  <link rel="shortcut icon" href="/img/icon.png">
+  <title>
+    
+    动手写ORM框架 - GeeORM第四天 链式操作与更新删除 | 极客兔兔
+    
+  </title>
+
+  <link rel="canonical" href="https://geektutu.com/post/geeorm-day4.html">
+  
+<link rel="stylesheet" href="/css/geektutu.css">
+
+  <!-- global function -->
+  <script>
+    window.globalAddScript = function (url, onload, onerror) {
+      var s = document.createElement('script');
+      s.src = url;
+      onload && (s.onload = onload);
+      onerror && (s.onerror = onerror);
+      document.body.appendChild(s);
+    }
+    window.globalAddCss = function (url) {
+      var s = document.createElement('link');
+      s.rel = 'stylesheet';
+      s.href = url;
+      document.body.appendChild(s);
+    }
+    window.getPosition = function (ele) {
+      var x = 0, y = 0;
+      while (ele) {
+        x += (ele.offsetLeft - ele.scrollLeft + ele.clientLeft);
+        y += (ele.offsetTop - ele.scrollTop + ele.clientTop);
+        ele = ele.offsetParent;
+      }
+      return { x: x, y: y };
+    }
+    window.getDom = function (str) { return document.querySelector(str) }
+  </script>
+  <!-- google ad -->
+  
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/feed.xml" title="极客兔兔" type="application/rss+xml">
+</head>
+
+<body>
+    
+<style>
+    body {
+        background: white;
+    }
+    .gkt-header-placeholder, .gkt-header {
+        display: none;
+    }
+    .main-container {
+        width: 100%;
+        padding-top: 0;
+        max-width: 100%;
+    }
+</style>
+
+<header class="gkt-header col-xs-12 padding-0">
+    <div id="gkt-nav" class="gkt-header-container">
+        <a href="/" class="gkt-header-title float-left">
+            <img class="float-left" src="/img/icon.png" alt="">
+            <span>极客兔兔</span>
+        </a>
+        <nav class="gkt-header-nav text-right">
+            <ul>
+                <li><a class="hidden-xs" href="/feed.xml">订阅</a></li>
+                <li><a href="/series/">专题</a></li>
+                <li><a href="/archives/">归档</a></li>
+                <li><a href="/post/link.html">友链</a></li>
+                <li><a href="/post/about.html">关于</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="gkt-cate-nav" class="gkt-header-container hidden-xs">
+        
+        <nav class="gkt-header-nav float-left">
+            <ul>
+                
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/tensorflow-mnist-simplest.html">简明教程 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/tensorflow-mnist-simplest.html">TensorFlow 教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/pandas-dataframe-series.html">Pandas 数据处理</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/tf2doc.html">TensorFlow2 文档</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-golang.html">Go 简明教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-rust.html">Rust 简明教程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/quick-python.html">Python 简明教程</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/blog-experience-1.html">杂谈 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/blog-experience-1.html">建站经历</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/2020.html">年终总结</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/qa-ml.html">面试 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/qa-ml.html">机器学习面试题</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/qa-golang.html">Go 语言面试题</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left active">
+                    <a class="float-left" href="/post/gee.html">从零实现 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/gee.html">Web框架 - Gee</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geecache.html">分布式缓存 - GeeCache</a></li>
+                        
+                        <li class="gkt-sub-cate-name active"><a class="float-left"
+                                href="/post/geeorm.html">ORM框架 - GeeORM</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/geerpc.html">RPC框架 - GeeRPC</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/7days-golang-q1.html">7days-golang Q &amp; A</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/box-tools.html">百宝箱 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/box-tools.html">工具</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/cheat-sheet-sqlite.html">SQLite 速查表</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+                <li class="gkt-cate-name float-left ">
+                    <a class="float-left" href="/post/high-performance-go.html">高性能编程 ▾</a>
+                    
+                    <ul class="gkt-sub-cate">
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/high-performance-go.html">序言</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-benchmark.html">性能分析</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-string-concat.html">常用数据结构</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-mutex.html">并发编程</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-reduce-size.html">编译优化</a></li>
+                        
+                        <li class="gkt-sub-cate-name "><a class="float-left"
+                                href="/post/hpg-gotchas-array-slice.html">语言陷阱</a></li>
+                        
+                    </ul>
+                    
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="gkt-header-placeholder" style="height: 44px"></div>
+<div class="gkt-header-placeholder hidden-xs" style="height: 44px"></div>
+<script>
+    (function () {
+        window.addEventListener('scroll', function () {
+            if (window.innerWidth < 768) {
+                return;
+            }
+            var nav = document.querySelector('#gkt-nav');
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            scrollTop > 50 && (nav.classList.add('hide'));
+            scrollTop <= 50 && (nav.classList.remove('hide'));
+        });
+        var cateNavs = document.querySelectorAll('#gkt-cate-nav>nav>ul>li');
+        [].slice.call(cateNavs).forEach(function (item) {
+            var sub = item.querySelector('.gkt-sub-cate');
+            if (!sub) return;
+            item.addEventListener('mouseenter', function (e) { sub.style.display = 'block'; }, false);
+            item.addEventListener('mouseleave', function (e) { sub.style.display = 'none'; }, false);
+        })
+    })();
+</script>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Main Content -->
+<main class="col-xs-12 padding-0 markdown-it">
+    <!-- Post Container -->
+    
+    
+    <!-- Post Content -->
+<style>
+  .markdown-it article h1, .markdown-it article h2, .markdown-it article h3 {
+    padding-top: 5px;
+    margin-top: 0px;
+  }
+  .post-container {
+    padding: 0 !important;
+    width: 100%;
+  }
+  .post-container article {
+    padding: 0 15px !important;
+  }
+  .gkt-book {
+    max-width: 80rem;
+    margin: 1rem auto;
+    display: flex;
+  }
+  .gkt-book-title {
+    color: #343a40;
+    font-size: 1.2em;
+  }
+  .gkt-sidebar-wrapper {
+    position: fixed;
+    margin-top: 15px;
+  }
+  .gkt-book-menu {
+    flex: 0 0 16rem;
+    padding-left: 15px;
+    padding-top: 5px;
+    z-index: 999;
+  }
+  .gkt-book-menu a {
+    color: #343a40;
+  }
+  .gkt-book-menu a.active {
+    color: #337ab7;
+  }
+  .gkt-book-menu > nav {
+    position: fixed;
+    overflow: auto;
+    padding-right: 15px;
+    height: 95%;
+    font-size: 0.85em;
+    line-height: 2;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-left: 1px solid #eee;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar-thumb {
+      background-color: #c1c1c1;
+  }
+  .gkt-book-menu > nav::-webkit-scrollbar {
+    width: 5px !important;
+  }
+  .gkt-book-menu hr {
+    padding: 2px;
+  }
+  .gkt-book-menu > nav > ul {
+    padding-left: 0;
+  }
+  .gkt-book-menu > nav ul,
+  .gkt-book-toc ul,
+  .gkt-book-toc ol {
+    list-style: none !important;
+  }
+  @media (min-width: 992px) {
+    .gkt-book-page {
+      width: calc(100% - 32rem);
+    }
+  }
+  .gkt-book-page {
+    min-width: 20rem;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+  }
+  .gkt-page-tips {
+    color: #555;
+    margin-top: -10px;
+  }
+  .gkt-book-toc {
+    flex: 0 0 16rem;
+    font-size: 0.85em;
+  }
+  .gkt-book .series_links {
+    border: 1px solid #eaecef;
+    padding: 0 15px;
+    background-color: #fff8dc;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .gkt-book-menu-icon {
+    padding: 0 15px;
+    font-size: 16px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    .gkt-book-menu-hidden {
+      margin-left: -16rem;
+    }
+  }
+  .gkt-book-menu-checked {
+    opacity: 0.4;
+    margin-right: -16rem;
+    transition: .2s ease-in-out;
+    transition-property: opacity;
+  }
+</style>
+<div class="gkt-book post-container">
+  <aside class="gkt-book-menu gkt-book-menu-hidden">
+    <nav>
+      
+      <h3 class="text-center">
+        <a class="gkt-book-title" href="/post/gee.html">七天用Go从零实现系列</a>
+      </h3>
+      
+      <ul class="col-xs-12 text-center">
+        <li><a href="/">极客兔兔</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://github.com/geektutu">Github</a></li>
+        
+        <li><a href="https://geektutu.com/feed.xml">RSS</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/gzdaijie">知乎</a></li>
+        
+        <li><a target="_blank" rel="noopener" href="https://weibo.com/geektutu">微博</a></li>
+        
+      </ul>
+      
+      <hr />
+      
+      <ul>
+        
+        <li>
+          <a>Web框架 - Gee</a>
+          <ul>
+            
+            <li><a href="/post/gee.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/gee-day1.html" class=" ">Day1 HTTP 基础</a></li>
+            
+            <li><a href="/post/gee-day2.html" class=" ">Day2 上下文</a></li>
+            
+            <li><a href="/post/gee-day3.html" class=" ">Day3 前缀树路由</a></li>
+            
+            <li><a href="/post/gee-day4.html" class=" ">Day4 分组控制</a></li>
+            
+            <li><a href="/post/gee-day5.html" class=" ">Day5 中间件</a></li>
+            
+            <li><a href="/post/gee-day6.html" class=" ">Day6 模板 Template</a></li>
+            
+            <li><a href="/post/gee-day7.html" class=" ">Day7 错误恢复</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>分布式缓存 - GeeCache</a>
+          <ul>
+            
+            <li><a href="/post/geecache.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/geecache-day1.html" class=" ">Day1 LRU 缓存淘汰策略</a></li>
+            
+            <li><a href="/post/geecache-day2.html" class=" ">Day2 单机并发缓存</a></li>
+            
+            <li><a href="/post/geecache-day3.html" class=" ">Day3 HTTP 服务端</a></li>
+            
+            <li><a href="/post/geecache-day4.html" class=" ">Day4 一致性哈希</a></li>
+            
+            <li><a href="/post/geecache-day5.html" class=" ">Day5 分布式节点</a></li>
+            
+            <li><a href="/post/geecache-day6.html" class=" ">Day6 防止缓存击穿</a></li>
+            
+            <li><a href="/post/geecache-day7.html" class=" ">Day7 使用 Protobuf 通信</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>ORM框架 - GeeORM</a>
+          <ul>
+            
+            <li><a href="/post/geeorm.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/geeorm-day1.html" class=" ">Day1 database/sql 基础</a></li>
+            
+            <li><a href="/post/geeorm-day2.html" class=" ">Day2 对象表结构映射</a></li>
+            
+            <li><a href="/post/geeorm-day3.html" class=" ">Day3 记录新增和查询</a></li>
+            
+            <li><a href="/post/geeorm-day4.html" class="active ">Day4 链式操作与更新删除</a></li>
+            
+            <li><a href="/post/geeorm-day5.html" class=" ">Day5 实现钩子</a></li>
+            
+            <li><a href="/post/geeorm-day6.html" class=" ">Day6 支持事务</a></li>
+            
+            <li><a href="/post/geeorm-day7.html" class=" ">Day7 数据库迁移</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>RPC框架 - GeeRPC</a>
+          <ul>
+            
+            <li><a href="/post/geerpc.html" class=" ">Day0 序言</a></li>
+            
+            <li><a href="/post/geerpc-day1.html" class=" ">Day1 服务端与消息编码</a></li>
+            
+            <li><a href="/post/geerpc-day2.html" class=" ">Day2 高性能客户端</a></li>
+            
+            <li><a href="/post/geerpc-day3.html" class=" ">Day3 服务注册</a></li>
+            
+            <li><a href="/post/geerpc-day4.html" class=" ">Day4 超时处理</a></li>
+            
+            <li><a href="/post/geerpc-day5.html" class=" ">Day5 支持HTTP协议</a></li>
+            
+            <li><a href="/post/geerpc-day6.html" class=" ">Day6 负载均衡</a></li>
+            
+            <li><a href="/post/geerpc-day7.html" class=" ">Day7 服务发现与注册中心</a></li>
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a>7days-golang Q &amp; A</a>
+          <ul>
+            
+            <li><a href="/post/7days-golang-q1.html" class=" ">接口型函数</a></li>
+            
+          </ul>
+        </li>
+        
+      </ul>
+    </nav>
+  </aside>
+  <div class="gkt-book-page">
+    <div class="hidden-sm hidden-md hidden-lg gkt-book-menu-icon">
+      <label for="book-menu">
+        <svg class="float-left" name="book-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+      </label>
+      <strong class="float-right">七天用Go从零实现系列</strong>
+    </div>
+    <div class="u-arrow-wrapper hidden-xs">
+        
+        <a class="float-left" href="/post/geeorm-day3.html"><i class="u-arrow-left"></i></a>
+        
+        
+        <a class="float-right" href="/post/geeorm-day5.html"><i class="u-arrow-right"></i></a>
+        
+    </div>
+    <article class="col-xs-12">
+      <h1>动手写ORM框架 - GeeORM第四天 链式操作与更新删除</h1>
+       
+      <div class="hidden-lg hidden-md hidden-sm series_links">
+        <p><strong> ORM框架 - GeeORM系列文章链接：</strong></p>
+        <ul>
+          
+          <li>
+            <a href="/post/geeorm.html">7天用Go从零实现ORM框架GeeORM</a>
+            <span class="post-item-date">(Mar 1, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day1.html">动手写ORM框架 - GeeORM第一天 database/sql 基础</a>
+            <span class="post-item-date">(Mar 7, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day2.html">动手写ORM框架 - GeeORM第二天 对象表结构映射</a>
+            <span class="post-item-date">(Mar 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day3.html">动手写ORM框架 - GeeORM第三天 记录新增和查询</a>
+            <span class="post-item-date">(Mar 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day4.html">动手写ORM框架 - GeeORM第四天 链式操作与更新删除</a>
+            <span class="post-item-date">(Mar 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day5.html">动手写ORM框架 - GeeORM第五天 实现钩子(Hooks)</a>
+            <span class="post-item-date">(Mar 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day6.html">动手写ORM框架 - GeeORM第六天 支持事务(Transaction)</a>
+            <span class="post-item-date">(Mar 8, 2020)</span>
+          </li>
+          
+          <li>
+            <a href="/post/geeorm-day7.html">动手写ORM框架 - GeeORM第七天 数据库迁移(Migrate)</a>
+            <span class="post-item-date">(Mar 8, 2020)</span>
+          </li>
+          
+        </ul>
+      </div>
+       
+      <blockquote>
+        <p>
+          源代码/数据集已上传到
+          <a href="https://github.com/geektutu/7days-golang" target="_blank" rel="noopener">Github - 7days-golang</a>
+        </p>
+      </blockquote>
+      
+      <div class="gkt-article-start"></div>
+      <p>本文是<a href="https://geektutu.com/post/geeorm.html">7天用Go从零实现ORM框架GeeORM</a>的第四篇。</p>
+<ul>
+<li>通过链式(chain)操作，支持查询条件(where, order by, limit 等)的叠加。</li>
+<li>实现记录的更新(update)、删除(delete)和统计(count)功能。<strong>代码约100行</strong></li>
+</ul>
+<h2 id="1-支持-Update、Delete-和-Count"><a href="#1-支持-Update、Delete-和-Count" class="headerlink" title="1 支持 Update、Delete 和 Count"></a>1 支持 Update、Delete 和 Count</h2><h3 id="1-1-子句生成器"><a href="#1-1-子句生成器" class="headerlink" title="1.1 子句生成器"></a>1.1 子句生成器</h3><p>clause 负责构造 SQL 语句，如果需要增加对更新(update)、删除(delete)和统计(count)功能的支持，第一步自然是在 clause 中实现 update、delete 和 count 子句的生成器。</p>
+<p>第一步：在原来的基础上，新增 UPDATE、DELETE、COUNT 三个 <code>Type</code> 类型的枚举值。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-orm/day4-chain-operation/clause">day4-chain-operation/clause/clause.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Support types for Clause</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	INSERT Type = <span class="literal">iota</span></span><br><span class="line">	VALUES</span><br><span class="line">	SELECT</span><br><span class="line">	LIMIT</span><br><span class="line">	WHERE</span><br><span class="line">	ORDERBY</span><br><span class="line">	UPDATE</span><br><span class="line">	DELETE</span><br><span class="line">	COUNT</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>第二步：实现对应字句的 generator，并注册到全局变量 <code>generators</code> 中</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-orm/day4-chain-operation/clause">day4-chain-operation/clause/generator.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">	generators = <span class="built_in">make</span>(<span class="keyword">map</span>[Type]generator)</span><br><span class="line">	generators[INSERT] = _insert</span><br><span class="line">	generators[VALUES] = _values</span><br><span class="line">	generators[SELECT] = _select</span><br><span class="line">	generators[LIMIT] = _limit</span><br><span class="line">	generators[WHERE] = _where</span><br><span class="line">	generators[ORDERBY] = _orderBy</span><br><span class="line">	generators[UPDATE] = _update</span><br><span class="line">	generators[DELETE] = _delete</span><br><span class="line">	generators[COUNT] = _count</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">update</span><span class="params">(values ...<span class="keyword">interface</span>&#123;&#125;)</span></span> (<span class="type">string</span>, []<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	tableName := values[<span class="number">0</span>]</span><br><span class="line">	m := values[<span class="number">1</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">var</span> keys []<span class="type">string</span></span><br><span class="line">	<span class="keyword">var</span> vars []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">		keys = <span class="built_in">append</span>(keys, k+<span class="string">&quot; = ?&quot;</span>)</span><br><span class="line">		vars = <span class="built_in">append</span>(vars, v)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;UPDATE %s SET %s&quot;</span>, tableName, strings.Join(keys, <span class="string">&quot;, &quot;</span>)), vars</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">delete</span><span class="params">(values ...<span class="keyword">interface</span>&#123;&#125;)</span></span> (<span class="type">string</span>, []<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	<span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;DELETE FROM %s&quot;</span>, values[<span class="number">0</span>]), []<span class="keyword">interface</span>&#123;&#125;&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> _<span class="title">count</span><span class="params">(values ...<span class="keyword">interface</span>&#123;&#125;)</span></span> (<span class="type">string</span>, []<span class="keyword">interface</span>&#123;&#125;) &#123;</span><br><span class="line">	<span class="keyword">return</span> _select(values[<span class="number">0</span>], []<span class="type">string</span>&#123;<span class="string">&quot;count(*)&quot;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>_update</code> 设计入参是2个，第一个参数是表名(table)，第二个参数是 map 类型，表示待更新的键值对。</li>
+<li><code>_delete</code> 只有一个入参，即表名。</li>
+<li><code>_count</code> 只有一个入参，即表名，并复用了 <code>_select</code> 生成器。</li>
+</ul>
+<h3 id="1-2-Update-方法"><a href="#1-2-Update-方法" class="headerlink" title="1.2 Update 方法"></a>1.2 Update 方法</h3><p>子句的 generator 已经准备好了，接下来和 Insert、Find 等方法一样，在 <code>session/record.go</code> 中按照一定顺序拼接 SQL 语句并调用就可以了。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-orm/day4-chain-operation/session">day4-chain-operation/session/record.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// support map[string]interface&#123;&#125;</span></span><br><span class="line"><span class="comment">// also support kv list: &quot;Name&quot;, &quot;Tom&quot;, &quot;Age&quot;, 18, ....</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> Update(kv ...<span class="keyword">interface</span>&#123;&#125;) (<span class="type">int64</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	m, ok := kv[<span class="number">0</span>].(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">	<span class="keyword">if</span> !ok &#123;</span><br><span class="line">		m = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line">		<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(kv); i += <span class="number">2</span> &#123;</span><br><span class="line">			m[kv[i].(<span class="type">string</span>)] = kv[i+<span class="number">1</span>]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	s.clause.Set(clause.UPDATE, s.RefTable().Name, m)</span><br><span class="line">	sql, vars := s.clause.Build(clause.UPDATE, clause.WHERE)</span><br><span class="line">	result, err := s.Raw(sql, vars...).Exec()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result.RowsAffected()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Update 方法比较特别的一点在于，Update 接受 2 种入参，平铺开来的键值对和 map 类型的键值对。因为 generator 接受的参数是 map 类型的键值对，因此 <code>Update</code> 方法会动态地判断传入参数的类型，如果是不是 map 类型，则会自动转换。</p>
+<h3 id="1-3-Delete-方法"><a href="#1-3-Delete-方法" class="headerlink" title="1.3 Delete 方法"></a>1.3 Delete 方法</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Delete records with where clause</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> Delete() (<span class="type">int64</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	s.clause.Set(clause.DELETE, s.RefTable().Name)</span><br><span class="line">	sql, vars := s.clause.Build(clause.DELETE, clause.WHERE)</span><br><span class="line">	result, err := s.Raw(sql, vars...).Exec()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result.RowsAffected()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-Count-方法"><a href="#1-4-Count-方法" class="headerlink" title="1.4 Count 方法"></a>1.4 Count 方法</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Count records with where clause</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> Count() (<span class="type">int64</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	s.clause.Set(clause.COUNT, s.RefTable().Name)</span><br><span class="line">	sql, vars := s.clause.Build(clause.COUNT, clause.WHERE)</span><br><span class="line">	row := s.Raw(sql, vars...).QueryRow()</span><br><span class="line">	<span class="keyword">var</span> tmp <span class="type">int64</span></span><br><span class="line">	<span class="keyword">if</span> err := row.Scan(&amp;tmp); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>, err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> tmp, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-链式调用-chain"><a href="#2-链式调用-chain" class="headerlink" title="2 链式调用(chain)"></a>2 链式调用(chain)</h2><p>链式调用是一种简化代码的编程方式，能够使代码更简洁、易读。链式调用的原理也非常简单，某个对象调用某个方法后，将该对象的引用/指针返回，即可以继续调用该对象的其他方法。通常来说，当某个对象需要一次调用多个方法来设置其属性时，就非常适合改造为链式调用了。</p>
+<p>SQL 语句的构造过程就非常符合这个条件。SQL 语句由多个子句构成，典型的例如 SELECT 语句，往往需要设置查询条件（WHERE）、限制返回行数（LIMIT）等。理想的调用方式应该是这样的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">s := geeorm.NewEngine(<span class="string">&quot;sqlite3&quot;</span>, <span class="string">&quot;gee.db&quot;</span>).NewSession()</span><br><span class="line"><span class="keyword">var</span> users []User</span><br><span class="line">s.Where(<span class="string">&quot;Age &gt; 18&quot;</span>).Limit(<span class="number">3</span>).Find(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<p>从上面的示例中，可以看出，<code>WHERE</code>、<code>LIMIT</code>、<code>ORDER BY</code> 等查询条件语句非常适合链式调用。这几个子句的 generator 在之前就已经实现了，那我们接下来在 <code>session/record.go</code> 中添加对应的方法即可。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/geektutu/7days-golang/tree/master/gee-orm/day4-chain-operation/session">day4-chain-operation/session/record.go</a></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Limit adds limit condition to clause</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> Limit(num <span class="type">int</span>) *Session &#123;</span><br><span class="line">	s.clause.Set(clause.LIMIT, num)</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Where adds limit condition to clause</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> Where(desc <span class="type">string</span>, args ...<span class="keyword">interface</span>&#123;&#125;) *Session &#123;</span><br><span class="line">	<span class="keyword">var</span> vars []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">	s.clause.Set(clause.WHERE, <span class="built_in">append</span>(<span class="built_in">append</span>(vars, desc), args...)...)</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// OrderBy adds order by condition to clause</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> OrderBy(desc <span class="type">string</span>) *Session &#123;</span><br><span class="line">	s.clause.Set(clause.ORDERBY, desc)</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-First-只返回一条记录"><a href="#3-First-只返回一条记录" class="headerlink" title="3 First 只返回一条记录"></a>3 First 只返回一条记录</h2><p>很多时候，我们期望 SQL 语句只返回一条记录，比如根据某个童鞋的学号查询他的信息，返回结果有且只有一条。结合链式调用，我们可以非常容易地实现 First 方法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Session)</span></span> First(value <span class="keyword">interface</span>&#123;&#125;) <span class="type">error</span> &#123;</span><br><span class="line">	dest := reflect.Indirect(reflect.ValueOf(value))</span><br><span class="line">	destSlice := reflect.New(reflect.SliceOf(dest.Type())).Elem()</span><br><span class="line">	<span class="keyword">if</span> err := s.Limit(<span class="number">1</span>).Find(destSlice.Addr().Interface()); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> destSlice.Len() == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">&quot;NOT FOUND&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	dest.Set(destSlice.Index(<span class="number">0</span>))</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>First 方法可以这么使用：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u := &amp;User&#123;&#125;</span><br><span class="line">_ = s.OrderBy(<span class="string">&quot;Age DESC&quot;</span>).First(u)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实现原理：根据传入的类型，利用反射构造切片，调用 <code>Limit(1)</code> 限制返回的行数，调用 <code>Find</code> 方法获取到查询结果。</p>
+</blockquote>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4 测试"></a>4 测试</h2><p>接下来呢，我们在 <code>record_test.go</code> 中添加几个测试用例，检测功能是否正常。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> session</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;testing&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	user1 = &amp;User&#123;<span class="string">&quot;Tom&quot;</span>, <span class="number">18</span>&#125;</span><br><span class="line">	user2 = &amp;User&#123;<span class="string">&quot;Sam&quot;</span>, <span class="number">25</span>&#125;</span><br><span class="line">	user3 = &amp;User&#123;<span class="string">&quot;Jack&quot;</span>, <span class="number">25</span>&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testRecordInit</span><span class="params">(t *testing.T)</span></span> *Session &#123;</span><br><span class="line">	t.Helper()</span><br><span class="line">	s := NewSession().Model(&amp;User&#123;&#125;)</span><br><span class="line">	err1 := s.DropTable()</span><br><span class="line">	err2 := s.CreateTable()</span><br><span class="line">	_, err3 := s.Insert(user1, user2)</span><br><span class="line">	<span class="keyword">if</span> err1 != <span class="literal">nil</span> || err2 != <span class="literal">nil</span> || err3 != <span class="literal">nil</span> &#123;</span><br><span class="line">		t.Fatal(<span class="string">&quot;failed init test records&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSession_Limit</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	s := testRecordInit(t)</span><br><span class="line">	<span class="keyword">var</span> users []User</span><br><span class="line">	err := s.Limit(<span class="number">1</span>).Find(&amp;users)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> || <span class="built_in">len</span>(users) != <span class="number">1</span> &#123;</span><br><span class="line">		t.Fatal(<span class="string">&quot;failed to query with limit condition&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSession_Update</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	s := testRecordInit(t)</span><br><span class="line">	affected, _ := s.Where(<span class="string">&quot;Name = ?&quot;</span>, <span class="string">&quot;Tom&quot;</span>).Update(<span class="string">&quot;Age&quot;</span>, <span class="number">30</span>)</span><br><span class="line">	u := &amp;User&#123;&#125;</span><br><span class="line">	_ = s.OrderBy(<span class="string">&quot;Age DESC&quot;</span>).First(u)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> affected != <span class="number">1</span> || u.Age != <span class="number">30</span> &#123;</span><br><span class="line">		t.Fatal(<span class="string">&quot;failed to update&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSession_DeleteAndCount</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	s := testRecordInit(t)</span><br><span class="line">	affected, _ := s.Where(<span class="string">&quot;Name = ?&quot;</span>, <span class="string">&quot;Tom&quot;</span>).Delete()</span><br><span class="line">	count, _ := s.Count()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> affected != <span class="number">1</span> || count != <span class="number">1</span> &#123;</span><br><span class="line">		t.Fatal(<span class="string">&quot;failed to delete or count&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="附-推荐阅读"><a href="#附-推荐阅读" class="headerlink" title="附 推荐阅读"></a>附 推荐阅读</h2><ul>
+<li><a href="https://geektutu.com/post/quick-golang.html">Go 语言简明教程</a></li>
+<li><a href="https://geektutu.com/post/quick-go-test.html">Go Test 单元测试简明教程</a></li>
+<li><a href="https://geektutu.com/post/cheat-sheet-sqlite.html">SQLite 常用命令速查表</a></li>
+</ul>
+
+      
+<script src="/js/qrious.min.js"></script>
+
+
+      <hr />
+      <p>
+        
+        <span class="float-right gkt-page-tips">last updated at 2026-02-23</span>
+      </p>
+    </article>
+    <!-- 赞赏 -->
+    <!--打赏-->
+
+<style>
+    #reward .reward-btn-wrapper {
+        width: 100px;
+        padding-top: 35px;
+        cursor: pointer;
+        margin: 0 auto;
+    }
+
+    #reward .reward-btn {
+        padding: 2px 15px;
+        color: #fff;
+        background-color: #ea6f5a;
+        border-radius: 20px;
+    }
+
+    #reward .reward-code {
+        position: absolute;
+        top: -220px;
+        left: 50%;
+        display: none;
+        width: 360px;
+        height: 240px;
+        margin-left: -180px;
+        padding: 15px 20px;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        box-shadow: 0 1px 1px 1px #efefef;
+    }
+
+    #reward .reward-code:after,
+    #reward .reward-code:before {
+        position: absolute;
+        content: '';
+        border: 10px solid transparent
+    }
+
+    #reward .reward-code:after {
+        bottom: -19px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #fff
+    }
+
+    #reward .reward-code:before {
+        bottom: -20px;
+        left: 50%;
+        margin-left: -10px;
+        border-top-color: #e6e6e6
+    }
+
+    #reward .qr-code {
+        width: 50%;
+        float: left;
+        padding: 5px;
+    }
+
+    #reward .qr-code p {
+        margin-top: -6px;
+    }
+
+    #reward img {
+        transform: none;
+        -webkit-transform: none;
+        margin-left: 0;
+    }
+
+    #reward img[alt='i'] {
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+        position: absolute;
+        margin: 65px 0 0 65px;
+    }
+
+    #reward img[alt="ali"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #0f9be0;
+    }
+
+    #reward img[alt="wechat"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 5px solid #3db034;
+    }
+
+    #reward .reward-tip {
+        font-size: 1.2em;
+        margin-bottom: 0;
+        color: #ea6f5a;
+    }
+</style>
+<div id="reward" class="col-xs-12">
+    <div class="reward-btn-wrapper">
+        <div class="reward-btn text-center">赞赏支持</div>
+    </div>
+    <div class="reward-code text-center">
+        <p class="text-center reward-tip"><strong>请我吃胡萝卜 =^_^= </strong></p>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-ali" src="" alt="ali">
+            <p><small>支付宝</small></p>
+        </div>
+        <div class="qr-code">
+            <img src="/img/icon.png" alt="i">
+            <img id="reward-wechat" src="" alt="wechat">
+            <p><small>微信</small></p>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window, document) {
+        var aliQr = new QRious({ value: 'HTTPS://QR.ALIPAY.COM/FKX060337TUXBAX9LIFJE8' });
+        var wechatQr = new QRious({ value: 'wxp://f2f0qgGBlfD1nZXjvBjievxB0z0fc0W2sBq5' });
+        document.querySelector('#reward-ali').src = aliQr.toDataURL();
+        document.querySelector('#reward-wechat').src = wechatQr.toDataURL();
+
+        var rewardBtn = document.querySelector('#reward .reward-btn-wrapper');
+        var qrCode = document.querySelector('#reward .reward-code')
+        var activeFunc = function (e) {
+            qrCode.style.display = 'block';
+        }
+        var hideFunc = function (e) {
+            qrCode.style.display = 'none';
+        }
+
+        rewardBtn.addEventListener('mouseenter', activeFunc, false)
+        rewardBtn.addEventListener('mouseover', activeFunc, false)
+        rewardBtn.addEventListener('mouseleave', hideFunc, false)
+        qrCode.addEventListener('mouseenter', activeFunc, false)
+        qrCode.addEventListener('mouseover', activeFunc, false)
+        qrCode.addEventListener('mouseleave', hideFunc, false)
+    })(window, document);
+</script>
+
+    
+<div class="col-xs-12 text-center" style="margin-top: 30px;">
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://github.com/geektutu" title="Github"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/github.png" /></a>
+    
+    <a style="display:inline-block;" href="https://geektutu.com/feed.xml" title="RSS"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/rss.jpg" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://www.zhihu.com/people/gzdaijie" title="知乎"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/zhihu.png" /></a>
+    
+    <a style="display:inline-block;" target="_blank" rel="noopener" href="https://weibo.com/geektutu" title="微博"><img style="padding:5px;width:30px;margin-left:0;transform:none;-webkit-transform:none;" src="/img/related_links/weibo.jpg" /></a>
+    
+</div>
+
+    <!-- 评论 -->
+    
+    <div class="col-xs-12">
+      
+<div class="col-xs-12 padding-0">
+    <div id="gitalk-container">
+        <div class="gt-container text-center" style="margin-top: 50px;">
+            <button class="gt-btn gt-btn-public"><span class="gt-btn-text">去 Github 评论</span></button>
+        </div>
+    </div>
+    <div id="gitalk-related"></div>
+</div>
+
+<link rel="stylesheet" href="/css/gitalk.css">
+
+
+<script src="/js/gitalk.min.js"></script>
+
+<script>
+    window.addEventListener('load', function () {
+        function renderCommentUrl(data) {
+            var url = (data[window.location.pathname] || {}).url
+            url && getDom('#gitalk-container button').addEventListener('click', function (e) { window.open(url)})
+            url || (getDom('#gitalk-container').style.display = 'none')
+        }
+        const gitalk = new Gitalk({
+            clientID: 'c1fdd456a4caae5f7df0',
+            clientSecret: 'b2674451e21feae50520f99337ec15d2aebe7879',
+            accessToken: '513dc2f1e6df8c07a12fbf1547874f54679d9712',
+            repo: 'blog',
+            owner: 'geektutu',
+            admin: ['geektutu'],
+            id: window.location.pathname,
+            distractionFreeMode: false
+        });
+        fetch("https://api.github.com/user").then(function(resp){
+            gitalk.render('gitalk-container');
+        }).catch(function(e){
+            fetch('/tool/issues.json').then(function (r) { return r.json() }).then(renderCommentUrl).catch(function (e) { })
+        })
+        getDom('#gitalk-container').addEventListener('click', function (e) {
+            e && e.stopPropagation && e.stopPropagation();
+        });
+    })
+</script>
+<script>
+    window.addEventListener('load', function () {
+        function render(comments) {
+            var template = '<a href="${comment.url}?utm_source=gitalk" class="dis-item-url"><h3 class="dis-item-title">${comment.title}</h3>' +
+                '<p class="dis-item-des">${comment.count} 评论 ● ${comment.date}</p>' +
+                '<div class="dis-item-content"><img class="dis-item-img" src="${comment.icon}" alt="icon"><p><b><span class="dis-item-user">${comment.user}</span></b>&nbsp;——&nbsp;${comment.body}</p></div>' +
+                '</a>'
+
+            var wrapper = getDom('#gitalk-related');
+            comments = shuffle(comments);
+            comments.slice(0, 4).forEach(function (c) {
+                var div = document.createElement('div');
+                div.classList.add('dis-item');
+                div.innerHTML = template.replace("${comment.url}", c.url)
+                    .replace("${comment.title}", c.title)
+                    .replace("${comment.count}", c.count)
+                    .replace("${comment.date}", c.date)
+                    .replace("${comment.icon}", c.icon)
+                    .replace("${comment.user}", c.user)
+                    .replace("${comment.body}", c.body)
+                wrapper.appendChild(div)
+            })
+            var p = document.createElement('p')
+            p.innerHTML = '<a href="https://geektutu.com/post/blog-experience-7.html">Gitalk Plus</a>';
+            p.classList.add('dis-divide');
+            wrapper.appendChild(p);
+            wrapper.classList.add('dis-wrapper')
+        }
+        function shuffle(a) {
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        fetch('/tool/comments.json').then(function (r) { return r.json() }).then(render).catch(function (e) { })
+    })
+</script>
+
+    </div>
+    
+  </div>
+  <aside class="gkt-book-toc hidden-xs hidden-sm">
+    <div style="clear: both"></div>
+    <div class="gkt-sidebar-wrapper">
+      <!-- Table of Contents -->
+<div id="sidebar-toc">
+  <!-- TOC  -->
+  
+  
+  <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-%E6%94%AF%E6%8C%81-Update%E3%80%81Delete-%E5%92%8C-Count"><span class="toc-nav-text">1 支持 Update、Delete 和 Count</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-1-%E5%AD%90%E5%8F%A5%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-nav-text">1.1 子句生成器</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-2-Update-%E6%96%B9%E6%B3%95"><span class="toc-nav-text">1.2 Update 方法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-3-Delete-%E6%96%B9%E6%B3%95"><span class="toc-nav-text">1.3 Delete 方法</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#1-4-Count-%E6%96%B9%E6%B3%95"><span class="toc-nav-text">1.4 Count 方法</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8-chain"><span class="toc-nav-text">2 链式调用(chain)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-First-%E5%8F%AA%E8%BF%94%E5%9B%9E%E4%B8%80%E6%9D%A1%E8%AE%B0%E5%BD%95"><span class="toc-nav-text">3 First 只返回一条记录</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-%E6%B5%8B%E8%AF%95"><span class="toc-nav-text">4 测试</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#%E9%99%84-%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="toc-nav-text">附 推荐阅读</span></a></li></ol>
+  
+</div>
+
+<script>
+  (function () {
+    var h2 = document.querySelectorAll('article h2');
+    var h3 = document.querySelectorAll('article h3');
+    var linkList = document.querySelectorAll('#sidebar-toc a');
+
+    function findLinkElement(name) {
+      for (var i = 0; i < linkList.length; i++) {
+        var items = linkList[i].href.split('#');
+        if (items && items[items.length - 1] === encodeURIComponent(name)) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    function activeLink(titleList) {
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      for (var i = titleList.length - 1; i >= 0; i--) {
+        if (scrollTop - titleList[i].offsetTop > 0) {
+          var index = findLinkElement(titleList[i].id);
+          index != -1 && linkList[index].classList.add('gkt-sidebar-active');
+          break;
+        }
+      }
+    }
+
+    window.addEventListener("scroll", function (e) {
+      [].slice.call(linkList).forEach(function (link) {
+        link.classList.remove('gkt-sidebar-active');
+      })
+      activeLink(h2);
+    })
+  })();
+</script>
+    </div>
+  </aside>
+</div>
+<script>
+    (function () {
+        function resizeUArrow() {
+            var s = getDom('.u-arrow-wrapper').style
+            var pc = getDom('.gkt-book-page')
+            s.left = getPosition(pc).x - 15 + 'px';
+            s.width = pc.clientWidth + 30 + 'px';
+        }
+        resizeUArrow()
+        window.addEventListener('resize', resizeUArrow);
+        var nav = getDom('.gkt-book-menu nav');
+        var key = 'gkt_book_七天用Go从零实现系列_' + parseInt(new Date().getTime()/1000/3600/24/7)
+        nav.scrollTo(0, localStorage.getItem(key) * 1)
+        nav.addEventListener('scroll', function(){ localStorage.setItem(key, nav.scrollTop) })
+    })();
+    (function(){
+      getDom(".gkt-book-menu-icon").addEventListener('click', function() {
+        var menu = getDom(".gkt-book-menu").classList
+        var article = getDom(".gkt-book-page").classList
+        if (menu.contains("gkt-book-menu-hidden")) {
+          menu.remove('gkt-book-menu-hidden')
+          article.add('gkt-book-menu-checked')
+        } else {
+          menu.add('gkt-book-menu-hidden')
+          article.remove('gkt-book-menu-checked')
+        }
+      })
+    })();
+</script>
+
+
+    
+
+</main>
+    </div>
+    <style>
+    img#go-top {
+        position: fixed;
+        bottom: 100px;
+        width: 50px;
+        cursor: pointer;
+        z-index: 9999;
+    }
+</style>
+<img id="go-top" src="/icon/top.png" class="hidden-xs" style="display: none" />
+<script>
+    (function () {
+        var goTop = document.getElementById('go-top');
+        var mainContainer = document.querySelector('.main-container');
+        
+        goTop.addEventListener('click', function () {
+            window.scroll(0, 0);
+        }, false);
+        window.addEventListener('scroll', function () {
+            var right = document.body.offsetWidth - mainContainer.getBoundingClientRect().right;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            goTop.style.right = right + 10 + 'px'
+            scrollTop > 700 && (goTop.style.display = "block");
+            scrollTop <= 700 && (goTop.style.display = "none");
+        });
+    })();
+</script>
+    <style>
+    #geektutu-click-img-container {
+        position: fixed;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        display: none;
+        z-index: 9999;
+    }
+
+    #geektutu-click-img-container img {
+        object-fit: contain;
+        background: #eaecef;
+        padding: 15px;
+        border-radius: 10px;
+        height: auto;
+        width: auto;
+        vertical-align: middle;
+    }
+</style>
+
+
+<div id="geektutu-click-img-container">
+    <img src="" alt="Big Image">
+</div>
+
+<script>
+    (function () {
+        var container = document.querySelector('#geektutu-click-img-container')
+        var targetImg = container.querySelector('img')
+        var imgs = document.querySelectorAll('article img');
+        targetImg.addEventListener('click', function (e) {
+            container.style.display = 'none';
+            e && e.stopPropagation && e.stopPropagation();
+        }, false);
+
+        for (var i = 0; i < imgs.length; ++i) {
+            var img = imgs[i];
+            img.addEventListener('click', (function (src, rate) {
+                return function (e) {
+                    e && e.stopPropagation && e.stopPropagation();
+                    if (window.innerWidth < 980) {
+                        return
+                    }
+                    targetImg.style.height = targetImg.style.width = 'auto';
+                    if (window.innerWidth / window.innerHeight > rate) {
+                        targetImg.style.height = (window.innerHeight - 20) + 'px';
+                    } else {
+                        targetImg.style.width = (window.innerWidth - 20) + 'px';
+                    }
+                    container.style.height = window.innerHeight + 'px'
+                    container.style.lineHeight = window.innerHeight + 'px'
+                    container.style.display = 'block';
+                    targetImg.src = src;
+                };
+            }(img.src, img.width / img.height)), false)
+        }
+    })();
+</script>
+    <!-- Footer -->
+    <!-- Footer -->
+<style>
+    footer {
+        width: 100%;
+        line-height: 1.5;
+        padding: 20px;
+    }
+
+    footer a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .footer-hexo img {
+        height: 20px;
+        margin-bottom: -5px;
+    }
+
+    .footer-hexo a {
+        color: #337ab7;
+    }
+</style>
+<footer class="text-center col-xs-12">
+    <p>
+        <small>© 2026 - 极客兔兔 - </small>
+        <small>
+            <a target="_blank" rel="nofollow noopener" href="http://beian.miit.gov.cn/">沪ICP备18001798号-1</a>
+        </small>
+    </p>
+    <p class="footer-hexo">
+        <!-- 但若直接使用或修改主题，请务必保留这段声明 -->
+        <small>Powered by <a target="_blank" href="https://hexo.io">Hexo</a> | Theme
+            <a target="_blank" href="https://geektutu.com">Geektutu</a>
+            <a target="_blank" rel="noopener" href="https://github.com/geektutu/hexo-theme-geektutu">
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIACIAUAMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAAAQQFBwIDBgj/2gAIAQEAAAAA9KrHSgAYL5/z6zZGuJd12uugbhq3uKtmuRtix20IS7lTLAfAAAn/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oACAECEAAAAAAB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAgBAxAAAAAAAf/EADEQAAICAQIEBQEGBwAAAAAAAAECAwQFAAYREhORBxQhUlQxQVFic5KxJDJCYYGC0f/aAAgBAQABPwCFHnjWUzuvN6hV4cANSRLGjO9yRVUcSzMoA7jVXJYe5N0a2dhmk9kc0bN2GvLN8mbuNeWb5M3ca8s3yZu415Y/Jm7jXlm+TN3H/NeVPyZu40vOk3TZywK8wJ+v3EHVM/wsI/Dq2lrxN3Nnca16eti8chSAIoMbzByhMwP14kHVfwIiSaF5c96J6kwwCOTnHsYk8uvCrdmQy1TI4rJuz3cZLyGR/wCd4+YoOf8AEpUjXitubLYPG4paFsUxcuiGe7yc5gTW3LW44szXmobsi3Dhmic2+Z4+vCVH9CpraPiQ+QvbgTJrPFBWd5YpWrmNIIEXiRO32Pqt4p7cnfHk18lFBdmEVW1LVdIZGOrniTt6plrWKaO69yCykDRxwF+LMAewB0Txtr+Sf31VI8tEPw62fZt7N3Humtbpzz13ucX6CGSWMSuzpLyD1eNgeUka3PuvHbaxq3biTMHfkiSNCS78CwU+3Xg7Vu3MhuTcU6cq3Zemn3Eh2dv8Lzcut+29x1atKbHYqLJUhLwyNMwiZ3j9yDWOxUOV3tgb+3No5LDx1pi9+aeIwRlNY6bc+Jv+IFGrhLxtXJZ7VKcw81diiAAEn0JOrkWZyNfbEr0tz27UGQgkuGzXdIIvyowq99bRxk9ffO/L81SZBPZgEEroQroIxxMZOgeNsfkn99QypHGqO4Vl9CDrN4LDZkwyzyyQ2IgRHZrzGCZVP1XnQglT9oOtw4LC7iqV6uRkZoYpxKFSQpzFRw4EjVRMfSrQ1qqwxQxKFjjTgFUD7BoWYR6iVe+mtxt9Zwf9teaj4AdccPu5tedX5A/VrzUR+sy/q1CwksF19VEfDj/cnQRW+qg66cfsXtrpx+xe2unH7F7a6cfsXtrpx+xe2unH7F7a6cfsXtoxx+xe2gAAOA1//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAgEBPwB//8QAFBEBAAAAAAAAAAAAAAAAAAAAMP/aAAgBAwEBPwB//9k="
+                    alt="Github Star">
+            </a>
+        </small>
+    </p>
+    
+    <p>
+        <small>
+            <span id="busuanzi_container_site_pv">👁<span id="busuanzi_value_site_pv"></span></span> &nbsp;
+            <span id="busuanzi_container_page_pv">📚<span id="busuanzi_value_page_pv"></span></span>
+        </small>
+    </p>
+    
+    
+
+</footer>
+
+
+<script>
+    window.addEventListener('load', function () {
+        globalAddScript('//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js');
+    })
+</script>
+
+<!-- Baidu Tongji -->
+
+<script>
+    window.addEventListener('load', function () {
+        var _hmt = _hmt || [];
+        globalAddScript('//hm.baidu.com/hm.js?1a0ec38c52c08db815b0046c2783b1aa')
+    })
+</script>
+
+
+
+<!-- baidu auto push for seo -->
+<script>
+    window.addEventListener('load', function () {
+        var src = 'http://push.zhanzhang.baidu.com/push.js'
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        globalAddScript(src);
+    })
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-142641425-1');
+
+    window.addEventListener('load', function () {
+        globalAddScript('https://www.googletagmanager.com/gtag/js?id=UA-142641425-1');
+    });
+</script>
+
+
+    <script>
+        // 非本站网址，新开tab页签
+        (function () {
+            var stopBubble = function (e) {
+                e && e.stopPropagation && e.stopPropagation();
+            }
+            var links = document.querySelectorAll('a');
+            [].slice.call(links).forEach(function (item) {
+                if (item.href && item.href.indexOf(window.location.host) === -1) {
+                    item.target = '_blank'
+                }
+                // 阻止冒泡，不触发彩蛋。
+                item.addEventListener('click', stopBubble, false);
+            });
+            var article = document.querySelector('article');
+            article && article.addEventListener('click', stopBubble, false)
+        })();
+    </script>
+    
+</body>
+
+</html>
