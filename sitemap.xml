@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://geektutu.com/tool/issues.json</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/post/hpg-gotchas-array-slice.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -31,6 +24,13 @@
   
   <url>
     <loc>https://geektutu.com/post/hpg-reduce-size.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/hpg-mutex.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -79,7 +79,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/hpg-mutex.html</loc>
+    <loc>https://geektutu.com/post/hpg-string-concat.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -93,7 +93,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/hpg-string-concat.html</loc>
+    <loc>https://geektutu.com/post/hpg-slice.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/hpg-slice.html</loc>
+    <loc>https://geektutu.com/post/hpg-benchmark.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -142,35 +142,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/hpg-benchmark.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/post/tf2doc.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/tf2doc-rnn-lstm-text.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/tf2doc-ml-basic-structured-data.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/tf2doc-ml-basic-save-model.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -184,7 +156,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/tf2doc-ml-basic-overfit.html</loc>
+    <loc>https://geektutu.com/post/tf2doc-rnn-lstm-text.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -198,7 +170,14 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/tf2doc-cnn-cifar10.html</loc>
+    <loc>https://geektutu.com/post/tf2doc-ml-basic-save-model.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/tf2doc-ml-basic-structured-data.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -212,7 +191,28 @@
   </url>
   
   <url>
+    <loc>https://geektutu.com/post/tf2doc-ml-basic-overfit.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/tf2doc-cnn-cifar10.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://geektutu.com/post/tf2doc-tfhub-image-tl.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/qa-ml-1.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -268,42 +268,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/qa-ml-1.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/post/7days-golang-q1.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/gee-day4.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/gee-day6.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/gee-day5.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/gee.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -317,7 +282,14 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/gee-day1.html</loc>
+    <loc>https://geektutu.com/post/gee.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/gee-day3.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -331,7 +303,42 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/gee-day3.html</loc>
+    <loc>https://geektutu.com/post/gee-day4.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/gee-day5.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/gee-day6.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/gee-day1.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/geerpc-day2.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/geerpc-day3.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -380,14 +387,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/geerpc-day2.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/geerpc-day3.html</loc>
+    <loc>https://geektutu.com/post/geeorm-day2.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -443,7 +443,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/geeorm-day2.html</loc>
+    <loc>https://geektutu.com/post/geecache-day7.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -457,13 +457,6 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/geecache-day5.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/post/geecache-day6.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -471,7 +464,14 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/geecache-day7.html</loc>
+    <loc>https://geektutu.com/post/geecache-day5.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/geecache-day1.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -499,28 +499,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/geecache-day1.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/404.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/index.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/archives/index.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -541,6 +520,20 @@
   </url>
   
   <url>
+    <loc>https://geektutu.com/404.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/archives/index.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://geektutu.com/post/tensorflow2-gym-q-learning.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -555,6 +548,13 @@
   </url>
   
   <url>
+    <loc>https://geektutu.com/post/tensorflow2-gym-dqn.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://geektutu.com/post/tensorflow2-gym-nn.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -563,13 +563,6 @@
   
   <url>
     <loc>https://geektutu.com/post/tensorflow2-gym-pg.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/tensorflow2-gym-dqn.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -604,7 +597,21 @@
   </url>
   
   <url>
+    <loc>https://geektutu.com/post/quick-rust.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://geektutu.com/post/tensorflow-make-npy-hdf5-data-set.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/quick-golang.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -625,7 +632,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/quick-rust.html</loc>
+    <loc>https://geektutu.com/post/quick-go-test.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -639,13 +646,6 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/quick-go-test.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/post/quick-go2.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -653,14 +653,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/quick-golang.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/quick-go-gin.html</loc>
+    <loc>https://geektutu.com/post/quick-go-context.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -668,6 +661,13 @@
   
   <url>
     <loc>https://geektutu.com/post/quick-go-mmap.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://geektutu.com/post/quick-go-gin.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -702,13 +702,6 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/quick-go-context.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://geektutu.com/post/pandas-dataframe-series.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -730,14 +723,14 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/blog-experience-6.html</loc>
+    <loc>https://geektutu.com/post/blog-experience-5.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/blog-experience-7.html</loc>
+    <loc>https://geektutu.com/post/blog-experience-6.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -751,6 +744,13 @@
   </url>
   
   <url>
+    <loc>https://geektutu.com/post/blog-experience-7.html</loc>
+    
+    <lastmod>2026-02-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://geektutu.com/post/blog-experience-4.html</loc>
     
     <lastmod>2026-02-23</lastmod>
@@ -758,7 +758,7 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/post/blog-experience-5.html</loc>
+    <loc>https://geektutu.com/post/blog-experience-2.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -780,13 +780,6 @@
   
   <url>
     <loc>https://geektutu.com/post/blog-experience-1.html</loc>
-    
-    <lastmod>2026-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://geektutu.com/post/blog-experience-2.html</loc>
     
     <lastmod>2026-02-23</lastmod>
     
@@ -1021,14 +1014,14 @@
   </url>
   
   <url>
-    <loc>https://geektutu.com/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
+    <loc>https://geektutu.com/categories/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://geektutu.com/categories/%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96/</loc>
+    <loc>https://geektutu.com/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
