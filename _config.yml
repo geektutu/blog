@@ -22,7 +22,9 @@ seo:
   _360_site_verification: 1d1e81a1a48a1ed2e3308d7cb8e548e7 # 不能以数字开头，所以加上了下划线
 
 # 开启博客资源的相对链接 https://hexo.io/zh-cn/docs/asset-folders
-post_asset_folder: true 
+post_asset_folder: true
+marked:
+  prependRoot: false
 skip_render:
   - tool/comments.json
   - lab/**/*
